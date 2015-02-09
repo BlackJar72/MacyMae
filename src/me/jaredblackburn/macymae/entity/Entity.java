@@ -140,6 +140,21 @@ public class Entity {
     }
     
     
+    public boolean testCollision(Entity other) {
+        boolean out = Math.sqrt(((this.x - other.x) * (this.x - other.x)) 
+                    + ((this.y - other.y) * (this.y - other.y))) > 0.9f;
+        if(out) collideWith(other);
+        return out;
+    }
+    
+    
+    public void collideWith(Entity other) {
+        if(isPlayer && other.isEnemy) {
+            // TODO: Send messages
+        }
+    }
+    
+    
     public void update(MapMatrix maze, long time, float delta) {
         if((time - lastTime) > MSPF) updateFrame();
         lastTime = time;
