@@ -12,4 +12,6 @@ package me.jaredblackburn.macymae.events;
  */
 public interface IMsgReciever {
     
+    public void recieveMsg(Message msg);
+    
 }

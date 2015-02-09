@@ -1,14 +1,18 @@
 package me.jaredblackburn.macymae.entity;
 
 import java.util.EnumSet;
+import me.jaredblackburn.macymae.events.IMsgReciever;
+import me.jaredblackburn.macymae.events.IMsgSender;
+import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.TileData;
+import static me.jaredblackburn.macymae.events.MsgType.*;
 
 /**
  *
  * @author Jared Blackburn
  */
-public class Entity {
+public class Entity implements IMsgSender, IMsgReciever {
     
     float  x,  y; // Actual x and y coords on screen 
     int   tx, ty; // Coordinates of the current tile
@@ -159,6 +163,34 @@ public class Entity {
         if((time - lastTime) > MSPF) updateFrame();
         lastTime = time;
         move(delta, maze);
+    }
+    
+
+    @Override
+    public void recieveMsg(Message msg) {
+        //TODO: Handle recieved message
+        // It might be a good idea to pass this message on to the IController
+        // (i.e., the AI) in most cases and handle some of it there.
+        switch(msg.content) {
+            //TODO: Message handling hereSTART,
+            case START:
+                break;
+            case CLEARED:
+                break;
+            case NEXT:
+                break;
+            case STOP:
+                break;
+            case CAUGHT:
+                break;
+            case POWERED:
+                break;
+            case PAUSE:
+                break;
+            case GAMEOVER:
+                break;
+            default:            
+        }
     }
     
 
