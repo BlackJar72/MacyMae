@@ -1,5 +1,11 @@
 package me.jaredblackburn.macymae.events;
 
+// NOTE: I know that in real production code it would probably be best to 
+// subclass the Java event class and us it.  However, this is largely a
+// learning project and I wanted to explore the creation of messaging and
+// event systems.  In some ways this is actually easier since I only
+// implement what I need, the way I need it.
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +14,9 @@ import java.util.List;
  * @author Jared Blackburn
  */
 public class Message {
-    public final MsgType content;
+    final MsgType content;
+    final IMsgSender sender;
     List<IMsgReciever> recipients;
-    IMsgSender sender;
     
     
     public Message(MsgType msg, IMsgSender sender, IMsgReciever... recipients) {

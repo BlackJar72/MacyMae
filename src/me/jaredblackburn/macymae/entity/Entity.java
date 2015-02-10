@@ -171,7 +171,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         //TODO: Handle recieved message
         // It might be a good idea to pass this message on to the IController
         // (i.e., the AI) in most cases and handle some of it there.
-        switch(msg.content) {
+        switch(msg.getContent()) {
             //TODO: Message handling hereSTART,
             case START:
                 break;
