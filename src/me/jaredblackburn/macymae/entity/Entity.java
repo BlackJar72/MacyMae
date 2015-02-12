@@ -32,10 +32,12 @@ public class Entity implements IMsgSender, IMsgReciever {
     boolean isPlayer;
     boolean isEnemy;
     
-    public static Entity dog1;
-    public static Entity dog2;
-    public static Entity dog3;
-    public static Entity dog4;
+    // Enemies were dogs, but are now whisps
+    public static Entity whisp1;
+    public static Entity whisp2;
+    public static Entity whisp3;
+    public static Entity whisp4;
+    // The player; will be drawn as Macy's head rather than a whole cat
     public static Entity macy;
     
     // Arrays for iterations

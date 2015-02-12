@@ -4,6 +4,6 @@ package me.jaredblackburn.macymae.entity;
  *
  * @author jared
  */
-public class DogAI implements IController {
+public class EnemyAI implements IController {
     
 }

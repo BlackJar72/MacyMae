@@ -22,6 +22,28 @@ public class MacyMae {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        /* TODO (currently):
+            1. Load and initialize map and graphics
+            2. Implement player controls
+            3. Implement game window / graphic (with stand-in images)
+            4. Have game-less testable version (move through maze, no goals)
+        */
+        
+        /* TODO (later):
+            5. Implement enemy AI
+            6. Add ememies to map
+            7. Add dots to map
+            8. Add start, lives, points, and game-over
+            9. Add non-game controls / menues (start / quit); swing?
+        */ 
+            
+        /* TODO (last):
+            10. Make and add final graphics
+            11. Make extra maps
+            12. Declare done and release to friends; end projects
+        
+        */
     }
     
 }

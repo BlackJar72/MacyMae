@@ -12,6 +12,5 @@ public enum TileData {
     FOOD,
     POWER,
     BONUS,
-    START,
     DOGPIN;
 }
