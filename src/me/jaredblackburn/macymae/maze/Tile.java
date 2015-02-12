@@ -15,4 +15,10 @@ import java.util.EnumSet;
 public class Tile {
     int Graphic;
     EnumSet<TileData> data;    
+    
+    
+    public Tile(byte bData) {
+        data = TileData.makeSet(bData);
+        // TODO: Graphics -- another data file?  Or derived from data?
+    }
 }
