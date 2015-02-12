@@ -23,17 +23,17 @@ public enum TileData {
             out.add(UP);
         } if((data & 2) != 0) {
             out.add(DOWN);
-        } if((data & 1) != 0) {
+        } if((data & 4) != 0) {
             out.add(LEFT);
-        } if((data & 1) != 0) {
+        } if((data & 8) != 0) {
             out.add(RIGHT);
-        } if((data & 1) != 0) {
+        } if((data & 16) != 0) {
             out.add(FOOD);
-        } if((data & 1) != 0) {
+        } if((data & 32) != 0) {
             out.add(POWER);
-        } if((data & 1) != 0) {
+        } if((data & 64) != 0) {
             out.add(BONUS);
-        } if((data & 1) != 0) {
+        } if((data & 128) != 0) {
             out.add(DOGPIN);
         } 
         return out;
