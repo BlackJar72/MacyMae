@@ -23,7 +23,7 @@ public class MapMatrix {
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
-                data1[i][j] += (data2[i][j] << 4);
+                data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
                 tiles[i][j] = new Tile(data1[i][j]);
             }
     }
