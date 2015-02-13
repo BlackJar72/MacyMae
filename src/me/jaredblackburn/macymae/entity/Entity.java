@@ -4,6 +4,8 @@ import java.util.EnumSet;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
+import me.jaredblackburn.macymae.events.MsgQueue;
+import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.TileData;
 import static me.jaredblackburn.macymae.events.MsgType.*;
@@ -193,6 +195,12 @@ public class Entity implements IMsgSender, IMsgReciever {
                 break;
             default:            
         }
+    }
+    
+
+    @Override
+    public void sendMsg(MsgType message, IMsgReciever... recipients) {
+        MsgQueue.add(new Message(message, this, recipients));
     }
     
 

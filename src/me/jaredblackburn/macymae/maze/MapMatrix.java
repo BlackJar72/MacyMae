@@ -47,4 +47,9 @@ public class MapMatrix {
     public static void add(int number, byte[][] data1, byte[][] data2) {
         mazeRegistry.add(number, new MapMatrix(number, data1, data2));
     }
+    
+    
+    public static MapMatrix getMaze(int level) {
+        return mazeRegistry.get((level / REPEATS) % mazeRegistry.size());
+    }
 }

@@ -6,4 +6,11 @@ package me.jaredblackburn.macymae.events;
  */
 public interface IMsgSender {
     
+    /**
+     * 
+     * @param message
+     * @param recipients 
+     */
+    public void sendMsg(MsgType message, IMsgReciever... recipients);
+    
 }
