@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/maze/TileData.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/MsgType.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/IMsgSender.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/MapReader.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/IMsgReciever.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/MacyMae.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/Message.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/maze/Tile.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/maze/MapMatrix.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/MsgQueue.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Entity.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/EnemyAI.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/GuardAI.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/ChaseAI.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/GraphicsDataReader.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/InterceptAI.java</file>
         </group>
     </open-files>
 </project-private>
