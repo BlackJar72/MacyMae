@@ -47,7 +47,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     public static Entity macy;
     
     // Arrays for iterations
-    public static Entity[] dogs = new Entity[4];
+    public static Entity[] whisps   = new Entity[4];
     public static Entity[] entities = new Entity[5];
     
     IController brain; // Controls the behavior; could be AI or UI
@@ -156,7 +156,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public boolean testCollision(Entity other) {
         boolean out = Math.sqrt(((this.x - other.x) * (this.x - other.x)) 
-                    + ((this.y - other.y) * (this.y - other.y))) > 0.9f;
+                    + ((this.y - other.y) * (this.y - other.y))) < 0.9f;
         if(out) collideWith(other);
         return out;
     }
@@ -164,7 +164,8 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void collideWith(Entity other) {
         if(isPlayer && other.isEnemy) {
-            // TODO: Send messages
+            // FIXME: The game itself (or main loop) will also need to be notified
+            sendMsg(CAUGHT, entities);
         }
     }
     
