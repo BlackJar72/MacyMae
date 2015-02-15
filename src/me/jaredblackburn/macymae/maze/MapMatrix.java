@@ -18,13 +18,16 @@ public class MapMatrix {
     public static final int REPEATS = 3;  // Number of times a map repeats    
     private final Tile[][] tiles = new Tile[WIDTH][HEIGHT];
     private static final ArrayList<MapMatrix> mazeRegistry = new ArrayList<>();
+    // I'm a little leary of going through a getter a lot in the inner loop
+    // so this may change;
+    private static MapMatrix current;
     
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
-                tiles[i][j] = new Tile(data1[i][j]);
+                tiles[i][j] = new Tile(data1[i][j], i, j);
             }
     }
     
@@ -51,5 +54,15 @@ public class MapMatrix {
     
     public static MapMatrix getMaze(int level) {
         return mazeRegistry.get((level / REPEATS) % mazeRegistry.size());
+    }
+    
+    
+    public static MapMatrix getCurrent() {
+        return  current;
+    }
+    
+    
+    public static void setCurrent(int level) {
+        current = getMaze(level);
     }
 }

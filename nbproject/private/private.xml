@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/EnemyAI.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/GuardAI.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/ChaseAI.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/GraphicsDataReader.java</file>
-            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/InterceptAI.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/MapReader.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/GraphicReader.java</file>
         </group>
     </open-files>
 </project-private>

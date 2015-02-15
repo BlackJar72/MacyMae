@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -13,37 +15,30 @@ import javax.imageio.ImageIO;
  * @author Jared Blackburn
  */
 public class Graphic {
-    private static final String baseLocation = "/me/jaredblackburn/res/";
+    public static final GraphicRegistry registry = new GraphicRegistry();
         
     private Image[] frames;
-    private int     pointer = 0;
+    private int     pointer = 0;    
     
-    Graphic(int size) {
-        // This will not be the usual way to initiate this class
+    
+    public Graphic(int size) {
         frames = new Image[size];
     }
     
     
-    public Graphic(String name) {
-        frames = new Image[1];
-        frames[0] = loadImage(name);
-    }
-    
-    
-    public Graphic(String[] names) {
-        frames = new Image[names.length];
+    public Graphic(ArrayList<String> files) {
+        frames = new Image[files.size()];
         for(int i = 0; i < frames.length; i++) {
-            frames[i] = loadImage(names[i]);
+            frames[i] = loadImage(files.get(i));
         }
     }
     
     
-    /**
-     * @param dir Name of the file or directory / package
-     * @param isDir Whether or not to load all files in the directory as frames
-     */
-    public Graphic(String dir, boolean isDir) {
-        //TODO: Create a way to turn a directory of images into frames here
+    public void addImage(Image image) {
+        ArrayList<Image> out = new ArrayList<>();
+        out.addAll(Arrays.asList(frames));
+        out.add(image);
+        frames = (Image[]) out.toArray();
     }
     
     
@@ -65,16 +60,22 @@ public class Graphic {
     }
     
     
-    private Image loadImage(String name) {
+    private Image loadImage(String address) {
         try {
             return ImageIO.read(ImageIO
                     .createImageInputStream(new InputStreamReader(getClass()
-                    .getResourceAsStream(baseLocation + name))));
-            //return ImageIO.read(new File(name));
+                    .getResourceAsStream(address))));
+            //return ImageIO.read(new File(address));
         } catch (IOException ex) {
             Logger.getLogger(Graphic.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+    
+    
+    public static void addGraphic(String name, ArrayList<String> files) {
+        Graphic graphic = new Graphic(files);
+        registry.add(name, graphic);
     }
     
 }
