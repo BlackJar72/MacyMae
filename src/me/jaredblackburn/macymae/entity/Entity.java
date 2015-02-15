@@ -156,7 +156,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public boolean testCollision(Entity other) {
         boolean out = Math.sqrt(((this.x - other.x) * (this.x - other.x)) 
-                    - ((this.y - other.y) * (this.y - other.y))) > 0.9f;
+                    + ((this.y - other.y) * (this.y - other.y))) > 0.9f;
         if(out) collideWith(other);
         return out;
     }
