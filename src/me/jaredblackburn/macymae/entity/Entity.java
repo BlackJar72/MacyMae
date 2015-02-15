@@ -9,6 +9,7 @@ import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.TileData;
 import static me.jaredblackburn.macymae.events.MsgType.*;
+import static me.jaredblackburn.macymae.game.Game.game;
 import me.jaredblackburn.macymae.maze.Tile;
 
 /**
@@ -165,7 +166,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     public void collideWith(Entity other) {
         if(isPlayer && other.isEnemy) {
             // FIXME: The game itself (or main loop) will also need to be notified
-            sendMsg(CAUGHT, entities);
+            sendMsg(CAUGHT, whisp1, whisp2, whisp3, whisp4, macy, game);
         }
     }
     
@@ -179,9 +180,7 @@ public class Entity implements IMsgSender, IMsgReciever {
 
     @Override
     public void recieveMsg(Message msg) {
-        //TODO: Handle recieved message
-        // It might be a good idea to pass this message on to the IController
-        // (i.e., the AI) in most cases and handle some of it there.
+        if(isEnemy) brain.recieveMsg(msg);
         switch(msg.getContent()) {
             //TODO: Message handling hereSTART,
             case START:

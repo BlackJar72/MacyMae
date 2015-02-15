@@ -1,4 +1,4 @@
-package me.jaredblackburn.macymae;
+package me.jaredblackburn.macymae.panes;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -7,6 +7,6 @@ import javax.swing.JPanel;
  *
  * @author Jared Blackburn
  */
-public class SplashPanel extends JPanel {
+public class GamePanel extends JPanel {
     
 }

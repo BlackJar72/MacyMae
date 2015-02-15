@@ -6,10 +6,13 @@
 
 package me.jaredblackburn.macymae.entity;
 
+import me.jaredblackburn.macymae.events.Message;
+
 /**
  *
  * @author jared
  */
 public interface IController {
-    
+    public void recieveMsg(Message msg);
+    public MoveCommand getDirection();    
 }
