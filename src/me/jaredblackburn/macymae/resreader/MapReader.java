@@ -52,10 +52,9 @@ public class MapReader {
         String line;
         if(in != null) {
             while((line = in.readLine()) != null) {
-                if((line.length() != 5) 
+                if((line.length() != 4) 
                   || (!line.startsWith("map")) 
-                  || (!Character.isDigit(line.charAt(3)))
-                  || (!(line.charAt(4) != 'A' && line.charAt(4) != 'B'))) continue;
+                  || (!Character.isDigit(line.charAt(3)))) continue;
                 mapFiles.add(line.substring(0, 4));
             }
         }

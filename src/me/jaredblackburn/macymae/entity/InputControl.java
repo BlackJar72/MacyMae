@@ -11,7 +11,7 @@ public class InputControl implements IController {
 
     
     @Override
-    public MoveCommand getDirection() {
+    public MoveCommand getDirection(Entity owner) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

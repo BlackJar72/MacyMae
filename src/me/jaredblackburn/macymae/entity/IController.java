@@ -14,5 +14,5 @@ import me.jaredblackburn.macymae.events.Message;
  */
 public interface IController {
     public void recieveMsg(Message msg);
-    public MoveCommand getDirection();    
+    public MoveCommand getDirection(Entity owner);    
 }

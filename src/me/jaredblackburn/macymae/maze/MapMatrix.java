@@ -13,8 +13,8 @@ import java.util.EnumSet;
  */
 public class MapMatrix {
     // May tweak the values to make the game more different from the original game
-    public static final int WIDTH  =  31; // PM had 27 (25 worth of dots)
-    public static final int HEIGHT =  33; // PM had 31 (29 worth of dots)
+    public static final int WIDTH  =  37; // PM had 27 (25 worth of dots)
+    public static final int HEIGHT =  27; // PM had 31 (29 worth of dots)
     public static final int REPEATS = 3;  // Number of times a map repeats    
     private final Tile[][] tiles = new Tile[WIDTH][HEIGHT];
     private static final ArrayList<MapMatrix> mazeRegistry = new ArrayList<>();
