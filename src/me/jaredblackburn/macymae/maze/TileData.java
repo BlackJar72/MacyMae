@@ -11,7 +11,7 @@ import me.jaredblackburn.macymae.entity.MoveCommand;
  * @author Jared Blackburn
  */
 public enum TileData {   
-    // Direction data starts at the top and move clockwise
+    // Direction (passability) data starts at the top and move clockwise
     UP,
     RIGHT,
     DOWN,

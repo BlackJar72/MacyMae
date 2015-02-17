@@ -57,7 +57,7 @@ public class MapMatrix {
         }
     }
     
-    private DotCenter initialDotCenter; // To calculate at at laod time
+    private final DotCenter initialDotCenter; // To calculate at at laod time
     
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
@@ -66,7 +66,8 @@ public class MapMatrix {
             for(int j = 0; j < HEIGHT; j++) {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
                 tiles[i][j] = new Tile(data1[i][j], i, j);
-                if(tiles[i][j].data.contains(TileData.FOOD)) {
+                if((tiles[i][j].data.contains(TileData.FOOD)) 
+                   || (tiles[i][j].data.contains(TileData.POWER))) {
                     initialDotCenter.addTile(tiles[i][j]);
                 }
             }
