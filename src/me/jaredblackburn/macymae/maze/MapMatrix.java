@@ -12,15 +12,42 @@ import java.util.EnumSet;
  * @author Jared Blackburn
  */
 public class MapMatrix {
-    // May tweak the values to make the game more different from the original game
+    // May tweak the values to make the game more different from the original game;
+    // values turned out to be partially dictated by my graph paper...!
     public static final int WIDTH  =  37; // PM had 27 (25 worth of dots)
-    public static final int HEIGHT =  27; // PM had 31 (29 worth of dots)
+    public static final int HEIGHT =  25; // PM had 31 (29 worth of dots)
     public static final int REPEATS = 3;  // Number of times a map repeats    
     private final Tile[][] tiles = new Tile[WIDTH][HEIGHT];
     private static final ArrayList<MapMatrix> mazeRegistry = new ArrayList<>();
     // I'm a little leary of going through a getter a lot in the inner loop
     // so this may change;
     private static MapMatrix current;
+    
+    public class DotCenter {
+        int sumX = 0, sumY = 0, n = 0;
+        public void subTile(Tile tile) {
+            sumX -= tile.x;
+            sumY -= tile.y;
+            n--;
+        }        
+        public void addTile(Tile tile) {
+            sumX += tile.x;
+            sumY += tile.y;
+            n++;
+        }
+        public DotCenter copy() {
+            DotCenter out = new DotCenter();
+            out.sumX = this.sumX;
+            out.sumY = this.sumY;
+            out.n    = this.n;
+            return out;
+        }
+        public boolean isEmpty() {
+            return (n < 1);
+        }
+    }
+    
+    private DotCenter initialDotCenter; // To calculate at at laod time
     
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
@@ -64,5 +91,12 @@ public class MapMatrix {
     
     public static void setCurrent(int level) {
         current = getMaze(level);
+    }
+    
+    
+    // This is used to get a copy a DotCenter object that for actual use
+    // in game by such systems as the GuardAI object.
+    public DotCenter getUsuableDotCenter() {
+        return initialDotCenter.copy();
     }
 }
