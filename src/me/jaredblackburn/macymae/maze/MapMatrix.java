@@ -42,6 +42,15 @@ public class MapMatrix {
             out.n    = this.n;
             return out;
         }
+        public int getX() {
+            return sumX / n;
+        }
+        public int getY() {
+            return sumY / n;
+        }
+        public Tile getTile() {
+            return current.getTile(sumX / n, sumY / n);
+        }
         public boolean isEmpty() {
             return (n < 1);
         }
