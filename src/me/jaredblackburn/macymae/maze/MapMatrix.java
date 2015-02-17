@@ -25,14 +25,15 @@ public class MapMatrix {
     
     public class DotCenter {
         int sumX = 0, sumY = 0, n = 0;
-        public void subTile(Tile tile) {
-            sumX -= tile.x;
-            sumY -= tile.y;
+        public boolean subTile(Tile tile) {
+            sumX -= tile.getX();
+            sumY -= tile.getY();
             n--;
+            return (n < 1);
         }        
         public void addTile(Tile tile) {
-            sumX += tile.x;
-            sumY += tile.y;
+            sumX += tile.getX();
+            sumY += tile.getY();
             n++;
         }
         public DotCenter copy() {
@@ -60,10 +61,14 @@ public class MapMatrix {
     
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
+        initialDotCenter = new DotCenter();
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
                 tiles[i][j] = new Tile(data1[i][j], i, j);
+                if(tiles[i][j].data.contains(TileData.FOOD)) {
+                    initialDotCenter.addTile(tiles[i][j]);
+                }
             }
     }
     
@@ -104,7 +109,7 @@ public class MapMatrix {
     
     
     // This is used to get a copy a DotCenter object that for actual use
-    // in game by such systems as the GuardAI object.
+    // in game by such systems as the GuardAI class.
     public DotCenter getUsuableDotCenter() {
         return initialDotCenter.copy();
     }

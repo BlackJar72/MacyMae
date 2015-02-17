@@ -5,9 +5,9 @@ import me.jaredblackburn.macymae.events.Message;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
-public class EnemyAI implements IController, IMsgReciever {
+public abstract class EnemyAI implements IController, IMsgReciever {
     protected MoveCommand back; // Direction moving and the reverse
     protected boolean alive;
 

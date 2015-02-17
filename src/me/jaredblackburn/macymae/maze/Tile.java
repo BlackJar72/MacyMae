@@ -15,7 +15,7 @@ import java.util.EnumSet;
 public class Tile {
     int Graphic;
     EnumSet<TileData> data;  
-    int x, y;
+    final int x, y;
     
     
     public Tile(byte bData, int x, int y) {
