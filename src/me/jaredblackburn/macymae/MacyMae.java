@@ -3,6 +3,7 @@ package me.jaredblackburn.macymae;
 import me.jaredblackburn.macymae.panes.MainWindow;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
+import me.jaredblackburn.macymae.ui.Window;
 
 /**
  * This is a simple Pac-Man clone named in honor of a neighbors cat, a fat cat
@@ -56,8 +57,9 @@ public class MacyMae {
     
     
     private static void run() {
-        window = new MainWindow();
-        window.postInit();
+        //window = new MainWindow();
+        //window.postInit();
+        Window window2 = new Window();
     }
     
 }

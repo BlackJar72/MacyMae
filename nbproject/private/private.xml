@@ -5,6 +5,8 @@
         <group>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/graphics/Graphic.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/resreader/GraphicsDataReader.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/ui/Window.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/ui/Camera.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/MacyMae.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/panes/MainWindow.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/panes/GamePanel.java</file>
