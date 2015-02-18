@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae;
 
+import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 
 /**
@@ -46,6 +47,7 @@ public class MacyMae {
     
     
     private static void init() {
+        GraphicsDataReader.reader.openInfo();
         MapReader.initMaps();
     }
     

@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
  */
 public class Graphic {
     public static final GraphicRegistry registry = new GraphicRegistry();
+    
+    public static final int sideLength = 24; // Width/height in pixels
         
     private BufferedImage[] frames;
     private int     pointer = 0;    

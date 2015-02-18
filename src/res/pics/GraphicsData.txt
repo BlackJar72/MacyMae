@@ -1,0 +1,6 @@
+# Map tiles
+empty  grasspath.png
+food   grasskibble.png
+power  salmon.png
+wall   bushwall.png
+dogpin dogpin.png

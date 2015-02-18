@@ -17,18 +17,19 @@ import me.jaredblackburn.macymae.graphics.Graphic;
  * 
  * @author Jared Blackburn
  */
-public class GraphicsDataReader {
+public final class GraphicsDataReader {
+    public static final GraphicsDataReader reader = new GraphicsDataReader();
+    
     private static final String loc     = "res/pics/";
     private static final String infoLoc = loc + "GraphicsData.txt";
     
     // Line should be delimited with spaces, but including other stuff
-    private static final String delimeters = " \t\n\r\f\"\'";
+    private static final String delimeters = " \t\n\r\f\"\';";
     // Block delimeters, showing all included images are frames of one graphic
     private static final String startBlock = "{";
     private static final String endBlock   = "}";
     // Lines starting with this will be treated as comments
     private static final String comment    = "#";
-    private static final String endLine    = ";";
     private static final String empty      = "";
     
     private InputStream textStream;
@@ -46,6 +47,9 @@ public class GraphicsDataReader {
     private String token3;
     
     private ArrayList<String> list;
+    
+    
+    private GraphicsDataReader() {};
     
     
     public void openInfo() {
@@ -66,7 +70,7 @@ public class GraphicsDataReader {
     }
     
     
-    public void parseInfo(BufferedReader in) throws IOException {
+    private void parseInfo(BufferedReader in) throws IOException {
         while((nextLine = in.readLine()) != null) {
             if(nextLine.startsWith(comment)) continue;
             tokens = new StringTokenizer(nextLine, delimeters);
@@ -114,7 +118,7 @@ public class GraphicsDataReader {
     
     
     private void makeGraphic() {
-        Graphic.addGraphic(loc + address1 + "/" + address2, list);
+        Graphic.addGraphic(loc + address1 + address2, list);
     }
     
     
