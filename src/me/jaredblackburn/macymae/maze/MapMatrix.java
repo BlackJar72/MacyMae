@@ -85,7 +85,7 @@ public class MapMatrix {
     
     
     public int getTilePic(int x, int y) {
-        return tiles[x][y].Graphic;
+        return tiles[x][y].graphic;
     }
     
     
