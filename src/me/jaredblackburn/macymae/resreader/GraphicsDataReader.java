@@ -20,7 +20,7 @@ import me.jaredblackburn.macymae.graphics.Graphic;
 public final class GraphicsDataReader {
     public static final GraphicsDataReader reader = new GraphicsDataReader();
     
-    private static final String loc     = "res/pics/";
+    private static final String loc     = "/res/pics/";
     private static final String infoLoc = loc + "GraphicsData.txt";
     
     // Line should be delimited with spaces, but including other stuff

@@ -1,6 +1,5 @@
 package me.jaredblackburn.macymae.panes;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**

@@ -14,7 +14,7 @@ import me.jaredblackburn.macymae.maze.MapMatrix;
  * @author Jared Blackburn
  */
 public class MapReader {
-    static final String loc  = "me/jaredblackburn/macymae/res/maps";
+    static final String loc  = "/res/maps";
     private BufferedReader in;
     
     
@@ -46,8 +46,8 @@ public class MapReader {
     private void readFiles() throws IOException {
         // Get a list of available maps
         ArrayList<String> mapFiles = new ArrayList<>();
-        InputStream dir = getClass().getResourceAsStream(loc + "/maps.txt");
-        in = new BufferedReader(new InputStreamReader(dir));
+        InputStream stream = getClass().getResourceAsStream(loc + "/maps.txt");
+        in = new BufferedReader(new InputStreamReader(stream));
         mapData data = new mapData();
         String line;
         if(in != null) {

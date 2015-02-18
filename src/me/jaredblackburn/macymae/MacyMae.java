@@ -21,7 +21,7 @@ public class MacyMae {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        init();
         
         /* TODO (currently):
             1. Load and initialize map and graphics (partly done)
