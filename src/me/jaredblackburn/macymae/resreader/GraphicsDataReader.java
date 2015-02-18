@@ -53,11 +53,13 @@ public final class GraphicsDataReader {
     
     
     public void openInfo() {
+        System.out.println("Running OpenInfo()");
         textStream = getClass().getResourceAsStream(infoLoc);
         if(textStream != null) {
+            System.out.println("Trying to open file " + infoLoc);
             inText = new BufferedReader(new InputStreamReader(textStream));
         } else {
-            // TODO: Handle error where file was not found or stream not created
+            System.err.println("ERROR! Could not get stream of " + infoLoc);
         }
         if(inText != null) {
             try {
@@ -71,7 +73,9 @@ public final class GraphicsDataReader {
     
     
     private void parseInfo(BufferedReader in) throws IOException {
+        System.out.println("Reading file " + infoLoc);
         while((nextLine = in.readLine()) != null) {
+            System.out.println("Rading line: \"" + nextLine + "\"");
             if(nextLine.startsWith(comment)) continue;
             tokens = new StringTokenizer(nextLine, delimeters);
             token1 = getNextToken();
@@ -83,6 +87,7 @@ public final class GraphicsDataReader {
                     makeGraphic();
                 } else {
                     address2 = token1;
+                    list.add(loc + token2 + token3);
                 }
             } else {
                 if(token1.equals(startBlock)) {
@@ -100,6 +105,7 @@ public final class GraphicsDataReader {
                     } 
                     if(!inBlock) {
                         address2 = token3; 
+                        list.add(loc + token2 + token3);
                         makeGraphic();
                     }
                 }            
@@ -118,7 +124,7 @@ public final class GraphicsDataReader {
     
     
     private void makeGraphic() {
-        Graphic.addGraphic(loc + address1 + address2, list);
+        Graphic.addGraphic(name, list);
     }
     
     

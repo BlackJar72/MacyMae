@@ -21,17 +21,19 @@ public class GraphicRegistry implements List<Graphic> {
     
     public void add(String name, Graphic graphic) {
         list.add(graphic);
-        map.put(name, list.indexOf(graphic));
+        map.put(name, new Integer(list.indexOf(graphic)));
+        System.out.println("Added Graphic " + name + " to registry with ID " 
+                + getID(name));
     }
     
     
     public Graphic getGraphic(String name) {
-        return list.get(map.get(name));
+        return list.get(map.get(name).intValue());
     }
     
     
     public int getID(String name) {
-        return map.get(name);
+        return map.get(name).intValue();
     }
 
     

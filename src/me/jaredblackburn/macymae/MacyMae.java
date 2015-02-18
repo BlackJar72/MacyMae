@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae;
 
+import me.jaredblackburn.macymae.panes.MainWindow;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 
@@ -16,12 +17,14 @@ import me.jaredblackburn.macymae.resreader.MapReader;
  * @author Jared Blackburn
  */
 public class MacyMae {
+    private static MainWindow window;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         init();
+        run();
         
         /* TODO (currently):
             1. Load and initialize map and graphics (partly done)
@@ -49,6 +52,12 @@ public class MacyMae {
     private static void init() {
         GraphicsDataReader.reader.openInfo();
         MapReader.initMaps();
+    }
+    
+    
+    private static void run() {
+        window = new MainWindow();
+        window.postInit();
     }
     
 }

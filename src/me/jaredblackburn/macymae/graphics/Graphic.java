@@ -1,6 +1,7 @@
 package me.jaredblackburn.macymae.graphics;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -8,8 +9,12 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
 /**
+ * This whole system will probably go an be replaced with something using
+ * LWJGL and OpenGL, since the results are entirely are not only incorrect
+ * but entirely inconsistent (despite being given strictly static final data!
  *
  * @author Jared Blackburn
  */
@@ -29,6 +34,7 @@ public class Graphic {
     
     public Graphic(ArrayList<String> files) {
         frames = new BufferedImage[files.size()];
+        System.out.println("Found " + frames.length + " images to add");
         for(int i = 0; i < frames.length; i++) {
             frames[i] = loadImage(files.get(i));
         }
@@ -62,12 +68,25 @@ public class Graphic {
     
     
     private BufferedImage loadImage(String address) {
+        System.out.println("Trying to load image " + address);
         try {
-            return ImageIO.read(ImageIO
-                    .createImageInputStream(new InputStreamReader(getClass()
-                    .getResourceAsStream(address))));
+            BufferedInputStream stream = new BufferedInputStream(getClass()
+                    .getResourceAsStream(address));
+            ImageInputStream img;
+            if(stream != null) {                
+                img = ImageIO.createImageInputStream(stream);
+            } else {
+                System.err.println("ERROR! InpuStream was null!");
+                img = null;
+            }
+            if(img != null) {
+                return ImageIO.read(img);
+            } else {
+                System.err.println("ERROR! ImageInpuStream was null!");
+                return null;
+            }
             //return ImageIO.read(new File(address));
-        } catch (IOException ex) {
+        } catch (IOException ex) {            
             Logger.getLogger(Graphic.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
@@ -75,6 +94,7 @@ public class Graphic {
     
     
     public static void addGraphic(String name, ArrayList<String> files) {
+        System.out.println("Adding graphic " + name);
         Graphic graphic = new Graphic(files);
         registry.add(name, graphic);
     }
