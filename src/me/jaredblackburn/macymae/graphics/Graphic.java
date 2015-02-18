@@ -1,7 +1,6 @@
 package me.jaredblackburn.macymae.graphics;
 
-import java.awt.Image;
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,50 +16,50 @@ import javax.imageio.ImageIO;
 public class Graphic {
     public static final GraphicRegistry registry = new GraphicRegistry();
         
-    private Image[] frames;
+    private BufferedImage[] frames;
     private int     pointer = 0;    
     
     
     public Graphic(int size) {
-        frames = new Image[size];
+        frames = new BufferedImage[size];
     }
     
     
     public Graphic(ArrayList<String> files) {
-        frames = new Image[files.size()];
+        frames = new BufferedImage[files.size()];
         for(int i = 0; i < frames.length; i++) {
             frames[i] = loadImage(files.get(i));
         }
     }
     
     
-    public void addImage(Image image) {
-        ArrayList<Image> out = new ArrayList<>();
+    public void addImage(BufferedImage image) {
+        ArrayList<BufferedImage> out = new ArrayList<>();
         out.addAll(Arrays.asList(frames));
         out.add(image);
-        frames = (Image[]) out.toArray();
+        frames = (BufferedImage[]) out.toArray();
     }
     
     
-    public Image getImage() {
+    public BufferedImage getImage() {
         // For non-animated graphics, having only one image
         return frames[0];
     }
     
     
-    public Image getImage(int idx) {
+    public BufferedImage getImage(int idx) {
         // For non-animated graphics, having only one image
         return frames[idx];
     }
     
     
-    public Image getNextImage() {
+    public BufferedImage getNextImage() {
         if(pointer >= frames.length) pointer = 0;
         return frames[pointer++]; // Post-increment (not pre-!) will it work?
     }
     
     
-    private Image loadImage(String address) {
+    private BufferedImage loadImage(String address) {
         try {
             return ImageIO.read(ImageIO
                     .createImageInputStream(new InputStreamReader(getClass()

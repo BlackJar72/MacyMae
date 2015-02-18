@@ -1,17 +1,16 @@
 package me.jaredblackburn.macymae;
 
+import me.jaredblackburn.macymae.resreader.MapReader;
+
 /**
  * This is a simple Pac-Man clone named in honor of a neighbors cat, a fat cat
  * that always seemed to be hungry and would eat almost anything.  The goal is
  * to imitate the game play while using completely different graphics and maps
  * (thus to avoid copyright issues). 
  * 
- * This is also largely a practice / learning project, and intended to be 
- * finished quickly at least in part to see if I can do it as quickly and easily
- * as I have imagined in Java (i.e., this is not intended as a commercial game
- * and will likely be free, unlike other game writing projects I plan to come
- * up with).  This will likely use LWJGL, even though swing / AWT would probably
- * suffice.
+ * This is also largely a practice / learning project (i.e., this is not 
+ * intended as a commercial game and will likely be free or not officially 
+ * released unlike other game writing projects I plan to come up with).
  * 
  * @author Jared Blackburn
  */
@@ -24,9 +23,9 @@ public class MacyMae {
         // TODO code application logic here
         
         /* TODO (currently):
-            1. Load and initialize map and graphics
-            2. Implement player controls
-            3. Implement game window / graphic (with stand-in images)
+            1. Load and initialize map and graphics (partly done)
+            2. Implement game window / graphics (possibly with stand-in images)
+            3. Implement player controls
             4. Have game-less testable version (move through maze, no goals)
         */
         
@@ -41,9 +40,13 @@ public class MacyMae {
         /* TODO (last):
             10. Make and add final graphics
             11. Make extra maps
-            12. Declare done and release to friends; end projects
-        
+            12. Declare done and release to friends; end projects        
         */
+    }
+    
+    
+    private static void init() {
+        MapReader.initMaps();
     }
     
 }
