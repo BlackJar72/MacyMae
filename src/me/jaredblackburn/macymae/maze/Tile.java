@@ -53,6 +53,11 @@ public class Tile {
     }
     
     
+    public void draw() {
+        Graphic.draw(graphic, 0, xpos, ypos, zpos);
+    }
+    
+    
     public void clear() {
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");

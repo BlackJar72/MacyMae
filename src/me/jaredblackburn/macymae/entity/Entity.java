@@ -124,6 +124,11 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
+    public void draw() {
+        Graphic.draw(graphic, frame, x, y, z);
+    }
+    
+    
     public void move(float delta, MapMatrix maze) {
         locdat = maze.getTileData(tx, ty);
         switch(heading) {

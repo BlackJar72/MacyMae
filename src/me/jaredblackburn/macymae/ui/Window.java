@@ -56,4 +56,20 @@ public class Window {
         }
     }
     
+    
+    public void draw() {
+        drawBorder();
+        MapMatrix.draw();
+    }
+    
+    
+    public final void cleanup() {
+        Display.destroy();
+    }
+    
+    
+    private void drawBorder() {
+        
+    }
+    
 }

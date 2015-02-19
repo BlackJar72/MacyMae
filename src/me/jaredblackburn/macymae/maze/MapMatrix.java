@@ -74,6 +74,14 @@ public class MapMatrix {
     }
     
     
+    public static void draw() {
+        for(int i = 0; i < WIDTH; i++)
+            for(int j = 0; j < HEIGHT; j++) {
+                current.tiles[i][j].draw();
+            }
+    }
+    
+    
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }

@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae;
 
+import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 import me.jaredblackburn.macymae.ui.Window;
@@ -25,6 +26,7 @@ public class MacyMae {
     public static void main(String[] args) {
         init();
         run();
+        cleanup();
         
         /* TODO (currently):
             1. Load and initialize map and graphics (partly done)
@@ -57,8 +59,13 @@ public class MacyMae {
     
     
     private static void run() {
-        //window = new MainWindow();
-        //window.postInit();
+        
+    }
+    
+    
+    private static void cleanup() {
+        Graphic.cleanup();
+        window.cleanup();
     }
     
 }
