@@ -5,6 +5,8 @@ import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import me.jaredblackburn.macymae.ui.Window;
+import org.lwjgl.opengl.Display;
 
 /**
  *
@@ -12,13 +14,28 @@ import me.jaredblackburn.macymae.events.MsgType;
  */
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
+    private boolean running = true, paused = false;
     
+    
+    public static void start(Window window) {
+        game = new Game();
+        game.loop(window);
+    }
+    
+
+    public void loop(Window window) {
+        while(running) {
+            window.draw();
+            if(running) running = !Display.isCloseRequested();
+        }
+    }
     
     
     ////////////////////////////////////////////////////////////////////////////
     /*                            MESSAGING                                   */
     ////////////////////////////////////////////////////////////////////////////
-
+    
+    
     @Override
     public void sendMsg(MsgType message, IMsgReciever... recipients) {
         MsgQueue.add(new Message(message, this, recipients));

@@ -30,6 +30,7 @@ import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
 import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glDisableClientState;
 import static org.lwjgl.opengl.GL11.glDrawArrays;
 import static org.lwjgl.opengl.GL11.glEnableClientState;
@@ -127,7 +128,9 @@ public class Graphic {
     
     public static void draw(int ID, int frame, float x, float y, float z) {
         glPushMatrix();
-            glTranslatef(x, y, z);            
+            glLoadIdentity();
+            glTranslatef(x, y, z);
+            glColor3f(1.0f, 1.0f, 1.0f);            
             glBindBuffer(GL_ARRAY_BUFFER, vboid);            
             glEnableClientState(GL_VERTEX_ARRAY);
             glVertexPointer(3, GL_FLOAT, 20, 0L);
@@ -136,8 +139,8 @@ public class Graphic {
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, registry.get(ID).frames[frame]);
             glDrawArrays(GL_TRIANGLES, 0, 6);            
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-            glActiveTexture(GL_TEXTURE0);            
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);        
+            glDisableClientState(GL_VERTEX_ARRAY);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         glPopMatrix();
     }
@@ -183,7 +186,7 @@ public class Graphic {
                 * img.getHeight() * 4);
         for(int i = 0; i < img.getWidth(); i++)
             for(int j = img.getHeight() - 1; j >= 0 ; j--) {
-                pixel = img.getRGB(i, j);
+                pixel = img.getRGB(j, i);
                 bytes.put((byte)((pixel >> 16) & 0xff));
                 bytes.put((byte)((pixel >> 8) & 0xff));
                 bytes.put((byte)(pixel & 0xff));

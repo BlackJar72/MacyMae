@@ -1,6 +1,8 @@
 package me.jaredblackburn.macymae;
 
+import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 import me.jaredblackburn.macymae.ui.Window;
@@ -55,11 +57,12 @@ public class MacyMae {
         window = new Window();
         GraphicsDataReader.reader.openInfo();
         MapReader.initMaps();
+        MapMatrix.init();
     }
     
     
     private static void run() {
-        
+        Game.start(window);
     }
     
     

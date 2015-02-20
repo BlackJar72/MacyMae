@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package me.jaredblackburn.macymae.ui;
 
 import java.util.logging.Level;
@@ -15,28 +9,30 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public class Window {
-    public static final int XSIZE = (MapMatrix.WIDTH + 2) * Graphic.sideLength;
-    public static final int YSIZE = (MapMatrix.HEIGHT + 2) * Graphic.sideLength;
-    
+    public static final int XSIZE = (MapMatrix.WIDTH + 9) * Graphic.sideLength;
+    public static final int YSIZE = (MapMatrix.HEIGHT + 5) * Graphic.sideLength;    
+    public static final int XSCALE = (MapMatrix.WIDTH + 9) * Graphic.sideLength;
+    public static final int YSCALE = (MapMatrix.HEIGHT + 5) * Graphic.sideLength;
     
     public Window() {
         try {            
             Display.create();   
             glClearColor(0f, 0f, 0f, 1f);            
             Display.setFullscreen(false);
+            Display.setResizable(false);
             Display.setDisplayMode(new DisplayMode(XSIZE, YSIZE));
                         
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            glOrtho(0, XSIZE, 0, YSIZE, -1, 1);
+            glOrtho(0, XSCALE, 0, YSCALE, -1, 1);
             glMatrixMode(GL_MODELVIEW);
-            glClearColor(0.04f, 0.0f, 0.12f, 0.1f);
             glEnable(GL_DEPTH_TEST);
             
             glShadeModel(GL_SMOOTH);
@@ -46,11 +42,9 @@ public class Window {
             
             Display.setVSyncEnabled(true);
             
-            glEnable(GL_CULL_FACE);
-            glEnable(GL_CW);
-            glCullFace(GL_BACK);
             glEnable(GL_DEPTH_TEST);
-             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);            
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
+            glMatrixMode(GL_MODELVIEW);  
         } catch (LWJGLException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,8 +52,11 @@ public class Window {
     
     
     public void draw() {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         drawBorder();
         MapMatrix.draw();
+        Display.update();
+        Display.sync(60);
     }
     
     
@@ -69,7 +66,20 @@ public class Window {
     
     
     private void drawBorder() {
-        
+        for(int i = 0; i < MapMatrix.WIDTH + 2; i++) {
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    i * Graphic.sideLength, 
+                    4 * Graphic.sideLength, -0.99f);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    i * Graphic.sideLength, 
+                    (MapMatrix.HEIGHT + 5) * Graphic.sideLength, -0.99f);
+        }
+        for(int j = 5; j < MapMatrix.HEIGHT + 5; j++) {
+            Graphic.registry.getGraphic("wall").draw(0, 2, j * Graphic.sideLength, -0.99f);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    (MapMatrix.WIDTH + 1) * Graphic.sideLength, 
+                    j * Graphic.sideLength, -0.99f);
+        }
     }
     
 }
