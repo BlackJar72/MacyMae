@@ -94,8 +94,17 @@ public class Graphic {
     
     
     public int getNextImage() {
+        pointer++;
         if(pointer >= frames.length) pointer = 0;
-        return frames[pointer++]; // Post-increment (not pre-!) will it work?
+        return frames[pointer];
+    }
+    
+    
+    public static int getNextImage(int ID) {
+        Graphic graphic = registry.get(ID);
+        graphic.pointer++
+        if(graphic.pointer >= graphic.frames.length) graphic.pointer = 0;
+        return graphic.frames[graphic.pointer];
     }
     
     
