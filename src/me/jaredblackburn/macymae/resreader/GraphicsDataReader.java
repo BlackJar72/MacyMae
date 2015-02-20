@@ -87,7 +87,7 @@ public final class GraphicsDataReader {
                     makeGraphic();
                 } else {
                     address2 = token1;
-                    list.add(loc + token2 + token3);
+                    list.add(loc + address1 + address2);
                 }
             } else {
                 if(token1.equals(startBlock)) {
@@ -96,6 +96,7 @@ public final class GraphicsDataReader {
                     list = new ArrayList<>();
                     name = token1;
                     if(token2.equals(startBlock)) {
+                        address1 = empty;
                         inBlock = true;
                     } else {
                         address1 = token2;
@@ -105,7 +106,7 @@ public final class GraphicsDataReader {
                     } 
                     if(!inBlock) {
                         address2 = token3; 
-                        list.add(loc + token2 + token3);
+                        list.add(loc + address1 + address2);
                         makeGraphic();
                     }
                 }            

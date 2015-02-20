@@ -9,13 +9,15 @@ import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
 
 /**
- *
- * @author jared
+ * This class contains the main game loop.
+ * 
+ * @author Jared Blackburn
  */
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
     private boolean running = true, paused = false;
-    
+    private long  time, lastime;
+    private float delta; // TODO: Calculate and use the deltas.
     
     public static void start(Window window) {
         game = new Game();
@@ -44,6 +46,16 @@ public class Game implements IMsgSender, IMsgReciever {
     @Override
     public void recieveMsg(Message msg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////
+    /*                              GETTERS                                   */
+    ////////////////////////////////////////////////////////////////////////////
+    
+    
+    public float getDelta() {
+        return delta;
     }
     
 }

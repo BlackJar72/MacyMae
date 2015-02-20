@@ -31,8 +31,8 @@ public class MacyMae {
         cleanup();
         
         /* TODO (currently):
-            1. Load and initialize map and graphics (partly done)
-            2. Implement game window / graphics (possibly with stand-in images)
+           *1. Load and initialize map and graphics (DONE!)
+            2. Implement game window / graphics (partly done)
             3. Implement player controls
             4. Have game-less testable version (move through maze, no goals)
         */
@@ -40,15 +40,15 @@ public class MacyMae {
         /* TODO (later):
             5. Implement enemy AI
             6. Add ememies to map
-            7. Add dots to map
+           *7. Add dots to map (DONE!)
             8. Add start, lives, points, and game-over
             9. Add non-game controls / menues (start / quit); swing?
         */ 
             
         /* TODO (last):
-            10. Make and add final graphics
+            10. Make and add final graphics (started)
             11. Make extra maps
-            12. Declare done and release to friends; end projects        
+            12. Declare done and release to friends; end project
         */
     }
     
