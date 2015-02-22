@@ -210,18 +210,13 @@ public class Graphic {
     
     
     private static int makeTileVBO() {
-        glPushMatrix();
-        glLoadIdentity();
         FloatBuffer buffer = BufferUtils.createFloatBuffer(2 * 3 * 5);
-        System.out.println("sideLength = " + sideLength);
         float[] preBuffer = new float[]{0f,         0f,                   0f, 0f, 0f,
                                0f,                  (float)(-sideLength), 0f, 0f, 1f,
                                (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f,
                                0f,                  0f,                   0f, 0f, 0f, 
                                (float)(sideLength), 0f,                   0f, 1f, 0f,
                                (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f};
-        for(int i = 0; i < preBuffer.length; i++) {
-            System.out.println(preBuffer[i]);
         }
         buffer.clear();
         buffer.put(preBuffer);
@@ -229,8 +224,7 @@ public class Graphic {
         int vboid = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboid);
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);        
-        glPopMatrix();
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
         return vboid;
     }
     
