@@ -217,8 +217,6 @@ public class Graphic {
                                0f,                  0f,                   0f, 0f, 0f, 
                                (float)(sideLength), 0f,                   0f, 1f, 0f,
                                (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f};
-        }
-        buffer.clear();
         buffer.put(preBuffer);
         buffer.flip();
         int vboid = glGenBuffers();
