@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
-import me.jaredblackburn.macymae.ui.Window;
 import static me.jaredblackburn.macymae.ui.Window.scale;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
@@ -36,7 +35,6 @@ import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glScalef;
 import static org.lwjgl.opengl.GL11.glTexCoordPointer;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
@@ -227,8 +225,7 @@ public class Graphic {
     }
     
     
-    public static final void cleanup() {        
-        // TODO: Release VBOID and TBOIDs after run
+    public static final void cleanup() { 
         glDeleteBuffers(vboid);
         for(Graphic graphic : registry) {
             for(int i = 0; i < graphic.frames.length; i++) {
