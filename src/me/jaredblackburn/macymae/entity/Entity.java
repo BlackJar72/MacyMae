@@ -125,7 +125,10 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public void draw() {
-        Graphic.draw(graphic, frame, x, y, z);
+        Graphic.draw(graphic, frame, 
+                x * Graphic.sideLength, 
+                y * Graphic.sideLength, 
+                z * Graphic.sideLength);
     }
     
     

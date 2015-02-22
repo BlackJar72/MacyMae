@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
+import me.jaredblackburn.macymae.ui.Window;
+import static me.jaredblackburn.macymae.ui.Window.scale;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_LINEAR;
@@ -34,6 +36,7 @@ import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glScalef;
 import static org.lwjgl.opengl.GL11.glTexCoordPointer;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
@@ -60,7 +63,8 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
 public class Graphic {
     public static final GraphicRegistry registry = new GraphicRegistry();
     
-    public static final int sideLength = 24; // Width/height in pixels
+    public static final int   pixelWidth = 24;
+    public static final float sideLength = ((float)pixelWidth) * scale;
     public static final int vboid = makeTileVBO();
     
     private int[]   frames;
@@ -110,7 +114,7 @@ public class Graphic {
     
     public void draw(int frame, float x, float y, float z) {
         glPushMatrix();
-            glTranslatef(x, y, z);            
+            glTranslatef(x, y, z);
             glBindBuffer(GL_ARRAY_BUFFER, vboid);            
             glEnableClientState(GL_VERTEX_ARRAY);
             glVertexPointer(3, GL_FLOAT, 20, 0L);
@@ -209,12 +213,18 @@ public class Graphic {
         glPushMatrix();
         glLoadIdentity();
         FloatBuffer buffer = BufferUtils.createFloatBuffer(2 * 3 * 5);
-        buffer.put(new float[]{0f,                  0f,                   0f, 0f, 0f,
+        System.out.println("sideLength = " + sideLength);
+        float[] preBuffer = new float[]{0f,         0f,                   0f, 0f, 0f,
                                0f,                  (float)(-sideLength), 0f, 0f, 1f,
                                (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f,
                                0f,                  0f,                   0f, 0f, 0f, 
                                (float)(sideLength), 0f,                   0f, 1f, 0f,
-                               (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f});
+                               (float)(sideLength), (float)(-sideLength), 0f, 1f, 1f};
+        for(int i = 0; i < preBuffer.length; i++) {
+            System.out.println(preBuffer[i]);
+        }
+        buffer.clear();
+        buffer.put(preBuffer);
         buffer.flip();
         int vboid = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboid);

@@ -7,31 +7,29 @@ import me.jaredblackburn.macymae.maze.MapMatrix;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
  *
  * @author Jared Blackburn
  */
 public class Window {
-    public static final int XSIZE = (MapMatrix.WIDTH + 9) * Graphic.sideLength;
-    public static final int YSIZE = (MapMatrix.HEIGHT + 5) * Graphic.sideLength;    
-    public static final int XSCALE = (MapMatrix.WIDTH + 9) * Graphic.sideLength;
-    public static final int YSCALE = (MapMatrix.HEIGHT + 5) * Graphic.sideLength;
+    public static final int XSIZE = 800;
+    public static final float scale = findScale();
+    public static final int YSIZE = (XSIZE * 2) / 3;
     
     public Window() {
-        try {            
+        try {
             Display.create();   
             glClearColor(0f, 0f, 0f, 1f);            
             Display.setFullscreen(false);
             Display.setResizable(false);
             Display.setDisplayMode(new DisplayMode(XSIZE, YSIZE));
+            System.out.println(Display.getDisplayMode());
                         
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            glOrtho(0, XSCALE, 0, YSCALE, -1, 1);
+            glOrtho(0, XSIZE, 0, YSIZE, -1, 1);
             glMatrixMode(GL_MODELVIEW);
             glEnable(GL_DEPTH_TEST);
             
@@ -69,17 +67,24 @@ public class Window {
         for(int i = 0; i < MapMatrix.WIDTH + 2; i++) {
             Graphic.registry.getGraphic("wall").draw(0, 
                     i * Graphic.sideLength, 
-                    4 * Graphic.sideLength, -0.99f);
+                    1 * Graphic.sideLength, -0.99f);
             Graphic.registry.getGraphic("wall").draw(0, 
                     i * Graphic.sideLength, 
-                    (MapMatrix.HEIGHT + 5) * Graphic.sideLength, -0.99f);
+                    (MapMatrix.HEIGHT + 2) * Graphic.sideLength, -0.99f);
         }
-        for(int j = 5; j < MapMatrix.HEIGHT + 5; j++) {
-            Graphic.registry.getGraphic("wall").draw(0, 2, j * Graphic.sideLength, -0.99f);
+        for(int j = 1; j < MapMatrix.HEIGHT + 2; j++) {
+            Graphic.registry.getGraphic("wall").draw(0, 0, j * Graphic.sideLength, -0.99f);
             Graphic.registry.getGraphic("wall").draw(0, 
                     (MapMatrix.WIDTH + 1) * Graphic.sideLength, 
                     j * Graphic.sideLength, -0.99f);
         }
+    }
+    
+    
+    private static float findScale() {
+        float scale = (float)(XSIZE) 
+                / (float)(Graphic.pixelWidth * (MapMatrix.WIDTH + 8.5));
+        return (scale * scale);
     }
     
 }

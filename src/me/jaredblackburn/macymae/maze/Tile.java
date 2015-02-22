@@ -7,8 +7,10 @@ package me.jaredblackburn.macymae.maze;
 
 import java.util.EnumSet;
 import me.jaredblackburn.macymae.graphics.Graphic;
+import static me.jaredblackburn.macymae.maze.MapMatrix.HEIGHT;
 import static me.jaredblackburn.macymae.maze.TileData.*;
 import me.jaredblackburn.macymae.ui.Window;
+import static me.jaredblackburn.macymae.ui.Window.YSIZE;
 
 /**
  *
@@ -42,8 +44,8 @@ public class Tile {
         }
         this.x = x;
         this.y = y;
-        xpos = (x + 1) * Graphic.sideLength;
-        ypos = Window.YSIZE - ((y + 1) * Graphic.sideLength);
+        xpos = ((x + 1) * Graphic.sideLength);
+        ypos = ((HEIGHT - y + 1) * Graphic.sideLength);
         if((x == 0) || ((x % 2) == 0)) {
             if((y == 0) || ((y % 2) == 0)) zpos = -0.8f;
             else zpos = -0.81f;
