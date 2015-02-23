@@ -13,6 +13,7 @@ public enum MsgType {
     CAUGHT,
     POWERED,
     PAUSE,
+    UNPAUSE,
     GAMEOVER;
     
 }

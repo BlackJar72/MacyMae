@@ -57,6 +57,18 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
+    private void pause() {
+        timer.pause();
+        paused = true;
+    }
+    
+    
+    private void unpause() {
+        timer.resume();
+        paused = false;
+    }
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     /*                            MESSAGING                                   */
     ////////////////////////////////////////////////////////////////////////////
@@ -80,6 +92,11 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public float getDelta() {
         return delta;
+    }
+    
+    
+    public boolean isPaused() {
+        return paused;
     }
     
 }

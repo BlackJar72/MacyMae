@@ -12,6 +12,7 @@ public enum MoveCommand {
     UP,
     RIGHT,
     DOWN,
-    LEFT;
+    LEFT,
+    NONE;
     
 }

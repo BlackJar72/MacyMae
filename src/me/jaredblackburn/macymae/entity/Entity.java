@@ -10,6 +10,7 @@ import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.TileData;
 import static me.jaredblackburn.macymae.events.MsgType.*;
 import static me.jaredblackburn.macymae.game.Game.game;
+import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.Tile;
 
@@ -58,16 +59,16 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public static void init() {
-        macy    = entities[4] = new Entity(19, 8, 0f, 0f, 0f, 1f / 30f, true, 
+        macy    = entities[4] = new Entity(19, 8, 0f, 0.05f, 0f, 1f / 30f, true, 
                             false, new InputControl(), "macy");
-        whisp1  = entities[0] = new Entity(17, 16, 0f, 0f, 0f, 1f / 30f, true, 
-                            false, new InputControl(), "wisp1");
-        whisp2  = entities[1] = new Entity(21, 16, 0f, 0f, 0f, 1f / 30f, true, 
-                            false, new InputControl(), "wisp2");
-        whisp3  = entities[2] = new Entity(17, 18, 0f, 0f, 0f, 1f / 30f, true, 
-                            false, new InputControl(), "wisp3");
-        whisp4  = entities[3] = new Entity(21, 18, 0f, 0f, 0f, 1f / 30f, true, 
-                            false, new InputControl(), "wisp4");
+        whisp1  = entities[0] = new Entity(17, 16, 0f, 0f, 0f, 1f / 30f, false, 
+                            true, new InputControl(), "wisp1");
+        whisp2  = entities[1] = new Entity(21, 16, 0f, 0f, 0f, 1f / 30f, false, 
+                            true, new InputControl(), "wisp2");
+        whisp3  = entities[2] = new Entity(17, 18, 0f, 0f, 0f, 1f / 30f, false, 
+                            true, new InputControl(), "wisp3");
+        whisp4  = entities[3] = new Entity(21, 18, 0f, 0f, 0f, 1f / 30f, false, 
+                            true, new InputControl(), "wisp4");
         for(int i = 0; i < 4; i++) {
             whisps[i] = entities[i];
         }
@@ -92,17 +93,19 @@ public class Entity implements IMsgSender, IMsgReciever {
         this.graphic = Graphic.registry.getID(graphic);
         lastTime = 0f;
         numFrames = Graphic.registry.get(this.graphic).size();
+        heading = LEFT;
     }
     
     
     private void adjustTile() {
         // This is based on the assumption the casts truncate, which
         // seesm to work for Doomlike Dungeons; if wrong this will change.
-        tx = (int)(x + 0.5f);
-        ty = (int)(y + 0.5f);
-        currentTile = MapMatrix.getCurrent().getTile(tx, ty);
+        tx = (int)(x);
+        ty = (int)(MapMatrix.HEIGHT - y + 1);
+        currentTile = MapMatrix.getCurrent().getTile(tx + 1, ty);
         newTile  = currentTile == lastTile;
         lastTile = currentTile;
+        locdat = MapMatrix.getCurrent().getTileData(tx + 1, ty);
     }
     
     
@@ -165,28 +168,15 @@ public class Entity implements IMsgSender, IMsgReciever {
                 if(locdat.contains(TileData.DOWN)) y -= speed * delta;
                 break;
             case LEFT:
-                if(locdat.contains(TileData.LEFT)) y += speed * delta;
+                if(locdat.contains(TileData.LEFT)) x -= speed * delta;
                 break;
             case RIGHT:
-                if(locdat.contains(TileData.RIGHT)) x -= speed * delta;
+                if(locdat.contains(TileData.RIGHT)) x += speed * delta;
                 break;
             default:
                 return;
         }
         adjustTile();
-        // Fix any rounding (etc.) based overshoots
-        if(!locdat.contains(TileData.UP) && (y > ((float)ty + 0.5f))) {
-            y = (float)ty + 0.5f;
-        }
-        if(!locdat.contains(TileData.DOWN) && (y < ((float)ty + 0.5f))) {
-            y = (float)ty + 0.5f;
-        }
-        if(!locdat.contains(TileData.LEFT) && (x > ((float)tx + 0.5f))) {
-            x = (float)tx + 0.5f;
-        }
-        if(!locdat.contains(TileData.RIGHT) && (x < ((float)tx + 0.5f))) {
-            x = (float)tx + 0.5f;
-        }        
     }
     
     
@@ -211,13 +201,14 @@ public class Entity implements IMsgSender, IMsgReciever {
             updateFrame();
             lastTime = time;
         }
-        //move(delta, maze);
+       move(delta, maze);
+       if(isPlayer) currentTile.clear();
     }
     
     
     public static void updateAll(MapMatrix maze, float time, float delta) {
         for(Entity entity : entities) {
-            entity.update(null, time, delta);
+            entity.update(maze, time, delta);
         }
     }
     
