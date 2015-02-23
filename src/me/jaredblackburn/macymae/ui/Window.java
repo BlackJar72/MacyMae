@@ -15,9 +15,11 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Jared Blackburn
  */
 public class Window {
+    public static final int baseFPS = 60;
     public static final int XSIZE = 800;
     public static final float scale = findScale();
     public static final int YSIZE = (XSIZE * 2) / 3;
+    
     
     public Window() {
         try {
@@ -57,7 +59,7 @@ public class Window {
         MapMatrix.draw();
         Entity.drawAll();
         Display.update();
-        Display.sync(60);
+        Display.sync(baseFPS);
     }
     
     

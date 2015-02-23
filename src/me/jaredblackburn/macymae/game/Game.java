@@ -1,12 +1,15 @@
 package me.jaredblackburn.macymae.game;
 
+import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.Timer;
 
 /**
  * This class contains the main game loop.
@@ -15,12 +18,20 @@ import org.lwjgl.opengl.Display;
  */
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
-    private boolean running = true, paused = false;
-    private long  time, lastime;
-    private float delta; // TODO: Calculate and use the deltas.
+    private boolean running = true, paused = false;   
+    
+    private Timer timer = new Timer();
+    private static final float expectedTime = 1f / Window.baseFPS;
+    private float lastTime, thisTime;
+    private float delta;
+    
+    
+    private Game(){};
+    
     
     public static void start(Window window) {
         game = new Game();
+        game.timer.reset();
         game.loop(window);
     }
     
@@ -29,7 +40,20 @@ public class Game implements IMsgSender, IMsgReciever {
         while(running) {
             window.draw();
             if(running) running = !Display.isCloseRequested();
+            if(paused) {
+                continue;
+            }
+            updateDelta();
+            Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
         }
+    }
+    
+    
+    private void updateDelta() {
+        timer.tick();
+        lastTime = thisTime;
+        thisTime = timer.getTime();
+        delta    = (thisTime - lastTime) / expectedTime;
     }
     
     

@@ -13,6 +13,12 @@ macy {
     Macy06.png
     Macy07.png
     Macy08.png
+    Macy07.png
+    Macy06.png
+    Macy05.png
+    Macy04.png
+    Macy03.png
+    Macy02.png
 }
 wisp1 {
     wispA01.png

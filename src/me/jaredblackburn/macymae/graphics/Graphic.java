@@ -207,6 +207,11 @@ public class Graphic {
     }
     
     
+    public int size() {
+        return frames.length;
+    }
+    
+    
     private static int makeTileVBO() {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(2 * 3 * 5);
         float[] preBuffer = new float[]{0f,         0f,                   0f, 0f, 0f,
