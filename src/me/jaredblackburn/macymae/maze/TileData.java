@@ -71,4 +71,32 @@ public enum TileData {
         if(in.contains(LEFT))  out.add(MoveCommand.LEFT);
         return out;
     }
+    
+    
+    public static byte setToByte(EnumSet<TileData> in) {
+        byte out = 0;
+        if(in.contains(UP))     out |= 1;
+        if(in.contains(RIGHT))  out |= 2;
+        if(in.contains(DOWN))   out |= 4;
+        if(in.contains(LEFT))   out |= 8;
+        if(in.contains(FOOD))   out |= 16;
+        if(in.contains(POWER))  out |= 32;
+        if(in.contains(BONUS))  out |= 64;
+        if(in.contains(DOGPIN)) out |= 128;
+        return out;
+    }
+    
+    
+    public static int setToInt(EnumSet<TileData> in) {
+        int out = 0;
+        if(in.contains(UP))     out |= 1;
+        if(in.contains(RIGHT))  out |= 2;
+        if(in.contains(DOWN))   out |= 4;
+        if(in.contains(LEFT))   out |= 8;
+        if(in.contains(FOOD))   out |= 16;
+        if(in.contains(POWER))  out |= 32;
+        if(in.contains(BONUS))  out |= 64;
+        if(in.contains(DOGPIN)) out |= 128;
+        return out;
+    }
 }

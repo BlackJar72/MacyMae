@@ -59,15 +59,15 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public static void init() {
-        macy    = entities[4] = new Entity(19, 8, 0f, 0.05f, 0f, 1f / 30f, true, 
+        macy    = entities[4] = new Entity(18, 8, 0f, 0.05f, 0f, 1f / 30f, true, 
                             false, new InputControl(), "macy");
-        whisp1  = entities[0] = new Entity(17, 16, 0f, 0f, 0f, 1f / 30f, false, 
+        whisp1  = entities[0] = new Entity(16, 16, 0f, 0f, 0f, 1f / 30f, false, 
                             true, new InputControl(), "wisp1");
-        whisp2  = entities[1] = new Entity(21, 16, 0f, 0f, 0f, 1f / 30f, false, 
+        whisp2  = entities[1] = new Entity(20, 16, 0f, 0f, 0f, 1f / 30f, false, 
                             true, new InputControl(), "wisp2");
-        whisp3  = entities[2] = new Entity(17, 18, 0f, 0f, 0f, 1f / 30f, false, 
+        whisp3  = entities[2] = new Entity(16, 18, 0f, 0f, 0f, 1f / 30f, false, 
                             true, new InputControl(), "wisp3");
-        whisp4  = entities[3] = new Entity(21, 18, 0f, 0f, 0f, 1f / 30f, false, 
+        whisp4  = entities[3] = new Entity(20, 18, 0f, 0f, 0f, 1f / 30f, false, 
                             true, new InputControl(), "wisp4");
         for(int i = 0; i < 4; i++) {
             whisps[i] = entities[i];
@@ -98,14 +98,13 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     private void adjustTile() {
-        // This is based on the assumption the casts truncate, which
-        // seesm to work for Doomlike Dungeons; if wrong this will change.
-        tx = (int)(x);
-        ty = (int)(MapMatrix.HEIGHT - y + 1);
-        currentTile = MapMatrix.getCurrent().getTile(tx + 1, ty);
+        // FIXME: I need a better way to detect the current tile!  ASAP!
+        tx = (int)(x + 0.5f);
+        ty = (int)(MapMatrix.HEIGHT - y + 1f);
+        currentTile = MapMatrix.getCurrent().getTile(tx, ty);
         newTile  = currentTile == lastTile;
         lastTile = currentTile;
-        locdat = MapMatrix.getCurrent().getTileData(tx + 1, ty);
+        locdat = MapMatrix.getCurrent().getTileData(tx, ty);
     }
     
     
@@ -143,7 +142,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void draw() {
         Graphic.draw(graphic, frame, 
-                x * Graphic.sideLength, 
+                (x + 1) * Graphic.sideLength, 
                 y * Graphic.sideLength, 
                 z * Graphic.sideLength);
     }
@@ -158,7 +157,6 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public void move(float delta, MapMatrix maze) {
-        locdat = maze.getTileData(tx, ty);
         switch(heading) {
             // TODO: Check allowed direction per tile...? Maybe...?
             case UP:
@@ -202,7 +200,11 @@ public class Entity implements IMsgSender, IMsgReciever {
             lastTime = time;
         }
        move(delta, maze);
-       if(isPlayer) currentTile.clear();
+       if(isPlayer) {
+           //System.out.print("TileData in " + TileData.setToInt(locdat));
+           currentTile.clear();
+           //System.out.println("; TileData out " + TileData.setToInt(currentTile.getData()));
+       }
     }
     
     
