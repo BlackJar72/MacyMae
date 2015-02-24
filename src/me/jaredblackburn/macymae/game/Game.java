@@ -99,4 +99,14 @@ public class Game implements IMsgSender, IMsgReciever {
         return paused;
     }
     
+    
+    public Timer getTimer() {
+        return timer;
+    }
+    
+    
+    public float getTime() {
+        return timer.getTime();
+    }
+    
 }

@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae.entity;
 
+import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.Message;
 
@@ -23,12 +24,14 @@ public abstract class EnemyAI implements IController, IMsgReciever {
     
     
     protected MoveCommand getLiveDirection(Entity owner) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        return NONE;
     }
     
     
     protected MoveCommand getDeadDirection(Entity owner) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        return NONE;
     }
     
     

@@ -30,8 +30,8 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     float speed;
     MoveCommand heading;
-    private float BASE_SPEED;
-    private EnumSet<TileData> locdat;
+    float BASE_SPEED;
+    EnumSet<TileData> locdat;
     
     int graphic;     // ID of the graphic used
     int frame;       // The frame of the graphic
@@ -59,16 +59,16 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public static void init() {
-        macy    = entities[4] = new Entity(18, 8, 0f, 0.05f, 0f, 1f / 30f, true, 
-                            false, new InputControl(), "macy");
-        whisp1  = entities[0] = new Entity(16, 16, 0f, 0f, 0f, 1f / 30f, false, 
-                            true, new InputControl(), "wisp1");
-        whisp2  = entities[1] = new Entity(20, 16, 0f, 0f, 0f, 1f / 30f, false, 
-                            true, new InputControl(), "wisp2");
-        whisp3  = entities[2] = new Entity(16, 18, 0f, 0f, 0f, 1f / 30f, false, 
-                            true, new InputControl(), "wisp3");
-        whisp4  = entities[3] = new Entity(20, 18, 0f, 0f, 0f, 1f / 30f, false, 
-                            true, new InputControl(), "wisp4");
+        macy    = entities[4] = new Macy(18, 8, 0f, 0.05f, 0f, 1f / 30f, 
+                            new InputControl(), "macy");
+        whisp1  = entities[0] = new Wisp(16, 16, 0f, 0f, 0f, 1f / 30f,  
+                            new InputControl(), "wisp1");
+        whisp2  = entities[1] = new Wisp(20, 16, 0f, 0f, 0f, 1f / 30f,
+                            new InputControl(), "wisp2");
+        whisp3  = entities[2] = new Wisp(16, 18, 0f, 0f, 0f, 1f / 30f, 
+                            new InputControl(), "wisp3");
+        whisp4  = entities[3] = new Wisp(20, 18, 0f, 0f, 0f, 1f / 30f, 
+                            new InputControl(), "wisp4");
         for(int i = 0; i < 4; i++) {
             whisps[i] = entities[i];
         }
@@ -96,15 +96,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    private void adjustTile() {
-        // FIXME: I need a better way to detect the current tile!  ASAP!
-        // Switch away from pure the tile data system to one based on 
-        // detecting collision; add a WALL attribute to tiles, entities
-        // cannot move in a direction that would collide with a tile at a
-        // range of one.  Food should also become an entity, eaten on 
-        // collision with the player, small collision radius.  This should 
-        // become a new class called "Mob" with Food and Mob both inheriting
-        // from a new Entity class.
+    protected void adjustTile() {
         tx = (int)(x);
         ty = (int)(MapMatrix.HEIGHT - y + 1f);
         currentTile = MapMatrix.getCurrent().getTile(tx, ty);
@@ -205,6 +197,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public void update(MapMatrix maze, float time, float delta) {
+        heading = brain.getDirection(this);
         if((time - lastTime) >= MSPF) {
             updateFrame();
             lastTime = time;

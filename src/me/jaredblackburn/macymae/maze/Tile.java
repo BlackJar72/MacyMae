@@ -99,5 +99,15 @@ public class Tile {
 
     public int getY() {
         return y;
-    }   
+    }  
+    
+    
+    public boolean canPlayerEnter() {
+        return !(data.contains(WALL) || data.contains(DOGPIN));
+    }
+    
+    
+    public boolean canWispEnter(boolean inDogpin) {
+        return (!data.contains(WALL) && (data.contains(DOGPIN) == inDogpin));
+    }
 }
