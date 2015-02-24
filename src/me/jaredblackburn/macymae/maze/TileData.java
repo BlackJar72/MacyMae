@@ -20,7 +20,8 @@ public enum TileData {
     FOOD,
     POWER,
     BONUS,
-    DOGPIN;
+    DOGPIN,
+    WALL;
     
     
     /**

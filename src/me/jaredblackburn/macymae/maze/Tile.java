@@ -41,6 +41,7 @@ public class Tile {
             graphic = Graphic.registry.getID("empty");
         } else {
             graphic = Graphic.registry.getID("wall");
+            data.add(WALL);
         }
         this.x = x;
         this.y = y;
