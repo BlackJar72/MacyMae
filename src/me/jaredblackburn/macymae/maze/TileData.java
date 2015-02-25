@@ -1,7 +1,7 @@
 package me.jaredblackburn.macymae.maze;
 
 import java.util.EnumSet;
-import me.jaredblackburn.macymae.entity.MoveCommand;
+//import me.jaredblackburn.macymae.entity.MoveCommand;
 
 /**
  * This is an enumeration of features, transient or permanent, a tile may have.
@@ -62,16 +62,16 @@ public enum TileData {
      * @param in the tile occupied
      * @return MoveCommands that can work in the given tile
      */
-    public static EnumSet<MoveCommand> validMoves(EnumSet<TileData> in) {
-        EnumSet<MoveCommand> out = EnumSet.noneOf(MoveCommand.class);
-        // Copying bits directly would be better, but not allowed by Java,
-        // so using conditionals to add equivalent values.
-        if(in.contains(UP))    out.add(MoveCommand.UP);
-        if(in.contains(RIGHT)) out.add(MoveCommand.RIGHT);
-        if(in.contains(DOWN))  out.add(MoveCommand.DOWN);
-        if(in.contains(LEFT))  out.add(MoveCommand.LEFT);
-        return out;
-    }
+//    public static EnumSet<MoveCommand> validMoves(EnumSet<TileData> in) {
+//        EnumSet<MoveCommand> out = EnumSet.noneOf(MoveCommand.class);
+//        // Copying bits directly would be better, but not allowed by Java,
+//        // so using conditionals to add equivalent values.
+//        if(in.contains(UP))    out.add(MoveCommand.UP);
+//        if(in.contains(RIGHT)) out.add(MoveCommand.RIGHT);
+//        if(in.contains(DOWN))  out.add(MoveCommand.DOWN);
+//        if(in.contains(LEFT))  out.add(MoveCommand.LEFT);
+//        return out;
+//    }
     
     
     public static byte setToByte(EnumSet<TileData> in) {

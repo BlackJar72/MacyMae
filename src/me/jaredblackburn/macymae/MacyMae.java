@@ -1,6 +1,5 @@
 package me.jaredblackburn.macymae;
 
-import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
@@ -59,7 +58,8 @@ public class MacyMae {
         GraphicsDataReader.reader.openInfo();
         MapReader.initMaps();
         MapMatrix.init();
-        Entity.init();
+        //Entity.init();
+        //UserInput.init();
     }
     
     

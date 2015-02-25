@@ -1,6 +1,5 @@
 package me.jaredblackburn.macymae.game;
 
-import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
@@ -44,7 +43,8 @@ public class Game implements IMsgSender, IMsgReciever {
                 continue;
             }
             updateDelta();
-            Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
+            //UserInput.controls.update();
+            //Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
         }
     }
     

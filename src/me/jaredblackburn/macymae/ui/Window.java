@@ -2,7 +2,6 @@ package me.jaredblackburn.macymae.ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import org.lwjgl.LWJGLException;
@@ -57,7 +56,7 @@ public class Window {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         drawBorder();
         MapMatrix.draw();
-        Entity.drawAll();
+        //Entity.drawAll();
         Display.update();
         Display.sync(baseFPS);
     }

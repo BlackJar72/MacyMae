@@ -16,7 +16,7 @@ import static me.jaredblackburn.macymae.ui.Window.YSIZE;
  *
  * @author jared
  */
-public class Tile {
+public class Tile extends Occupiable {
     static final EnumSet<TileData> dirs = EnumSet.of(UP, LEFT, DOWN, RIGHT);
     static final EnumSet<TileData> cont = EnumSet.of(FOOD, POWER, BONUS);
     
@@ -65,6 +65,24 @@ public class Tile {
     public void clear() {
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");
+    }
+    
+    
+    /**
+     * This detect if an entity is on this point.  Because movement is in
+     * discrete hops (per frame) requiring coords to be equal would result
+     * in primarily false negative where the point was hopped over; instead
+     * this checks if they are closer than the distance than will be moved in
+     * one frame (with some slight padding).
+     * 
+     * @param ox other's (entities) x
+     * @param oy other's (entities) y
+     * @param speed distance entity can move in one frame
+     * @return true if close enough to call at this point, false otherwise
+     */
+    public boolean here(float ox, float oy, float speed) {
+        return (((ox - x) * (ox -x)) + ((oy - y) * (oy - y)) 
+                < (speed * speed * 1.1f));
     }
     
     

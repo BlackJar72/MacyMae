@@ -5,8 +5,11 @@
         <group>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/InputControl.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/ui/UserInput.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Wisp.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Game.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Macy.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/MacyMae.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/maze/Tile.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Entity.java</file>
         </group>
     </open-files>
