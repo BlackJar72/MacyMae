@@ -1,5 +1,8 @@
 package me.jaredblackburn.macymae.maze;
 
+import java.util.EnumSet;
+import me.jaredblackburn.macymae.entity.MoveCommand;
+
 /**
  * This is is an abstract parent for explicit graph component, i.e., objects 
  * representing locations a game entity can occupy.
@@ -23,6 +26,11 @@ public abstract class Occupiable {
     protected boolean setsX, setY; // Do occupants get this coord from here?
     protected float   occupantX, occupantY;
     protected Occupiable[] neighbors;
-    //protected EnumSet<MoveCommand> validMoves;
+    protected EnumSet<MoveCommand> validMoves;
+    
+    
+    public EnumSet<MoveCommand> getValidMoves() {
+        return validMoves;
+    }
     
 }

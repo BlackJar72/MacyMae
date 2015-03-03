@@ -5,6 +5,7 @@ import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
+import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 
 /**
@@ -59,7 +60,7 @@ public class MacyMae {
         MapReader.initMaps();
         MapMatrix.init();
         //Entity.init();
-        //UserInput.init();
+        UserInput.init();
     }
     
     
@@ -69,6 +70,7 @@ public class MacyMae {
     
     
     private static void cleanup() {
+        UserInput.cleanup();
         Graphic.cleanup();
         window.cleanup();
     }
