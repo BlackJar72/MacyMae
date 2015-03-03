@@ -25,12 +25,14 @@ public abstract class Occupiable {
     */
     protected boolean setsX, setsY; // Do occupants get this coord from here?
     protected float   occupantX, occupantY;
-    protected Occupiable[] neighbors;
+    protected Occupiable[] neighbors = new Occupiable[4];
     protected EnumSet<MoveCommand> validMoves;
     
     
     public EnumSet<MoveCommand> getValidMoves() {
         return validMoves;
     }
+    
+    
     
 }

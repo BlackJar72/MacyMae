@@ -13,7 +13,6 @@ public class Connection extends Occupiable {
     
     
     public Connection(Tile tail, Tile head) {
-        neighbors = new Occupiable[4];
         validMoves = EnumSet.noneOf(MoveCommand.class);
         occupantX = (head.x + tail.x) / 2;
         occupantY = (head.y + tail.y) / 2;

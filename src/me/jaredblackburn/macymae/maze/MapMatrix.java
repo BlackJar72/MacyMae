@@ -2,6 +2,7 @@ package me.jaredblackburn.macymae.maze;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import me.jaredblackburn.macymae.entity.MoveCommand;
 
 /**
  * A class to hod the board / maze data.
@@ -76,7 +77,10 @@ public class MapMatrix {
     }
     
     
-    public static void init() {
+    public static void init() throws MapException {
+        for(MapMatrix maze : mazeRegistry) {
+            maze.initConnections();
+        }
         setCurrent(0);
     }
     
@@ -131,10 +135,45 @@ public class MapMatrix {
     }
     
     
-    private void initConnections() {
-        // TODO: Create the connections
-        // Plan, iterate each row and and connections between neighbors;
-        // then, iterate each colomn and add connectiosn between neighbors.
-        // Do it soon.
+    private void initConnections() throws MapException {
+        Connection edge;
+        for(int j = 0; j < HEIGHT; j++)
+            for(int i = 0; i < (WIDTH - 1); i++ )
+            {
+                if(tiles[i][j].validMoves.contains(MoveCommand.RIGHT)) {
+                    if(!tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
+                        throwInconsitency(i, j, i + 1, j);
+                    }
+                    edge = new Connection(tiles[i][j], tiles[i+1][j]);
+                    edges.add(edge);
+                    tiles[i][j].addConnection(edge, 1);
+                    tiles[i+1][j].addConnection(edge, 3);
+                } else if(tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
+                    throwInconsitency(i, j, i + 1, j);
+                }
+            }
+        for(int i = 0; i < WIDTH; i++) 
+            for(int j = 0; j < (HEIGHT - 1); j++) {
+                if(tiles[i][j].validMoves.contains(MoveCommand.DOWN)) {
+                    if(!tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
+                        throwInconsitency(i, j, i, j + 1);
+                    }
+                    edge = new Connection(tiles[i][j], tiles[i][j+1]);
+                    edges.add(edge);
+                    tiles[i][j].addConnection(edge, 0);
+                    tiles[i][j+1].addConnection(edge, 2);
+                } else if(tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
+                    throwInconsitency(i, j, i, j + 1);
+                }
+            }
+    }
+    
+    
+    private void throwInconsitency(int x, int y, int x2, int y2) throws MapException {
+        if(!(tiles[x][y].data.contains(TileData.DOGPIN) 
+                || (tiles[x2][y2].data.contains(TileData.DOGPIN)))) {
+            throw new MapException("Inconsistency in map at "
+                            + x + ", " + y + " to " + x2 + ", " + y2);
+        }
     }
 }
