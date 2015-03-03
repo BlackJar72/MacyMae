@@ -43,8 +43,9 @@ public class Tile extends Occupiable {
             graphic = Graphic.registry.getID("wall");
             data.add(WALL);
         }
-        this.x = x;
-        this.y = y;
+        validMoves = TileData.validMoves(data);
+        occupantX = this.x = x;
+        occupantY = this.y = y;
         xpos = ((x + 1) * Graphic.sideLength);
         ypos = ((HEIGHT - y + 1) * Graphic.sideLength);
         if((x == 0) || ((x % 2) == 0)) {
@@ -127,5 +128,10 @@ public class Tile extends Occupiable {
     
     public boolean canWispEnter(boolean inDogpin) {
         return (!data.contains(WALL) && (data.contains(DOGPIN) == inDogpin));
+    }
+    
+    
+    public void addConnection(Connection con, int dir) {
+        neighbors[dir] = con;
     }
 }

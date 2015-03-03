@@ -6,6 +6,7 @@ import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.maze.MapMatrix;
+import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.Timer;
@@ -43,7 +44,7 @@ public class Game implements IMsgSender, IMsgReciever {
                 continue;
             }
             updateDelta();
-            //UserInput.controls.update();
+            UserInput.in.update();
             //Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
         }
     }

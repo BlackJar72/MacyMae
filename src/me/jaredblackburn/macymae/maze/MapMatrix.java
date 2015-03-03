@@ -18,6 +18,7 @@ public class MapMatrix {
     public static final int HEIGHT =  25; // PM had 31 (29 worth of dots)
     public static final int REPEATS = 3;  // Number of times a map repeats    
     private final Tile[][] tiles = new Tile[WIDTH][HEIGHT];
+    private final ArrayList<Connection> edges;
     private static final ArrayList<MapMatrix> mazeRegistry = new ArrayList<>();
     // I'm a little leary of going through a getter a lot in the inner loop
     // so this may change;
@@ -62,6 +63,7 @@ public class MapMatrix {
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
         initialDotCenter = new DotCenter();
+        edges = new ArrayList<>();
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
@@ -126,5 +128,12 @@ public class MapMatrix {
     // in game by such systems as the GuardAI class.
     public DotCenter getUsuableDotCenter() {
         return initialDotCenter.copy();
+    }
+    
+    
+    private void initConnections() {
+        // TODO: Create the connections
+        // Plan, iterate each row and and connections between neighbors;
+        // then, iterate each colomn and add connectiosn between neighbors.
     }
 }

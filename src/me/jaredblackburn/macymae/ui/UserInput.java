@@ -36,7 +36,7 @@ public class UserInput {
    }
    
    
-   public void process() {
+   public void update() {
        steering.clear();
        if(Keyboard.isKeyDown(KEY_W) || Keyboard.isKeyDown(KEY_UP)) {
            steering.add(UP);

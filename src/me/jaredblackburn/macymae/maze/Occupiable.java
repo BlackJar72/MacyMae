@@ -23,7 +23,7 @@ public abstract class Occupiable {
     // It is planned to use this conventions consistently so as to avoid 
     // confusion.
     */
-    protected boolean setsX, setY; // Do occupants get this coord from here?
+    protected boolean setsX, setsY; // Do occupants get this coord from here?
     protected float   occupantX, occupantY;
     protected Occupiable[] neighbors;
     protected EnumSet<MoveCommand> validMoves;
