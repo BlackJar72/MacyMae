@@ -135,5 +135,6 @@ public class MapMatrix {
         // TODO: Create the connections
         // Plan, iterate each row and and connections between neighbors;
         // then, iterate each colomn and add connectiosn between neighbors.
+        // Do it soon.
     }
 }
