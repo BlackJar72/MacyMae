@@ -215,11 +215,11 @@ public class Graphic {
     private static int makeTileVBO() {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(2 * 3 * 5);
         float[] preBuffer = new float[]{
-                               (float)(-sideLength / 2), (float)( sideLength / 2),                   0f, 0f, 0f,
+                               (float)(-sideLength / 2), (float)( sideLength / 2), 0f, 0f, 0f,
                                (float)(-sideLength / 2), (float)(-sideLength / 2), 0f, 0f, 1f,
                                (float)( sideLength / 2), (float)(-sideLength / 2), 0f, 1f, 1f,
-                               (float)(-sideLength / 2), (float)( sideLength / 2),                   0f, 0f, 0f, 
-                               (float)( sideLength / 2), (float)( sideLength / 2),                   0f, 1f, 0f,
+                               (float)(-sideLength / 2), (float)( sideLength / 2), 0f, 0f, 0f, 
+                               (float)( sideLength / 2), (float)( sideLength / 2), 0f, 1f, 0f,
                                (float)( sideLength / 2), (float)(-sideLength / 2), 0f, 1f, 1f};
         buffer.put(preBuffer);
         buffer.flip();

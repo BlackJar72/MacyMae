@@ -1,5 +1,7 @@
 package me.jaredblackburn.macymae;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
@@ -55,12 +57,17 @@ public class MacyMae {
     
     
     private static void init() {
-        window = new Window();
-        GraphicsDataReader.reader.openInfo();
-        MapReader.initMaps();
-        MapMatrix.init();
-        //Entity.init();
-        UserInput.init();
+        try {
+            window = new Window();
+            GraphicsDataReader.reader.openInfo();
+            MapReader.initMaps();
+            MapMatrix.init();
+            //Entity.init();
+            UserInput.init();
+        } catch (Exception ex) {
+            Logger.getLogger(MacyMae.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
     }
     
     

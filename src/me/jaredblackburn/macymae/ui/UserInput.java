@@ -3,6 +3,7 @@ package me.jaredblackburn.macymae.ui;
 import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.entity.MoveCommand;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -50,7 +51,7 @@ public class UserInput {
        if(Keyboard.isKeyDown(KEY_A) || Keyboard.isKeyDown(KEY_LEFT)) {
            steering.add(LEFT);
        }
-       // TODO: Send steering to entity controller once made
+       InputController.userio.update(steering);
        // TODO: Keys for non-steering (e.g., men) purposes
    }
     

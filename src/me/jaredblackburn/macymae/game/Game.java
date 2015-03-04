@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae.game;
 
+import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
