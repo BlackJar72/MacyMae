@@ -70,17 +70,19 @@ public class Window {
     private void drawBorder() {
         for(int i = 0; i < MapMatrix.WIDTH + 2; i++) {
             Graphic.registry.getGraphic("wall").draw(0, 
-                    i * Graphic.sideLength, 
-                    1 * Graphic.sideLength, -0.99f);
+                    (i + 0.5f) * Graphic.sideLength, 
+                    0.5f * Graphic.sideLength, -0.99f);
             Graphic.registry.getGraphic("wall").draw(0, 
-                    i * Graphic.sideLength, 
-                    (MapMatrix.HEIGHT + 2) * Graphic.sideLength, -0.99f);
+                    (i + 0.5f) * Graphic.sideLength, 
+                    (MapMatrix.HEIGHT + 1.5f) * Graphic.sideLength, -0.99f);
         }
         for(int j = 1; j < MapMatrix.HEIGHT + 2; j++) {
-            Graphic.registry.getGraphic("wall").draw(0, 0, j * Graphic.sideLength, -0.99f);
             Graphic.registry.getGraphic("wall").draw(0, 
-                    (MapMatrix.WIDTH + 1) * Graphic.sideLength, 
-                    j * Graphic.sideLength, -0.99f);
+                    0.5f * Graphic.sideLength, 
+                    (j + 0.5f) * Graphic.sideLength, -0.99f);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    (MapMatrix.WIDTH + 1.5f) * Graphic.sideLength, 
+                    (j + 0.5f) * Graphic.sideLength, -0.99f);
         }
     }
     

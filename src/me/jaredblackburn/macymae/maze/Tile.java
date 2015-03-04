@@ -46,8 +46,8 @@ public class Tile extends Occupiable {
         validMoves = TileData.validMoves(data);
         occupantX = this.x = x;
         occupantY = this.y = y;
-        xpos = ((x + 1) * Graphic.sideLength);
-        ypos = ((HEIGHT - y + 1) * Graphic.sideLength);
+        xpos = ((x + 1.5f) * Graphic.sideLength);
+        ypos = ((HEIGHT - y + 0.5f) * Graphic.sideLength);
         if((x == 0) || ((x % 2) == 0)) {
             if((y == 0) || ((y % 2) == 0)) zpos = -0.8f;
             else zpos = -0.81f;
