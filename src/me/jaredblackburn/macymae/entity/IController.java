@@ -4,7 +4,7 @@ import me.jaredblackburn.macymae.maze.Occupiable;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public interface IController {
     

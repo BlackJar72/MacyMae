@@ -19,7 +19,7 @@ public class MapMatrix {
     public static final int HEIGHT =  25; // PM had 31 (29 worth of dots)
     public static final int REPEATS = 3;  // Number of times a map repeats    
     private final Tile[][] tiles = new Tile[WIDTH][HEIGHT];
-    private final ArrayList<Connection> edges;
+    private final ArrayList<Occupiable> locations;
     private static final ArrayList<MapMatrix> mazeRegistry = new ArrayList<>();
     // I'm a little leary of going through a getter a lot in the inner loop
     // so this may change;
@@ -64,14 +64,15 @@ public class MapMatrix {
     
     public MapMatrix(int number, byte[][] data1, byte[][] data2) {
         initialDotCenter = new DotCenter();
-        edges = new ArrayList<>();
+        locations = new ArrayList<>();
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
                 tiles[i][j] = new Tile(data1[i][j], i, j);
+                locations.add(tiles[i][j]);
                 if((tiles[i][j].data.contains(TileData.FOOD)) 
                    || (tiles[i][j].data.contains(TileData.POWER))) {
-                    initialDotCenter.addTile(tiles[i][j]);
+                    initialDotCenter.addTile(tiles[i][j]);                    
                 }
             }
     }
@@ -145,7 +146,7 @@ public class MapMatrix {
                         throwInconsitency(i, j, i + 1, j);
                     }
                     edge = new Connection(tiles[i][j], tiles[i+1][j]);
-                    edges.add(edge);
+                    locations.add(edge);
                     tiles[i][j].addConnection(edge, 1);
                     tiles[i+1][j].addConnection(edge, 3);
                 } else if(tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
@@ -159,11 +160,23 @@ public class MapMatrix {
                         throwInconsitency(i, j, i, j + 1);
                     }
                     edge = new Connection(tiles[i][j], tiles[i][j+1]);
-                    edges.add(edge);
+                    locations.add(edge);
                     tiles[i][j].addConnection(edge, 0);
                     tiles[i][j+1].addConnection(edge, 2);
                 } else if(tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
                     throwInconsitency(i, j, i, j + 1);
+                }
+                if(tiles[i][j+1].data.contains(TileData.DOGPIN) 
+                        && !tiles[i][j].data.contains(TileData.DOGPIN)
+                        && tiles[i][j].validMoves.contains(MoveCommand.UP)) {
+                    edge = new Connection(tiles[i][j+1], tiles[i][j]);
+                    locations.add(edge);
+                    // Note, once at tiles[i][j] there should still be no
+                    // turning back, if the map data is right, but before then
+                    // wisps travelling up may occupy an edge not accessable
+                    // from outside.  Now, how to le the dead ones back in?
+                    tiles[i][j].addConnection(edge, 0);
+                    tiles[i][j+1].addConnection(edge, 2);
                 }
             }
     }

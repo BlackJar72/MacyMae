@@ -2,8 +2,11 @@ package me.jaredblackburn.macymae.entity;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public class Entity {
+    private int graphic;
+    private int location;
     
+    private IController brain;
 }

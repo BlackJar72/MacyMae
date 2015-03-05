@@ -6,13 +6,13 @@ import me.jaredblackburn.macymae.maze.Occupiable;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public class InputController implements IController {
     public static final InputController userio = new InputController();
     private MoveCommand current = NONE;
     private class Commands {
-        public long[] time = new long[]{0, 0, 0, 0, 0};
+        public int[] time = new int[]{0, 0, 0, 0, 0};
         public boolean[] updated 
                 = new boolean[]{false, false, false, false, false};
     }
@@ -47,7 +47,7 @@ public class InputController implements IController {
     
     private MoveCommand findLatestCommand() {
         int out = 5;
-        long shortest = Long.MAX_VALUE;
+        long shortest = Integer.MAX_VALUE;
         for(int i = 0; i < 5; i++) {
             if((commands.time[i] > 0) && (commands.time[i] < shortest)) {
                 shortest = commands.time[i];
