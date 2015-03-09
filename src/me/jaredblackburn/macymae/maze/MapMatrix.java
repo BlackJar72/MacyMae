@@ -70,6 +70,7 @@ public class MapMatrix {
                 data1[i][j] = (byte)(data1[i][j] | (byte)(data2[i][j] << 4));
                 tiles[i][j] = new Tile(data1[i][j], i, j);
                 locations.add(tiles[i][j]);
+                tiles[i][j].setID(locations.indexOf(tiles[i][j]));
                 if((tiles[i][j].data.contains(TileData.FOOD)) 
                    || (tiles[i][j].data.contains(TileData.POWER))) {
                     initialDotCenter.addTile(tiles[i][j]);                    
@@ -143,34 +144,35 @@ public class MapMatrix {
             {
                 if(tiles[i][j].validMoves.contains(MoveCommand.RIGHT)) {
                     if(!tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
-                        throwInconsitency(i, j, i + 1, j);
+                        throwInconsistency(i, j, i + 1, j);
                     }
                     edge = new Connection(tiles[i][j], tiles[i+1][j]);
                     locations.add(edge);
                     tiles[i][j].addConnection(edge, 1);
                     tiles[i+1][j].addConnection(edge, 3);
                 } else if(tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
-                    throwInconsitency(i, j, i + 1, j);
+                    throwInconsistency(i, j, i + 1, j);
                 }
             }
         for(int i = 0; i < WIDTH; i++) 
             for(int j = 0; j < (HEIGHT - 1); j++) {
                 if(tiles[i][j].validMoves.contains(MoveCommand.DOWN)) {
                     if(!tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
-                        throwInconsitency(i, j, i, j + 1);
+                        throwInconsistency(i, j, i, j + 1);
                     }
                     edge = new Connection(tiles[i][j], tiles[i][j+1]);
                     locations.add(edge);
                     tiles[i][j].addConnection(edge, 0);
                     tiles[i][j+1].addConnection(edge, 2);
                 } else if(tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
-                    throwInconsitency(i, j, i, j + 1);
+                    throwInconsistency(i, j, i, j + 1);
                 }
                 if(tiles[i][j+1].data.contains(TileData.DOGPIN) 
                         && !tiles[i][j].data.contains(TileData.DOGPIN)
                         && tiles[i][j].validMoves.contains(MoveCommand.UP)) {
                     edge = new Connection(tiles[i][j+1], tiles[i][j]);
                     locations.add(edge);
+                    edge.setID(locations.indexOf(edge));
                     // Note, once at tiles[i][j] there should still be no
                     // turning back, if the map data is right, but before then
                     // wisps travelling up may occupy an edge not accessable
@@ -182,11 +184,45 @@ public class MapMatrix {
     }
     
     
-    private void throwInconsitency(int x, int y, int x2, int y2) throws MapException {
+    private void throwInconsistency(int x, int y, int x2, int y2) throws MapException {
         if(!(tiles[x][y].data.contains(TileData.DOGPIN) 
                 || (tiles[x2][y2].data.contains(TileData.DOGPIN)))) {
             throw new MapException("Inconsistency in map at "
                             + x + ", " + y + " to " + x2 + ", " + y2);
         }
+    }
+    
+    
+    public static Occupiable getOccupiable(float x, float y, float speed) throws MapException {
+        Tile loc = current.tiles[(int)x][(int)y];
+        if(loc.here(x, y, speed)) {
+            return loc;
+        } else {
+            if(x > (float)loc.x) return loc.neighbors[3];
+            if(x < (float)loc.x) return loc.neighbors[1];
+            if(y > (float)loc.y) return loc.neighbors[0];
+            if(y < (float)loc.y) return loc.neighbors[2];
+        }
+        throw new MapException("Player at non-existant location at " 
+                + x + "," + y + "!");
+    }
+    
+    
+    public static int getOccupiableID(float x, float y, float speed) 
+            throws MapException {
+        if(current.tiles[(int)x][(int)y].here(x, y, speed)) {
+            return current.tiles[(int)x][(int)y].getID();
+        } else {
+            if(x > (float)current.tiles[(int)x][(int)y].x) 
+                return current.tiles[(int)x][(int)y].neighbors[3].getID();
+            if(x < (float)current.tiles[(int)x][(int)y].x) 
+                return current.tiles[(int)x][(int)y].neighbors[1].getID();
+            if(y > (float)current.tiles[(int)x][(int)y].y) 
+                return current.tiles[(int)x][(int)y].neighbors[0].getID();
+            if(y < (float)current.tiles[(int)x][(int)y].y) 
+                return current.tiles[(int)x][(int)y].neighbors[2].getID();
+        }
+        throw new MapException("Player at non-existant location at " 
+                + x + "," + y + "!");
     }
 }

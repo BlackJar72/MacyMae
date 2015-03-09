@@ -27,10 +27,21 @@ public abstract class Occupiable {
     protected float   occupantX, occupantY;
     protected Occupiable[] neighbors = new Occupiable[4];
     protected EnumSet<MoveCommand> validMoves;
+    protected int id;
     
     
     public EnumSet<MoveCommand> getValidMoves() {
         return validMoves;
+    }
+    
+    
+    public int getID() {
+        return id;
+    }
+    
+    
+    public void setID(int id) {
+        this.id = id;
     }
     
     
