@@ -52,7 +52,7 @@ public class MapMatrix {
             return sumY / n;
         }
         public Tile getTile() {
-            return current.getTile(sumX / n, sumY / n);
+            return current.getMapTile(sumX / n, sumY / n);
         }
         public boolean isEmpty() {
             return (n < 1);
@@ -95,8 +95,13 @@ public class MapMatrix {
     }
     
     
-    public Tile getTile(int x, int y) {
+    public Tile getMapTile(int x, int y) {
         return tiles[x][y];
+    }
+    
+    
+    public static Tile getGameTile(float x, float y) {
+        return current.tiles[(int)x][(int)y];
     }
     
     
@@ -224,5 +229,10 @@ public class MapMatrix {
         }
         throw new MapException("Player at non-existant location at " 
                 + x + "," + y + "!");
+    }
+    
+    
+    public static Occupiable getOccupiableFromID(int id) {
+        return current.locations.get(id);
     }
 }

@@ -2,6 +2,7 @@ package me.jaredblackburn.macymae.entity;
 
 import java.util.EnumSet;
 import static me.jaredblackburn.macymae.entity.MoveCommand.*;
+import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.maze.Occupiable;
 
 /**
@@ -61,5 +62,11 @@ public class InputController implements IController {
             case 3: return LEFT;
             default: return NONE;
         }
-    }    
+    }  
+    
+
+    @Override
+    public void recieveMsg(Message msg) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }  
 }
