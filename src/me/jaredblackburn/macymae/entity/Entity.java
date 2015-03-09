@@ -10,6 +10,7 @@ import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
+import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
 import me.jaredblackburn.macymae.ui.Window;
 
@@ -68,8 +69,8 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public static void init() throws MapException {
-        macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 30f), 
-                            NONE, true, false, new InputController() );
+        macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
+                            NONE, true, false, InputController.userio);
         wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 30f,
                             NONE, false, true, new EnemyAI());
         wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 30f,
@@ -82,7 +83,9 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     protected void adjustTile() {
-        
+        Occupiable loc = MapMatrix.getOccupiableFromID(locationID);
+        x = loc.giveX(x);
+        y = loc.giveY(y);
     }
     
     
@@ -134,20 +137,29 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public void move(float delta, MapMatrix maze) {
+    public void move(float delta, MapMatrix maze) throws MapException {
         switch(heading) {
             // TODO: Check allowed direction per tile...? Maybe...?
             case UP:
+                moveY(-speed * delta);
+                x = MapMatrix.getOccupiableFromID(locationID).getOccupantX();
                 break;
             case DOWN:
+                moveY( speed * delta);
+                x = MapMatrix.getOccupiableFromID(locationID).getOccupantX();
                 break;
             case LEFT:
+                moveX(-speed * delta);
+                y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
                 break;
             case RIGHT:
+                moveX( speed * delta);
+                y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
                 break;
             default:
                 return;
         }
+        locationID = MapMatrix.getOccupiableID(x, y, speed * delta);
         adjustTile();
     }
     
@@ -166,20 +178,18 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public void update(MapMatrix maze, float time, float delta) {
+    public void update(MapMatrix maze, float time, float delta) throws MapException {
         Tile currentTile = MapMatrix.getGameTile(x, y);
-        try {
-            locationID = MapMatrix.getOccupiableID(x, y, speed);
-        } catch (MapException ex) {
-            Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(isPlayer) System.out.print("On loc " + locationID + ": ");
+        locationID = MapMatrix.getOccupiableID(x, y, speed / delta);
         heading = brain.getDirection(MapMatrix.getOccupiableFromID(locationID));
+        //if(isPlayer) System.out.println(heading);
         if((time - lastTime) >= secsPerFrame) {
             updateFrame();
             lastTime = time;
         }
        move(delta, maze);
-       if(isPlayer) {
+       if(isPlayer && currentTile.here(x, y, speed * delta * 2)) {
            //System.out.print("TileData in " + TileData.setToInt(locdat));
            currentTile.clear();
            //System.out.println("; TileData out " + TileData.setToInt(currentTile.getData()));
@@ -189,7 +199,11 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public static void updateAll(MapMatrix maze, float time, float delta) {
         for(Entity entity : entities) {
-            entity.update(maze, time, delta);
+            try {
+                entity.update(maze, time, delta);
+            } catch (MapException ex) {
+                Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

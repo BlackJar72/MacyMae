@@ -153,6 +153,8 @@ public class MapMatrix {
                     }
                     edge = new Connection(tiles[i][j], tiles[i+1][j]);
                     locations.add(edge);
+                    edge.setID(locations.indexOf(edge));
+                    //System.out.println("Adding edge " + edge.id);
                     tiles[i][j].addConnection(edge, 1);
                     tiles[i+1][j].addConnection(edge, 3);
                 } else if(tiles[i+1][j].validMoves.contains(MoveCommand.LEFT)) {
@@ -167,6 +169,8 @@ public class MapMatrix {
                     }
                     edge = new Connection(tiles[i][j], tiles[i][j+1]);
                     locations.add(edge);
+                    edge.setID(locations.indexOf(edge));
+                    //System.out.println("Adding edge " + edge.id);
                     tiles[i][j].addConnection(edge, 0);
                     tiles[i][j+1].addConnection(edge, 2);
                 } else if(tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
@@ -178,10 +182,7 @@ public class MapMatrix {
                     edge = new Connection(tiles[i][j+1], tiles[i][j]);
                     locations.add(edge);
                     edge.setID(locations.indexOf(edge));
-                    // Note, once at tiles[i][j] there should still be no
-                    // turning back, if the map data is right, but before then
-                    // wisps travelling up may occupy an edge not accessable
-                    // from outside.  Now, how to le the dead ones back in?
+                    //System.out.println("Adding edge " + edge.id);
                     tiles[i][j].addConnection(edge, 0);
                     tiles[i][j+1].addConnection(edge, 2);
                 }
@@ -215,13 +216,14 @@ public class MapMatrix {
     
     public static int getOccupiableID(float x, float y, float speed) 
             throws MapException {
-        if(current.tiles[(int)x][(int)y].here(x, y, speed)) {
+        if(current.tiles[(int)x][(int)y].here(x, y, speed * 1.1f)) {
             return current.tiles[(int)x][(int)y].getID();
         } else {
+            System.out.println(x + "," + y);
             if(x > (float)current.tiles[(int)x][(int)y].x) 
-                return current.tiles[(int)x][(int)y].neighbors[3].getID();
-            if(x < (float)current.tiles[(int)x][(int)y].x) 
                 return current.tiles[(int)x][(int)y].neighbors[1].getID();
+            if(x < (float)current.tiles[(int)x][(int)y].x) 
+                return current.tiles[(int)x][(int)y].neighbors[3].getID();
             if(y > (float)current.tiles[(int)x][(int)y].y) 
                 return current.tiles[(int)x][(int)y].neighbors[0].getID();
             if(y < (float)current.tiles[(int)x][(int)y].y) 

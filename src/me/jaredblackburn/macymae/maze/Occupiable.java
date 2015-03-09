@@ -45,5 +45,27 @@ public abstract class Occupiable {
     }
     
     
+    public float giveX(float x) {
+        if(setsX) return occupantX;
+        else return x;
+    }
+    
+    
+    public float giveY(float y) {
+        if(setsY) return occupantY;
+        else return y;
+    }
+    
+    
+    public float getOccupantX() {
+        return occupantX;
+    }
+    
+    
+    public float getOccupantY() {
+        return occupantY;
+    }
+    
+    
     
 }

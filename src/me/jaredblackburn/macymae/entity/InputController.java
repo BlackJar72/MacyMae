@@ -24,9 +24,16 @@ public class InputController implements IController {
     @Override
     public MoveCommand getDirection(Occupiable loc) {
         MoveCommand in = findLatestCommand();
+        // Only consider input if it is for a valid directions
         if(loc.getValidMoves().contains(in)) {
             current = in;
         }
+        // Only allow movement in a direction that is valid, reguardless of 
+        // input
+        if(!loc.getValidMoves().contains(current)) {
+            current = NONE;
+        }
+        //System.out.println(current);
         return current;
     }
     
