@@ -2,6 +2,7 @@ package me.jaredblackburn.macymae.entity;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
@@ -10,6 +11,7 @@ import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Tile;
+import me.jaredblackburn.macymae.ui.Window;
 
 /**
  *
@@ -36,24 +38,27 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     private IController brain;
     
+    private static Entity macy, wisp1, wisp2, wisp3, wisp4;
     private static final Entity[] entities = new Entity[5];
-
-    public Entity(int graphic, int frame, int numFrames, float lastTime, 
-            float SecsPerFrame, int locationID, int lastID,  
-            int sx, int sy, float z, float baseSpeed, float speed, 
+    
+    
+    public Entity(String image, int sx,  int sy, float z,
+            float secsPerFrame, float baseSpeed, 
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
-            IController brain) {
-        this.graphic = graphic;
-        this.frame = frame;
+            IController brain) throws MapException {
+        graphic = Graphic.registry.getID(image);
+        numFrames = Graphic.registry.get(graphic).size();
+        this.frame = 0;
         this.numFrames = numFrames;
         this.lastTime = lastTime;
-        this.secsPerFrame = SecsPerFrame;
+        this.secsPerFrame = secsPerFrame;
         this.locationID = locationID;
         this.lastID = lastID;
         this.x = this.sx = sx;
         this.y = this.sy = sy;
         this.z = z;
-        this.baseSpeed = baseSpeed;
+        speed = this.baseSpeed = baseSpeed;
+        lastID = locationID = MapMatrix.getOccupiableID(x, y, speed);
         this.speed = speed;
         this.heading = heading;
         this.isPlayer = isPlayer;
@@ -62,12 +67,23 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public static void init() {
-        
+    public static void init() throws MapException {
+        macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 30f), 
+                            NONE, true, false, new InputController() );
+        wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 30f,
+                            NONE, false, true, new EnemyAI());
+        wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 30f,
+                            NONE, false, true, new EnemyAI());
+        wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 30f, 
+                            NONE, false, true, new EnemyAI());
+        wisp4  = entities[4] = new Entity("wisp4", 20,  7, -0.14f, 0.04f, 1f / 30f, 
+                            NONE, false, true, new EnemyAI());        
     }
     
     
-    protected void adjustTile() {}
+    protected void adjustTile() {
+        
+    }
     
     
     public final void setLocation(int x, int y) {
@@ -104,17 +120,17 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void draw() {
         Graphic.draw(graphic, frame, 
-                (x + 0.5f) * Graphic.sideLength, 
-                y * Graphic.sideLength, 
-                z * Graphic.sideLength);
+                (x + 1.5f) * Graphic.sideLength, 
+                (MapMatrix.HEIGHT - y + 0.5f) * Graphic.sideLength, 
+                z);
     }
     
     
     public static void drawAll() {
-//        for(Entity entity: entities)
-//        {
-//            entity.draw();
-//        }
+        for(Entity entity: entities)
+        {
+            entity.draw();
+        }
     }
     
     

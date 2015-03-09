@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 
 /**
@@ -67,13 +68,14 @@ public class MapReader {
     }
     
     
-    public static void initMaps() {
+    public static void initMaps() throws MapException {
         MapReader reader = new MapReader();
         try {
             reader.readFiles();
         } catch (IOException ex) {
             Logger.getLogger(MapReader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        MapMatrix.init();
     }
     
 }
