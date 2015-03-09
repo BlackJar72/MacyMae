@@ -46,7 +46,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     public Entity(String image, int sx,  int sy, float z,
             float secsPerFrame, float baseSpeed, 
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
-            IController brain) throws MapException {
+            IController brain) throws MapException, Exception {
         graphic = Graphic.registry.getID(image);
         numFrames = Graphic.registry.get(graphic).size();
         this.frame = 0;
@@ -68,7 +68,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public static void init() throws MapException {
+    public static void init() throws MapException, Exception {
         macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
                             NONE, true, false, InputController.userio);
         wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 30f,
@@ -84,8 +84,6 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     protected void adjustTile() {
         Occupiable loc = MapMatrix.getOccupiableFromID(locationID);
-        x = loc.giveX(x);
-        y = loc.giveY(y);
     }
     
     
@@ -159,7 +157,12 @@ public class Entity implements IMsgSender, IMsgReciever {
             default:
                 return;
         }
-        locationID = MapMatrix.getOccupiableID(x, y, speed * delta);
+        try {
+            locationID = MapMatrix.getOccupiableID(x, y, speed * delta);
+        } catch (Exception ex) {
+            speed = 0f;
+            Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
+        }
         adjustTile();
     }
     
@@ -180,16 +183,19 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void update(MapMatrix maze, float time, float delta) throws MapException {
         Tile currentTile = MapMatrix.getGameTile(x, y);
-        if(isPlayer) System.out.print("On loc " + locationID + ": ");
-        locationID = MapMatrix.getOccupiableID(x, y, speed / delta);
+        try {
+            locationID = MapMatrix.getOccupiableID(x, y, speed / delta);
+        } catch (Exception ex) {
+            speed = 0f;
+            Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
+        }
         heading = brain.getDirection(MapMatrix.getOccupiableFromID(locationID));
-        //if(isPlayer) System.out.println(heading);
         if((time - lastTime) >= secsPerFrame) {
             updateFrame();
             lastTime = time;
         }
        move(delta, maze);
-       if(isPlayer && currentTile.here(x, y, speed * delta * 2)) {
+       if(isPlayer && currentTile.here(x, y, 0.25f)) {
            //System.out.print("TileData in " + TileData.setToInt(locdat));
            currentTile.clear();
            //System.out.println("; TileData out " + TileData.setToInt(currentTile.getData()));

@@ -3,6 +3,10 @@ package me.jaredblackburn.macymae.maze;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import me.jaredblackburn.macymae.entity.MoveCommand;
+import me.jaredblackburn.macymae.graphics.Graphic;
+
+
+// FIXME: Error in first map (maybe data, maybe processing...?)
 
 /**
  * A class to hod the board / maze data.
@@ -101,7 +105,7 @@ public class MapMatrix {
     
     
     public static Tile getGameTile(float x, float y) {
-        return current.tiles[(int)x][(int)y];
+        return current.tiles[(int)(x + 0.5f)][(int)(y + 0.5f)];
     }
     
     
@@ -215,19 +219,20 @@ public class MapMatrix {
     
     
     public static int getOccupiableID(float x, float y, float speed) 
-            throws MapException {
-        if(current.tiles[(int)x][(int)y].here(x, y, speed * 1.1f)) {
-            return current.tiles[(int)x][(int)y].getID();
+            throws Exception {
+        Tile tile = current.tiles[(int)(x + 0.5f)][(int)(y + 0.5f)];
+        if(tile.here(x, y, speed * 1.1f)) {
+            return tile.getID();
         } else {
-            System.out.println(x + "," + y);
-            if(x > (float)current.tiles[(int)x][(int)y].x) 
-                return current.tiles[(int)x][(int)y].neighbors[1].getID();
-            if(x < (float)current.tiles[(int)x][(int)y].x) 
-                return current.tiles[(int)x][(int)y].neighbors[3].getID();
-            if(y > (float)current.tiles[(int)x][(int)y].y) 
-                return current.tiles[(int)x][(int)y].neighbors[0].getID();
-            if(y < (float)current.tiles[(int)x][(int)y].y) 
-                return current.tiles[(int)x][(int)y].neighbors[2].getID();
+            //System.out.println(x + "," + y);
+            if(x > (float)tile.x) 
+                return tile.neighbors[1].getID();
+            if(x < (float)tile.x) 
+                return tile.neighbors[3].getID();
+            if(y > (float)tile.y) 
+                return tile.neighbors[0].getID();
+            if(y < (float)tile.y) 
+                return tile.neighbors[2].getID();
         }
         throw new MapException("Player at non-existant location at " 
                 + x + "," + y + "!");
