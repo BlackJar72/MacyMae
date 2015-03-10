@@ -71,13 +71,13 @@ public class Entity implements IMsgSender, IMsgReciever {
     public static void init() throws MapException, Exception {
         macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
                             NONE, true, false, InputController.userio);
-        wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 30f,
+        wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 20f,
                             NONE, false, true, new EnemyAI());
-        wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 30f,
+        wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 20f,
                             NONE, false, true, new EnemyAI());
-        wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 30f, 
+        wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
                             NONE, false, true, new EnemyAI());
-        wisp4  = entities[4] = new Entity("wisp4", 20,  7, -0.14f, 0.04f, 1f / 30f, 
+        wisp4  = entities[4] = new Entity("wisp4", 20,  7, -0.14f, 0.04f, 1f / 20f, 
                             NONE, false, true, new EnemyAI());        
     }
     

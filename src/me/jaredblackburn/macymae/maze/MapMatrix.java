@@ -182,7 +182,7 @@ public class MapMatrix {
                 }
                 if(tiles[i][j+1].data.contains(TileData.DOGPIN) 
                         && !tiles[i][j].data.contains(TileData.DOGPIN)
-                        && tiles[i][j].validMoves.contains(MoveCommand.UP)) {
+                        && tiles[i][j+1].validMoves.contains(MoveCommand.UP)) {
                     edge = new Connection(tiles[i][j+1], tiles[i][j]);
                     locations.add(edge);
                     edge.setID(locations.indexOf(edge));
