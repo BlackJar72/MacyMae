@@ -39,7 +39,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     private IController brain;
     
-    private static Entity macy, wisp1, wisp2, wisp3, wisp4;
+    public static Entity macy, wisp1, wisp2, wisp3, wisp4;
     private static final Entity[] entities = new Entity[5];
     
     
@@ -72,7 +72,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
                             NONE, true, false, InputController.userio);
         wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 20f,
-                            NONE, false, true, new EnemyAI());
+                            NONE, false, true, new SeekerAI());
         wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 20f,
                             NONE, false, true, new EnemyAI());
         wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
@@ -243,6 +243,12 @@ public class Entity implements IMsgSender, IMsgReciever {
     public void sendMsg(MsgType message, IMsgReciever... recipients) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    public Occupiable getOccupied() {
+        return MapMatrix.getOccupiableFromID(locationID);
+    }
+    
 
     ////////////////////////////////////////////////////////
     /*                  BASIC GETTERS                     */
