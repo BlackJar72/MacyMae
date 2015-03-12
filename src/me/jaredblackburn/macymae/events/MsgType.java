@@ -12,6 +12,8 @@ public enum MsgType {
     STOP,
     CAUGHT,
     POWERED,
+    WNORMAL,
+    WDIE,
     PAUSE,
     UNPAUSE,
     GAMEOVER;

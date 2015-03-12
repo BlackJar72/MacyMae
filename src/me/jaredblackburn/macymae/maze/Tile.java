@@ -12,6 +12,7 @@ import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import static me.jaredblackburn.macymae.events.MsgType.POWERED;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import static me.jaredblackburn.macymae.maze.MapMatrix.HEIGHT;
@@ -78,6 +79,8 @@ public class Tile extends Occupiable implements IMsgSender {
         if(data.contains(POWER)) {  
             Game.player.incrementScore(70);
             Game.game.getDotCenter().subTile(this);
+            sendMsg(POWERED, Entity.wisp1, Entity.wisp2, 
+                    Entity.wisp3, Entity.wisp4);
         }
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");

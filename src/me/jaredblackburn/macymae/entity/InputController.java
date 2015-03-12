@@ -2,7 +2,9 @@ package me.jaredblackburn.macymae.entity;
 
 import java.util.EnumSet;
 import static me.jaredblackburn.macymae.entity.MoveCommand.*;
+import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.Message;
+import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.maze.Occupiable;
 
 /**
@@ -12,6 +14,8 @@ import me.jaredblackburn.macymae.maze.Occupiable;
 public class InputController implements IController {
     public static final InputController userio = new InputController();
     private MoveCommand current = NONE;
+    
+    
     private class Commands {
         public int[] time = new int[]{0, 0, 0, 0, 0};
         public boolean[] updated 
@@ -75,4 +79,8 @@ public class InputController implements IController {
     public void recieveMsg(Message msg) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }  
+    
+
+    @Override
+    public void sendMsg(MsgType message, IMsgReciever... recipients) {}
 }

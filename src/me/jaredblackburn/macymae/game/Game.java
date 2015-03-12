@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae.game;
 
+import java.util.Random;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.events.IMsgReciever;
@@ -27,9 +28,11 @@ public class Game implements IMsgSender, IMsgReciever {
     
     private Timer timer = new Timer();
     private static final float expectedTime = 1f / Window.baseFPS;
-    private float lastTime, thisTime;
+    private float lastTime, thisTime, passedTime;
     private float delta;
     private DotCenter dotCenter = MapMatrix.getCurrentDotCenter();
+    
+    public static final Random random = new Random();
     
     
     private Game(){
@@ -62,9 +65,10 @@ public class Game implements IMsgSender, IMsgReciever {
     
     private void updateDelta() {
         timer.tick();
-        lastTime = thisTime;
-        thisTime = timer.getTime();
-        delta    = (thisTime - lastTime) / expectedTime;
+        lastTime   = thisTime;
+        thisTime   = timer.getTime();
+        passedTime = (thisTime - lastTime);
+        delta      =  passedTime / expectedTime;
     }
     
     
@@ -127,6 +131,11 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public float getDelta() {
         return delta;
+    }
+    
+    
+    public float getPassedTime() {
+        return passedTime;
     }
     
     

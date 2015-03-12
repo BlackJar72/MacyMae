@@ -9,38 +9,39 @@ import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
+import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
-import me.jaredblackburn.macymae.ui.Window;
 
 /**
  *
  * @author Jared Blackburn
  */
 public class Entity implements IMsgSender, IMsgReciever {
-    private int graphic;
+    protected int graphic;
     private int frame;
-    private int numFrames;
     
     private float lastTime;
-    private float secsPerFrame;
+    private final float secsPerFrame;
     
-    private int locationID, lastID;
-    private float x, y;
+    protected boolean scared, dead;
+    
+    protected int locationID, lastID;
+    protected float x, y;
     private final float z;
-    private int sx, sy;
+    protected final int sx, sy;
     
     private float baseSpeed;
     private float speed;
     private MoveCommand heading;
     
-    private boolean isPlayer, isEnemy;
+    private final boolean isPlayer, isEnemy;
     
-    private IController brain;
+    protected IController brain;
     
     public static Entity macy, wisp1, wisp2, wisp3, wisp4;
     private static final Entity[] entities = new Entity[5];
@@ -51,9 +52,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
             IController brain) throws MapException, Exception {
         graphic = Graphic.registry.getID(image);
-        numFrames = Graphic.registry.get(graphic).size();
         this.frame = 0;
-        this.numFrames = numFrames;
         this.lastTime = lastTime;
         this.secsPerFrame = secsPerFrame;
         this.locationID = locationID;
@@ -74,14 +73,14 @@ public class Entity implements IMsgSender, IMsgReciever {
     public static void init() throws MapException, Exception {
         macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
                             NONE, true, false, InputController.userio);
-        wisp1  = entities[1] = new Entity("wisp1", 16,  9, -0.11f, 0.03f, 1f / 20f,
-                            NONE, false, true, new SeekerAI());
-        wisp2  = entities[2] = new Entity("wisp2", 20,  9, -0.12f, 0.04f, 1f / 20f,
-                            NONE, false, true, new EnemyAI());
-        wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
-                            NONE, false, true, new EnemyAI());
-        wisp4  = entities[4] = new Entity("wisp4", 20,  7, -0.14f, 0.04f, 1f / 20f, 
-                            NONE, false, true, new GuardAI());        
+        wisp1  = entities[1] = new Wisp("wisp1", 16,  9, -0.11f, 0.03f, 1f / 20f,
+                            NONE, new SeekerAI(Game.random, 16, 9));
+        wisp2  = entities[2] = new Wisp("wisp2", 20,  9, -0.12f, 0.04f, 1f / 20f,
+                            NONE, new EnemyAI(Game.random, 20, 9));
+        wisp3  = entities[3] = new Wisp("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
+                            NONE, new LurkerAI(Game.random, 16, 7));
+        wisp4  = entities[4] = new Wisp("wisp4", 20,  7, -0.14f, 0.04f, 1f / 20f, 
+                            NONE, new GuardAI(Game.random, 20, 7));        
     }
     
     
@@ -118,7 +117,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void updateFrame() {
         frame++;
-        if(frame >= numFrames) frame = 0;
+        if(frame >= Graphic.registry.get(graphic).size()) frame = 0;
     }
     
     
@@ -214,8 +213,12 @@ public class Entity implements IMsgSender, IMsgReciever {
         }
         for(int i = 1; i < entities.length; i++) {
             if(macy.testCollision(entities[i])) {
-                macy.sendMsg(CAUGHT, Game.player, Entity.macy,
-                        Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+                if(entities[i].scared) {
+                    macy.sendMsg(WDIE, entities[i]);
+                } else if(!entities[i].dead) {
+                    macy.sendMsg(CAUGHT, Game.player, Entity.macy,
+                            Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+                }
             }
         }
     }
@@ -229,7 +232,6 @@ public class Entity implements IMsgSender, IMsgReciever {
 
     @Override
     public void recieveMsg(Message msg) {
-        if(isEnemy) brain.recieveMsg(msg);
         switch(msg.getContent()) {
             //TODO: Message handling hereSTART,
             case START:
@@ -252,6 +254,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             default:            
         }
     }
+    
 
     @Override
     public void sendMsg(MsgType message, IMsgReciever... recipients) {
@@ -273,10 +276,6 @@ public class Entity implements IMsgSender, IMsgReciever {
 
     public int getFrame() {
         return frame;
-    }
-
-    public int getNumFrames() {
-        return numFrames;
     }
 
     public float getLastTime() {

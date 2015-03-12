@@ -55,4 +55,10 @@ wispScared {
     wisp04.png
     wisp05.png
 }
-wispDead wispDead.png
+wispDead {
+    wispDead.png
+    wispDead.png
+    wispDead.png
+    wispDead.png
+    wispDead.png
+}

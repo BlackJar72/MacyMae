@@ -1,6 +1,7 @@
 package me.jaredblackburn.macymae.entity;
 
 import java.util.EnumSet;
+import java.util.Random;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
@@ -11,6 +12,11 @@ import static me.jaredblackburn.macymae.maze.TileData.DOGPIN;
  * @author Jared Blackburn
  */
 public class GuardAI extends EnemyAI {
+
+    
+    public GuardAI(Random random, int sx, int sy) {
+        super(random, sx, sy);
+    }
     
 
     @Override
