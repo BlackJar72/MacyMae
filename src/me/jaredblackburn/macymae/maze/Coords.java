@@ -1,5 +1,8 @@
 package me.jaredblackburn.macymae.maze;
 
+
+// FIXME: This whole file should probably be removed unless another use is found
+
 /**
  * Not used so far; will most likely delete.
  * 

@@ -71,7 +71,12 @@ public class Tile extends Occupiable implements IMsgSender {
     
     
     public void clear() {
-        if(data.contains(FOOD) || data.contains(POWER)) {            
+        if(data.contains(FOOD)) {  
+            Game.player.incrementScore(15);
+            Game.game.getDotCenter().subTile(this);
+        }        
+        if(data.contains(POWER)) {  
+            Game.player.incrementScore(70);
             Game.game.getDotCenter().subTile(this);
         }
         data.removeAll(cont);

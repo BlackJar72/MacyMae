@@ -6,7 +6,10 @@ import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
+import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
+import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
@@ -196,9 +199,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         }
        move(delta, maze);
        if(isPlayer && currentTile.here(x, y, 0.25f)) {
-           //System.out.print("TileData in " + TileData.setToInt(locdat));
            currentTile.clear();
-           //System.out.println("; TileData out " + TileData.setToInt(currentTile.getData()));
        }
     }
     
@@ -211,6 +212,18 @@ public class Entity implements IMsgSender, IMsgReciever {
                 Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        for(int i = 1; i < entities.length; i++) {
+            if(macy.testCollision(entities[i])) {
+                macy.sendMsg(CAUGHT, Game.player, Entity.macy,
+                        Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+            }
+        }
+    }
+    
+    
+    public void resetCoords() {
+        x = (int)sx;
+        y = (int)sy;
     }
     
 
@@ -228,6 +241,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             case STOP:
                 break;
             case CAUGHT:
+                resetCoords();
                 break;
             case POWERED:
                 break;
@@ -241,7 +255,7 @@ public class Entity implements IMsgSender, IMsgReciever {
 
     @Override
     public void sendMsg(MsgType message, IMsgReciever... recipients) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MsgQueue.add(new Message(message, this, recipients));
     }
     
     

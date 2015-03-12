@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package me.jaredblackburn.macymae.entity;
 
 import java.util.EnumSet;
@@ -14,7 +8,7 @@ import static me.jaredblackburn.macymae.maze.TileData.DOGPIN;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public class GuardAI extends EnemyAI {
     

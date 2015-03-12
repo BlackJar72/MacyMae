@@ -22,6 +22,7 @@ import org.lwjgl.util.Timer;
  */
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
+    public static Player player; // should do this better
     private boolean running = true, paused = false;   
     
     private Timer timer = new Timer();
@@ -31,7 +32,9 @@ public class Game implements IMsgSender, IMsgReciever {
     private DotCenter dotCenter = MapMatrix.getCurrentDotCenter();
     
     
-    private Game(){};
+    private Game(){
+        player = new Player();
+    };
     
     
     public static void start(Window window) {
@@ -53,6 +56,7 @@ public class Game implements IMsgSender, IMsgReciever {
             Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
             MsgQueue.deliver();
         }
+        System.out.println("Final score: " + player.getScore());
     }
     
     
@@ -108,6 +112,7 @@ public class Game implements IMsgSender, IMsgReciever {
             case UNPAUSE:
                 break;
             case GAMEOVER:
+                running = false; // Sand-in, for now
                 break;
             default:
                 throw new AssertionError(message.name());
