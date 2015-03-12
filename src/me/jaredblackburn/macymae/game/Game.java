@@ -8,6 +8,8 @@ import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import me.jaredblackburn.macymae.maze.MapMatrix;
+import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
+import me.jaredblackburn.macymae.maze.Tile;
 import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
@@ -26,6 +28,7 @@ public class Game implements IMsgSender, IMsgReciever {
     private static final float expectedTime = 1f / Window.baseFPS;
     private float lastTime, thisTime;
     private float delta;
+    private DotCenter dotCenter = MapMatrix.getCurrentDotCenter();
     
     
     private Game(){};
@@ -48,6 +51,7 @@ public class Game implements IMsgSender, IMsgReciever {
             updateDelta();
             UserInput.in.update();
             Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
+            MsgQueue.deliver();
         }
     }
     
@@ -84,7 +88,30 @@ public class Game implements IMsgSender, IMsgReciever {
 
     @Override
     public void recieveMsg(Message msg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MsgType message = msg.getContent();
+        switch(message) {
+            case START:
+                break;
+            case CLEARED:
+                running = false; // Sand-in, for now
+                break;
+            case NEXT:
+                break;
+            case STOP:
+                break;
+            case CAUGHT:
+                break;
+            case POWERED:
+                break;
+            case PAUSE:
+                break;
+            case UNPAUSE:
+                break;
+            case GAMEOVER:
+                break;
+            default:
+                throw new AssertionError(message.name());
+        }
     }
     
     
@@ -110,6 +137,14 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public float getTime() {
         return timer.getTime();
+    }
+    
+    public DotCenter getDotCenter() {
+        return dotCenter;
+    }    
+    
+    public Tile findCenter() {
+        return dotCenter.getTile();
     }
     
 }

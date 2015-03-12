@@ -33,7 +33,6 @@ public class InputController implements IController {
         if(!loc.getValidMoves().contains(current)) {
             current = NONE;
         }
-        //System.out.println(current);
         return current;
     }
     

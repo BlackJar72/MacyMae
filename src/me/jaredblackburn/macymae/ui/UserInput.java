@@ -41,19 +41,15 @@ public class UserInput {
        steering.clear();
        if(Keyboard.isKeyDown(KEY_W) || Keyboard.isKeyDown(KEY_UP)) {
            steering.add(UP);
-           //System.out.println("up");
        }
        if(Keyboard.isKeyDown(KEY_D) || Keyboard.isKeyDown(KEY_RIGHT)) {
            steering.add(RIGHT);
-           //System.out.println("right");
        }
        if(Keyboard.isKeyDown(KEY_S) || Keyboard.isKeyDown(KEY_DOWN)) {
-           steering.add(DOWN);
-           //System.out.println("down");
+           steering.add(DOWN);;
        }
        if(Keyboard.isKeyDown(KEY_A) || Keyboard.isKeyDown(KEY_LEFT)) {
            steering.add(LEFT);
-           //System.out.println("left");
        }
        InputController.userio.update(steering);
        // TODO: Keys for non-steering (e.g., men) purposes

@@ -6,6 +6,13 @@ package me.jaredblackburn.macymae.maze;
  */
 
 import java.util.EnumSet;
+import me.jaredblackburn.macymae.entity.Entity;
+import me.jaredblackburn.macymae.events.IMsgReciever;
+import me.jaredblackburn.macymae.events.IMsgSender;
+import me.jaredblackburn.macymae.events.Message;
+import me.jaredblackburn.macymae.events.MsgQueue;
+import me.jaredblackburn.macymae.events.MsgType;
+import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import static me.jaredblackburn.macymae.maze.MapMatrix.HEIGHT;
 import static me.jaredblackburn.macymae.maze.TileData.*;
@@ -16,7 +23,7 @@ import static me.jaredblackburn.macymae.ui.Window.YSIZE;
  *
  * @author jared
  */
-public class Tile extends Occupiable {
+public class Tile extends Occupiable implements IMsgSender {
     static final EnumSet<TileData> dirs = EnumSet.of(UP, LEFT, DOWN, RIGHT);
     static final EnumSet<TileData> cont = EnumSet.of(FOOD, POWER, BONUS);
     
@@ -64,8 +71,15 @@ public class Tile extends Occupiable {
     
     
     public void clear() {
+        if(data.contains(FOOD) || data.contains(POWER)) {            
+            Game.game.getDotCenter().subTile(this);
+        }
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");
+        if(Game.game.getDotCenter().isEmpty()) {            
+        sendMsg(MsgType.CLEARED, Game.game, Entity.macy,
+            Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+        }
     }
     
     
@@ -118,20 +132,16 @@ public class Tile extends Occupiable {
 
     public int getY() {
         return y;
-    }  
-    
-    
-    public boolean canPlayerEnter() {
-        return !(data.contains(WALL) || data.contains(DOGPIN));
-    }
-    
-    
-    public boolean canWispEnter(boolean inDogpin) {
-        return (!data.contains(WALL) && (data.contains(DOGPIN) == inDogpin));
-    }
+    } 
     
     
     public void addConnection(Connection con, int dir) {
         neighbors[dir] = con;
+    }
+    
+
+    @Override
+    public void sendMsg(MsgType message, IMsgReciever... recipients) {
+        MsgQueue.add(new Message(message, this, recipients));
     }
 }

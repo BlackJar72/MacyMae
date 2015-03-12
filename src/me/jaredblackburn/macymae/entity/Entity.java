@@ -78,7 +78,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         wisp3  = entities[3] = new Entity("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
                             NONE, false, true, new EnemyAI());
         wisp4  = entities[4] = new Entity("wisp4", 20,  7, -0.14f, 0.04f, 1f / 20f, 
-                            NONE, false, true, new EnemyAI());        
+                            NONE, false, true, new GuardAI());        
     }
     
     

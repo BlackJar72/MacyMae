@@ -29,8 +29,8 @@ public class MapMatrix {
     // so this may change;
     private static MapMatrix current;
     
-    public class DotCenter {
-        int sumX = 0, sumY = 0, n = 0;
+    public final class DotCenter {
+        int sumX = 0, sumY = 0, n = 0, maxn = 0;
         public boolean subTile(Tile tile) {
             sumX -= tile.getX();
             sumY -= tile.getY();
@@ -40,12 +40,14 @@ public class MapMatrix {
         public void addTile(Tile tile) {
             sumX += tile.getX();
             sumY += tile.getY();
+            maxn++;
             n++;
         }
         public DotCenter copy() {
             DotCenter out = new DotCenter();
             out.sumX = this.sumX;
             out.sumY = this.sumY;
+            out.maxn = this.maxn;
             out.n    = this.n;
             return out;
         }
@@ -54,6 +56,12 @@ public class MapMatrix {
         }
         public int getY() {
             return sumY / n;
+        }
+        public int getN() {
+            return n;
+        }
+        public int getMax() {
+            return maxn;
         }
         public Tile getTile() {
             return current.getMapTile(sumX / n, sumY / n);
@@ -143,6 +151,11 @@ public class MapMatrix {
     // in game by such systems as the GuardAI class.
     public DotCenter getUsuableDotCenter() {
         return initialDotCenter.copy();
+    }
+    
+    
+    public static DotCenter getCurrentDotCenter() {
+        return current.getUsuableDotCenter();
     }
     
     

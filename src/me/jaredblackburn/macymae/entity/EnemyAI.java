@@ -6,6 +6,7 @@ import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
+import static me.jaredblackburn.macymae.maze.TileData.DOGPIN;
 
 /**
  * A super-class for wisp AIs, also used as a stand-in and as a kind of random
@@ -33,13 +34,16 @@ public class EnemyAI implements IController {
         if(possible.isEmpty()) {
             current = reverse;
         } else {
-            possibilities = new MoveCommand[possible.size()];
-            possibilities = possible.toArray(possibilities);
-            for(int i = 0; i < possibilities.length; i++) {
-                System.out.print(possibilities[i] + " ");
+            if(((Tile)loc).getData().contains(DOGPIN)) {
+                current = seekCoords(possible, 
+                    ((Tile)loc).getX(), ((Tile)loc).getY(),
+                    17, 5);
+            } else {
+                possibilities = new MoveCommand[possible.size()];
+                possibilities = possible.toArray(possibilities);
+                die = random.nextInt(possibilities.length);
+                current = possibilities[die];
             }
-            die = random.nextInt(possibilities.length);
-            current = possibilities[die];
         }
         return current;
     }
