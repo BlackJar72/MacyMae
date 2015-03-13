@@ -250,28 +250,23 @@ public class EnemyAI implements IController {
         last = (Tile)loc;
         int x = last.getX();
         int y = last.getY();
-        System.out.println(x + "," + y);
         EnumSet<MoveCommand> possible = loc.getValidMoves().clone();
         reverse = current.getReverse();
         if((x > 0) 
                 && (MapMatrix.getGameTile(x-1, y).getData().contains(DOGPIN))) {
             possible.add(LEFT);
-            System.out.println("Adding LEFT");
         }
         if((x < (MapMatrix.WIDTH - 1)) 
                 && (MapMatrix.getGameTile(x+1, y).getData().contains(DOGPIN))) {
             possible.add(RIGHT);
-            System.out.println("Adding RIGHT");
         }
         if((y > 0) 
                 && (MapMatrix.getGameTile(x, y-1).getData().contains(DOGPIN))) {
             possible.add(UP);
-            System.out.println("Adding DOWN");
         }
         if((y < (MapMatrix.HEIGHT - 1)) 
                 && (MapMatrix.getGameTile(x, y+1).getData().contains(DOGPIN))) {
             possible.add(DOWN);
-            System.out.println("Adding UP");
         }
         possible.remove(reverse);        
         if(possible.isEmpty()) {

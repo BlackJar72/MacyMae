@@ -77,10 +77,10 @@ public class Tile extends Occupiable implements IMsgSender {
             Game.game.getDotCenter().subTile(this);
         }        
         if(data.contains(POWER)) {  
-            Game.player.incrementScore(70);
+            Game.player.incrementScore(80);
             Game.game.getDotCenter().subTile(this);
             sendMsg(POWERED, Entity.wisp1, Entity.wisp2, 
-                    Entity.wisp3, Entity.wisp4);
+                    Entity.wisp3, Entity.wisp4, Game.player);
         }
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");

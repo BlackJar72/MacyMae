@@ -21,13 +21,19 @@ public class GuardAI extends EnemyAI {
 
     @Override
     public MoveCommand getDirection(Occupiable loc) {
+        if(!(loc instanceof Tile) || (loc == last)) {
+            return current;
+        }
+        if(scared) {
+            return flee(loc);
+        }
+        if(dead) {
+            return goHome(loc);
+        }
         if((Game.game.getDotCenter().isEmpty()) || 
                 (random.nextInt(Game.game.getDotCenter().getMax()) <
                 Game.game.getDotCenter().getN())) {
-            return super.getDirection(loc);
-        }
-        if(!(loc instanceof Tile) || (loc == last)) {
-            return current;
+            return getRandomDirection(loc);
         }
         last = (Tile)loc;
         EnumSet<MoveCommand> possible = loc.getValidMoves().clone();

@@ -214,7 +214,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         for(int i = 1; i < entities.length; i++) {
             if(macy.testCollision(entities[i])) {
                 if(entities[i].scared) {
-                    macy.sendMsg(WDIE, entities[i]);
+                    macy.sendMsg(WDIE, Game.player, entities[i]);
                 } else if(!entities[i].dead) {
                     macy.sendMsg(CAUGHT, Game.player, Entity.macy,
                             Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);

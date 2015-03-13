@@ -15,11 +15,13 @@ import static me.jaredblackburn.macymae.events.MsgType.GAMEOVER;
 public class Player implements IMsgReciever, IMsgSender {
     private int score;
     private int lives;
+    private int wispCount;
     
     
     public Player() {
         score = 0;
         lives = 3;
+        wispCount = 0;
     }
 
     @Override
@@ -41,8 +43,10 @@ public class Player implements IMsgReciever, IMsgSender {
                 }
                 break;
             case POWERED:
+                wispCount = 0;
                 break;
-            case PAUSE:
+            case WDIE:
+                incrementScore(100 << wispCount++);
                 break;
             case UNPAUSE:
                 break;
