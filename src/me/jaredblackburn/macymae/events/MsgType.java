@@ -14,8 +14,8 @@ public enum MsgType {
     POWERED,
     WNORMAL,
     WDIE,
-    PAUSE,
-    UNPAUSE,
+    TMPPAUSE,
+    TOGGLEPAUSE,
     GAMEOVER;
     
 }

@@ -2,12 +2,15 @@ package me.jaredblackburn.macymae.game;
 
 import java.util.Random;
 import me.jaredblackburn.macymae.entity.Entity;
+import static me.jaredblackburn.macymae.entity.Entity.macy;
 import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
+import static me.jaredblackburn.macymae.events.MsgType.TMPPAUSE;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
 import me.jaredblackburn.macymae.maze.Tile;
@@ -24,7 +27,10 @@ import org.lwjgl.util.Timer;
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
     public static Player player; // should do this better
-    private boolean running = true, paused = false;   
+    private boolean running = true, paused = false;  
+    
+    private boolean tmpPause = false;
+    private float tmpPauseTime = 0f;
     
     private Timer timer = new Timer();
     private static final float expectedTime = 1f / Window.baseFPS;
@@ -56,8 +62,12 @@ public class Game implements IMsgSender, IMsgReciever {
             }
             updateDelta();
             UserInput.in.update();
-            Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
-            MsgQueue.deliver();
+            if(tmpPause) {
+                doTmpPause();
+            } else {
+                Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
+                MsgQueue.deliver();
+            }
         }
         System.out.println("Final score: " + player.getScore());
     }
@@ -84,6 +94,21 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
+    private void startTmpPause(float duration) {
+        tmpPause = true;
+        tmpPauseTime = duration;
+    }
+    
+    
+    private void doTmpPause() {
+        tmpPauseTime -= passedTime;
+        if(tmpPauseTime <= 0f) {
+            tmpPauseTime = 0f;
+            tmpPause = false;
+        }
+    }
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     /*                            MESSAGING                                   */
     ////////////////////////////////////////////////////////////////////////////
@@ -107,13 +132,18 @@ public class Game implements IMsgSender, IMsgReciever {
                 break;
             case STOP:
                 break;
-            case CAUGHT:
+            case CAUGHT:                
+                startTmpPause(0.5f);
+                macy.sendMsg(CAUGHT,  Entity.macy,
+                        Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+                sendMsg(TMPPAUSE, this);
                 break;
             case POWERED:
                 break;
-            case PAUSE:
+            case TMPPAUSE:
+                startTmpPause(0.5f);
                 break;
-            case UNPAUSE:
+            case TOGGLEPAUSE:
                 break;
             case GAMEOVER:
                 running = false; // Sand-in, for now
@@ -150,7 +180,7 @@ public class Game implements IMsgSender, IMsgReciever {
     
     
     public float getTime() {
-        return timer.getTime();
+        return thisTime;
     }
     
     public DotCenter getDotCenter() {

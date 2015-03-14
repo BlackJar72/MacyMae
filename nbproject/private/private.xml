@@ -5,6 +5,9 @@
         <group>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Player.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Level.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Difficulty.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/GuardAI.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/LurkerAI.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/MacyMae.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Entity.java</file>
         </group>

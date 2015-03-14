@@ -127,10 +127,6 @@ public class EnemyAI implements IController {
                     scared = false;
                     dead   = true;
                 break;
-            case PAUSE:
-                break;
-            case UNPAUSE:
-                break;
             case GAMEOVER:
                 break;
             default:        

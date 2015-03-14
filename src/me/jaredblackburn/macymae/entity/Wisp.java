@@ -20,6 +20,8 @@ public class Wisp extends Entity {
             = Graphic.registry.getID("wispScared");
     private static final int DEAD_GRAPHIC
             = Graphic.registry.getID("wispDead");
+    private int tmpImg;
+    private float lastFlash;
     
 
     public Wisp(String image, int sx, int sy, float z, float secsPerFrame, 
@@ -31,6 +33,7 @@ public class Wisp extends Entity {
         dead   = false;
         scaredTime = 0;
         GRAPHIC = Graphic.registry.getID(image);
+        tmpImg  = GRAPHIC;
     }
     
     
@@ -41,14 +44,14 @@ public class Wisp extends Entity {
             if(MapMatrix.getGameTile(sx, sy) == currentTile) {
                 dead = false;
                 sendMsg(WNORMAL, this, brain);
-                graphic = GRAPHIC;;
+                tmpImg = graphic = GRAPHIC;
             }
         } else if(scared) {
             scaredTime -= Game.game.getPassedTime();
-            if(scaredTime <= 0) {
+            if(scaredTime <= -5) {
                 scared = false;
                 sendMsg(WNORMAL, this, brain);
-                graphic = GRAPHIC;
+                tmpImg = graphic = GRAPHIC;
                 scaredTime = 0f;
             }
         }
@@ -73,6 +76,7 @@ public class Wisp extends Entity {
                     scared = true;
                     scaredTime = 10f;
                     graphic = SCARED_GRAPHIC;
+                    lastFlash = Game.game.getTime();
                 }
                 break;
             case WDIE:
@@ -81,6 +85,20 @@ public class Wisp extends Entity {
             default:                
                 super.recieveMsg(msg);
         }
+    }
+    
+    
+    @Override
+    public void draw() {
+        if(scaredTime < 0) {
+            if((Game.game.getTime() - lastFlash) >= 0.2f) {
+                int tmp = graphic;
+                graphic = tmpImg;
+                tmpImg  = tmp;
+                lastFlash = Game.game.getTime();
+            }
+        } 
+        super.draw();
     }
     
     

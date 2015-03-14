@@ -1,12 +1,6 @@
 package me.jaredblackburn.macymae.entity;
-import static java.lang.Math.random;
-import java.util.EnumSet;
 import java.util.Random;
-import static me.jaredblackburn.macymae.entity.MoveCommand.*;
-import me.jaredblackburn.macymae.events.Message;
-import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
-import static me.jaredblackburn.macymae.maze.TileData.DOGPIN;
 import me.jaredblackburn.macymae.maze.Occupiable;
 
 /**

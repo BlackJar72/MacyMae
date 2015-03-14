@@ -23,7 +23,7 @@ import me.jaredblackburn.macymae.maze.Tile;
  */
 public class Entity implements IMsgSender, IMsgReciever {
     protected int graphic;
-    private int frame;
+    protected int frame;
     
     private float lastTime;
     private final float secsPerFrame;
@@ -216,8 +216,8 @@ public class Entity implements IMsgSender, IMsgReciever {
                 if(entities[i].scared) {
                     macy.sendMsg(WDIE, Game.player, entities[i]);
                 } else if(!entities[i].dead) {
-                    macy.sendMsg(CAUGHT, Game.player, Entity.macy,
-                            Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+                    macy.sendMsg(CAUGHT, Game.game, Game.player);
+                    break;
                 }
             }
         }
@@ -246,8 +246,6 @@ public class Entity implements IMsgSender, IMsgReciever {
                 resetCoords();
                 break;
             case POWERED:
-                break;
-            case PAUSE:
                 break;
             case GAMEOVER:
                 break;
