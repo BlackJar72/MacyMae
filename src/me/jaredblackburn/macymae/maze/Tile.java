@@ -66,8 +66,33 @@ public class Tile extends Occupiable implements IMsgSender {
     }
     
     
+    private Tile(Tile ori) {
+        data = EnumSet.copyOf(ori.data);
+        x = ori.x;
+        y = ori.y;
+        xpos = ori.xpos;
+        ypos = ori.ypos;
+        zpos = ori.zpos;
+        graphic = ori.graphic;
+        id = ori.id;
+        setsX = ori.setsX;
+        setsY = ori.setsY;
+        occupantX = ori.occupantX;
+        occupantY = ori.occupantY;
+        id = ori.id;
+        validMoves = EnumSet.copyOf(ori.validMoves);
+        neighbors = new Occupiable[4];
+        System.arraycopy(ori.neighbors, 0, neighbors, 0, 4);
+    }
+    
+    
     public void draw() {
         Graphic.draw(graphic, 0, xpos, ypos, zpos);
+    }
+    
+
+    protected Tile copy() {
+        return new Tile(this);
     }
     
     

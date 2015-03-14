@@ -137,30 +137,30 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public void move(float delta, MapMatrix maze) throws MapException {
+    public void move(float distance, MapMatrix maze) throws MapException {
         switch(heading) {
             // TODO: Check allowed direction per tile...? Maybe...?
             case UP:
-                moveY(-speed * delta);
+                moveY(-distance);
                 x = MapMatrix.getOccupiableFromID(locationID).getOccupantX();
                 break;
             case DOWN:
-                moveY( speed * delta);
+                moveY( distance);
                 x = MapMatrix.getOccupiableFromID(locationID).getOccupantX();
                 break;
             case LEFT:
-                moveX(-speed * delta);
+                moveX(-distance);
                 y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
                 break;
             case RIGHT:
-                moveX( speed * delta);
+                moveX( distance);
                 y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
                 break;
             default:
                 return;
         }
         try {
-            locationID = MapMatrix.getOccupiableID(x, y, speed * delta);
+            locationID = MapMatrix.getOccupiableID(x, y, distance);
         } catch (Exception ex) {
             speed = 0f;
             Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,9 +184,15 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public void update(MapMatrix maze, float time, float delta) throws MapException {
+        float distance = speed * delta;
+        // Failsafe to keep from skipping to another tile if the system causes
+        // lag.  Ys this to strick -- 0.499f would *probably* do?
+        if(distance > 0.25f) {
+            distance = 0.25f;
+        }
         Tile currentTile = MapMatrix.getGameTile(x, y);
         try {
-            locationID = MapMatrix.getOccupiableID(x, y, speed / delta);
+            locationID = MapMatrix.getOccupiableID(x, y, distance);
         } catch (Exception ex) {
             speed = 0f;
             Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,7 +202,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             updateFrame();
             lastTime = time;
         }
-       move(delta, maze);
+       move(distance, maze);
        if(isPlayer && currentTile.here(x, y, 0.25f)) {
            currentTile.clear();
        }

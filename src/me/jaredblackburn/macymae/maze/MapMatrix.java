@@ -2,6 +2,8 @@ package me.jaredblackburn.macymae.maze;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.MoveCommand;
 import me.jaredblackburn.macymae.graphics.Graphic;
 
@@ -91,6 +93,24 @@ public class MapMatrix {
     }
     
     
+    private MapMatrix(MapMatrix ori) {
+        initialDotCenter = ori.initialDotCenter.copy();
+        locations = new ArrayList<>(ori.locations.size());
+        for(int i = 0; i < WIDTH; i++)
+            for(int j = 0; j < HEIGHT; j++) {
+                tiles[i][j] = ori.tiles[i][j].copy();
+                locations.add(tiles[i][j]);
+                //System.out.println("Added " + tiles[i][j] + ", number is " + locations.size());
+                tiles[i][j].setID(locations.indexOf(tiles[i][j]));
+            }
+        try {
+            this.initConnections();
+        } catch (MapException ex) {
+            Logger.getLogger(MapMatrix.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     public static void init() throws MapException {
         for(MapMatrix maze : mazeRegistry) {
             maze.initConnections();
@@ -133,7 +153,7 @@ public class MapMatrix {
     
     
     public static MapMatrix getMaze(int level) {
-        return mazeRegistry.get((level / REPEATS) % mazeRegistry.size());
+        return mazeRegistry.get((level / REPEATS) % mazeRegistry.size()).copy();
     }
     
     
@@ -255,4 +275,12 @@ public class MapMatrix {
     public static Occupiable getOccupiableFromID(int id) {
         return current.locations.get(id);
     }
+
+    
+    protected MapMatrix copy()  {
+        return new MapMatrix(this); 
+    }
+    
+    
+    
 }

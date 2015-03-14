@@ -3,7 +3,6 @@ package me.jaredblackburn.macymae.game;
 import java.util.Random;
 import me.jaredblackburn.macymae.entity.Entity;
 import static me.jaredblackburn.macymae.entity.Entity.macy;
-import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
@@ -29,10 +28,13 @@ public class Game implements IMsgSender, IMsgReciever {
     public static Player player; // should do this better
     private boolean running = true, paused = false;  
     
+    private int level;
+    private Difficulty difficulty;
+    
     private boolean tmpPause = false;
     private float tmpPauseTime = 0f;
     
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
     private static final float expectedTime = 1f / Window.baseFPS;
     private float lastTime, thisTime, passedTime;
     private float delta;
