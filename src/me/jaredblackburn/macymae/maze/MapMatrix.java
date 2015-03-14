@@ -99,14 +99,9 @@ public class MapMatrix {
         for(int i = 0; i < WIDTH; i++)
             for(int j = 0; j < HEIGHT; j++) {
                 tiles[i][j] = ori.tiles[i][j].copy();
-                locations.add(tiles[i][j]);
-                //System.out.println("Added " + tiles[i][j] + ", number is " + locations.size());
-                tiles[i][j].setID(locations.indexOf(tiles[i][j]));
             }
-        try {
-            this.initConnections();
-        } catch (MapException ex) {
-            Logger.getLogger(MapMatrix.class.getName()).log(Level.SEVERE, null, ex);
+        for(Occupiable loc : ori.locations) {
+            locations.add(loc);
         }
     }
     

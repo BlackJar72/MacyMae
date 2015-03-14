@@ -81,6 +81,7 @@ public class Game implements IMsgSender, IMsgReciever {
         thisTime   = timer.getTime();
         passedTime = (thisTime - lastTime);
         delta      =  passedTime / expectedTime;
+        //System.out.println("FPS = " + Window.baseFPS / delta);
     }
     
     
