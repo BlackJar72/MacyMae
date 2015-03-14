@@ -65,6 +65,8 @@ public abstract class Occupiable {
     public float getOccupantY() {
         return occupantY;
     }
+
+    public abstract Occupiable copy();
     
     
     

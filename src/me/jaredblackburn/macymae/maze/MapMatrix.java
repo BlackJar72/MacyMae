@@ -101,7 +101,7 @@ public class MapMatrix {
                 tiles[i][j] = ori.tiles[i][j].copy();
             }
         for(Occupiable loc : ori.locations) {
-            locations.add(loc);
+            locations.add(loc.copy());
         }
     }
     

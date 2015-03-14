@@ -91,7 +91,8 @@ public class Tile extends Occupiable implements IMsgSender {
     }
     
 
-    protected Tile copy() {
+    @Override
+    public Tile copy() {
         return new Tile(this);
     }
     

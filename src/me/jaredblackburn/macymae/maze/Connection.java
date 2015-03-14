@@ -42,4 +42,23 @@ public class Connection extends Occupiable {
             }            
         }
     }
+    
+    
+    private Connection(Connection ori) {
+        id = ori.id;
+        setsX = ori.setsX;
+        setsY = ori.setsY;
+        occupantX = ori.occupantX;
+        occupantY = ori.occupantY;
+        id = ori.id;
+        validMoves = EnumSet.copyOf(ori.validMoves);
+        neighbors = new Occupiable[4];
+        System.arraycopy(ori.neighbors, 0, neighbors, 0, 4);        
+    }
+    
+    
+    @Override
+    public Connection copy() {
+        return new Connection(this);
+    }
 }
