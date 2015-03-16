@@ -118,6 +118,7 @@ public class Wisp extends Entity {
         speed = baseSpeed * dif.wispVFactor;
         SCARED_START_TIME = dif.powerTime / dif.playerVFactor;
         SCARED_STOP_TIME  = dif.coolDown / dif.playerVFactor;
+        brain.reset();
     }
     
     

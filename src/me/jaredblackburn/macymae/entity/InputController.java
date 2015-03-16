@@ -14,6 +14,11 @@ import me.jaredblackburn.macymae.maze.Occupiable;
 public class InputController implements IController {
     public static final InputController userio = new InputController();
     private MoveCommand current = NONE;
+
+    @Override
+    public void reset() {
+        current = NONE;
+    }
     
     
     private class Commands {

@@ -34,8 +34,6 @@ public class Game implements IMsgSender, IMsgReciever {
     private boolean tmpPause = false;
     private float tmpPauseTime = 0f;
     
-    private boolean betweenLevels;
-    
     private final Timer timer = new Timer();
     private static final float expectedTime = 1f / Window.baseFPS;
     private float lastTime, thisTime, passedTime;
@@ -51,8 +49,7 @@ public class Game implements IMsgSender, IMsgReciever {
         difficulty = Difficulty.get(level);
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
-        dotCenter = MapMatrix.getCurrentDotCenter();        
-        System.out.println("Level " + level + ", difficulty " + difficulty);
+        dotCenter = MapMatrix.getCurrentDotCenter(); 
     };
     
     
@@ -126,7 +123,7 @@ public class Game implements IMsgSender, IMsgReciever {
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
-        System.out.println("Level " + level + ", difficulty " + difficulty);
+        System.out.println("Level " + level);
     }        
     
     
@@ -153,9 +150,8 @@ public class Game implements IMsgSender, IMsgReciever {
                 //running = false; // Sand-in, for now
                 break;
             case NEXT:
+                Entity.resetAll();
                 newBoard();
-                sendMsg(NEXT, Entity.macy,
-                        Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
                 sendMsg(TMPPAUSE, this);
                 break;
             case STOP:

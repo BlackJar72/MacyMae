@@ -12,5 +12,6 @@ import me.jaredblackburn.macymae.maze.Occupiable;
 public interface IController extends IMsgReciever, IMsgSender {
         
     public MoveCommand getDirection(Occupiable loc);
+    public void reset();
     
 }

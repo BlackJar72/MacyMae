@@ -287,5 +287,10 @@ public class EnemyAI implements IController {
     public void sendMsg(MsgType message, IMsgReciever... recipients) {
         MsgQueue.add(new Message(message, this, recipients));
     }
+
+    @Override
+    public void reset() {
+        current = reverse = NONE;
+    }
     
 }

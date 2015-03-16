@@ -245,6 +245,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         y = (int)sy;
         dead   = false;
         scared = false;
+        brain.reset();
     }
     
     
