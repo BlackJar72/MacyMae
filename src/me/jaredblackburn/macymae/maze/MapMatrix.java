@@ -33,6 +33,7 @@ public class MapMatrix {
     
     public final class DotCenter {
         int sumX = 0, sumY = 0, n = 0, maxn = 0;
+        boolean cleared = false;
         public boolean subTile(Tile tile) {
             sumX -= tile.getX();
             sumY -= tile.getY();
@@ -70,6 +71,12 @@ public class MapMatrix {
         }
         public boolean isEmpty() {
             return (n < 1);
+        }
+        public boolean wasCleared() {
+            return cleared;
+        }
+        public void setCleared(boolean done) {
+            cleared = done;
         }
     }
     

@@ -10,6 +10,7 @@ import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
+import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
@@ -35,8 +36,8 @@ public class Entity implements IMsgSender, IMsgReciever {
     private final float z;
     protected final int sx, sy;
     
-    private float baseSpeed;
-    private float speed;
+    protected float baseSpeed;
+    protected float speed;
     private MoveCommand heading;
     
     private final boolean isPlayer, isEnemy;
@@ -239,7 +240,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     }
     
     
-    public void reset() {
+    protected void reset() {
         x = (int)sx;
         y = (int)sy;
         dead   = false;
@@ -285,6 +286,18 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public Occupiable getOccupied() {
         return MapMatrix.getOccupiableFromID(locationID);
+    }
+    
+    
+    protected void adjustDifficulty(Difficulty dif) {
+        speed = baseSpeed * dif.playerVFactor;
+    }
+    
+    
+    public static void setDifficulty(Difficulty dif) {
+        for(Entity entity : entities) {
+            entity.adjustDifficulty(dif);
+        }
     }
     
 
@@ -358,8 +371,5 @@ public class Entity implements IMsgSender, IMsgReciever {
     public static Entity[] getEntities() {
         return entities;
     }
-    
-    
-    
     
 }

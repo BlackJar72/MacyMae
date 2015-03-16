@@ -34,17 +34,25 @@ public class Game implements IMsgSender, IMsgReciever {
     private boolean tmpPause = false;
     private float tmpPauseTime = 0f;
     
+    private boolean betweenLevels;
+    
     private final Timer timer = new Timer();
     private static final float expectedTime = 1f / Window.baseFPS;
     private float lastTime, thisTime, passedTime;
     private float delta;
-    private DotCenter dotCenter = MapMatrix.getCurrentDotCenter();
+    private DotCenter dotCenter;
     
     public static final Random random = new Random();
     
     
     private Game(){
         player = new Player();
+        level  = 0;
+        difficulty = Difficulty.get(level);
+        Entity.setDifficulty(difficulty);
+        MapMatrix.setCurrent(level);
+        dotCenter = MapMatrix.getCurrentDotCenter();        
+        System.out.println("Level " + level + ", difficulty " + difficulty);
     };
     
     
@@ -115,8 +123,10 @@ public class Game implements IMsgSender, IMsgReciever {
     private void newBoard() {
         level++;
         difficulty = Difficulty.get(level);
+        Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
+        System.out.println("Level " + level + ", difficulty " + difficulty);
     }        
     
     
@@ -133,6 +143,7 @@ public class Game implements IMsgSender, IMsgReciever {
     @Override
     public void recieveMsg(Message msg) {
         MsgType message = msg.getContent();
+        //System.out.println(message + " recieved from " + msg.getSender() + " at " + getTime());
         switch(message) {
             case START:
                 break;

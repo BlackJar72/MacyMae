@@ -3,6 +3,7 @@ package me.jaredblackburn.macymae.entity;
 import me.jaredblackburn.macymae.events.Message;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import static me.jaredblackburn.macymae.events.MsgType.WNORMAL;
+import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapException;
@@ -22,6 +23,7 @@ public class Wisp extends Entity {
             = Graphic.registry.getID("wispDead");
     private int tmpImg;
     private float lastFlash;
+    private float SCARED_START_TIME, SCARED_STOP_TIME;
     
 
     public Wisp(String image, int sx, int sy, float z, float secsPerFrame, 
@@ -108,6 +110,14 @@ public class Wisp extends Entity {
         scaredTime = 0;
         sendMsg(WNORMAL, this, brain);
         super.reset();
+    }
+    
+    
+    @Override
+    protected void adjustDifficulty(Difficulty dif) {
+        speed = baseSpeed * dif.wispVFactor;
+        SCARED_START_TIME = dif.powerTime / dif.playerVFactor;
+        SCARED_STOP_TIME  = dif.coolDown / dif.playerVFactor;
     }
     
     

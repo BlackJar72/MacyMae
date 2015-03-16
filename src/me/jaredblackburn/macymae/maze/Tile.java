@@ -110,9 +110,11 @@ public class Tile extends Occupiable implements IMsgSender {
         }
         data.removeAll(cont);
         graphic = Graphic.registry.getID("empty");
-        if(Game.game.getDotCenter().isEmpty()) {            
-        sendMsg(MsgType.CLEARED, Game.game, Entity.macy,
-            Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+        if(Game.game.getDotCenter().isEmpty() 
+                && !Game.game.getDotCenter().wasCleared()) {
+            Game.game.getDotCenter().setCleared(true);
+            sendMsg(MsgType.CLEARED, Game.game, Entity.macy,
+                Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
         }
     }
     
