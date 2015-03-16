@@ -86,6 +86,8 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     protected void adjustTile() {
         Occupiable loc = MapMatrix.getOccupiableFromID(locationID);
+        x = loc.giveX(x);
+        y = loc.giveY(y);
     }
     
     
@@ -170,8 +172,9 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public boolean testCollision(Entity other) {
-        boolean out = Math.sqrt(((this.x - other.x) * (this.x - other.x)) 
-                    + ((this.y - other.y) * (this.y - other.y))) < 0.9f;
+        // Test square of distance against square of hit-circle radius
+        boolean out = ((this.x - other.x) * (this.x - other.x)) 
+                    + ((this.y - other.y) * (this.y - other.y)) < 0.8f;
         if(out) collideWith(other);
         return out;
     }
@@ -184,6 +187,9 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public void update(MapMatrix maze, float time, float delta) throws MapException {
+        if(Game.game.isPaused()) {
+            return;
+        }
         float distance = speed * delta;
         // Failsafe to keep from skipping to another tile if the system causes
         // lag.  Ys this to strick -- 0.499f would *probably* do?
@@ -219,20 +225,32 @@ public class Entity implements IMsgSender, IMsgReciever {
         }
         for(int i = 1; i < entities.length; i++) {
             if(macy.testCollision(entities[i])) {
+                if(macy.dead) {
+                    return;
+                }
                 if(entities[i].scared) {
                     macy.sendMsg(WDIE, Game.player, entities[i]);
                 } else if(!entities[i].dead) {
-                    macy.sendMsg(CAUGHT, Game.game, Game.player);
-                    break;
+                    macy.dead = true;
+                    macy.sendMsg(CAUGHT, Game.game); 
                 }
             }
         }
     }
     
     
-    public void resetCoords() {
+    public void reset() {
         x = (int)sx;
         y = (int)sy;
+        dead   = false;
+        scared = false;
+    }
+    
+    
+    public static void resetAll() {
+        for(Entity entity : entities) {
+            entity.reset();
+        }
     }
     
 
@@ -244,12 +262,11 @@ public class Entity implements IMsgSender, IMsgReciever {
                 break;
             case CLEARED:
                 break;
-            case NEXT:
-                break;
             case STOP:
                 break;
             case CAUGHT:
-                resetCoords();
+            case NEXT:
+                reset();
                 break;
             case POWERED:
                 break;

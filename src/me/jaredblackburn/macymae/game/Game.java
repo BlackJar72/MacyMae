@@ -2,13 +2,13 @@ package me.jaredblackburn.macymae.game;
 
 import java.util.Random;
 import me.jaredblackburn.macymae.entity.Entity;
-import static me.jaredblackburn.macymae.entity.Entity.macy;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
+import static me.jaredblackburn.macymae.events.MsgType.NEXT;
 import static me.jaredblackburn.macymae.events.MsgType.TMPPAUSE;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
@@ -112,6 +112,14 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
+    private void newBoard() {
+        level++;
+        difficulty = Difficulty.get(level);
+        MapMatrix.setCurrent(level);
+        dotCenter = MapMatrix.getCurrentDotCenter();
+    }        
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     /*                            MESSAGING                                   */
     ////////////////////////////////////////////////////////////////////////////
@@ -128,16 +136,22 @@ public class Game implements IMsgSender, IMsgReciever {
         switch(message) {
             case START:
                 break;
-            case CLEARED:
-                running = false; // Sand-in, for now
+            case CLEARED:               
+                startTmpPause(0.5f);
+                sendMsg(NEXT, this);
+                //running = false; // Sand-in, for now
                 break;
             case NEXT:
+                newBoard();
+                sendMsg(NEXT, Entity.macy,
+                        Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
+                sendMsg(TMPPAUSE, this);
                 break;
             case STOP:
                 break;
             case CAUGHT:                
                 startTmpPause(0.5f);
-                macy.sendMsg(CAUGHT,  Entity.macy,
+                sendMsg(CAUGHT,  player, Entity.macy,
                         Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
                 sendMsg(TMPPAUSE, this);
                 break;
@@ -173,7 +187,7 @@ public class Game implements IMsgSender, IMsgReciever {
     
     
     public boolean isPaused() {
-        return paused;
+        return paused || tmpPause;
     }
     
     

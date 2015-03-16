@@ -102,6 +102,14 @@ public class Wisp extends Entity {
     }
     
     
+    @Override
+    public void reset() {
+        graphic = GRAPHIC;
+        scaredTime = 0;
+        sendMsg(WNORMAL, this, brain);
+        super.reset();
+    }
+    
     
     
 }

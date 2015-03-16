@@ -1,5 +1,7 @@
 package me.jaredblackburn.macymae.game;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;

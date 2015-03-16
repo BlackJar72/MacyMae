@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/events/MsgType.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Wisp.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Difficulty.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/game/Game.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/MacyMae.java</file>
+            <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/maze/MapMatrix.java</file>
             <file>file:/home/jared/NetBeansProjects/MacyMae/src/me/jaredblackburn/macymae/entity/Entity.java</file>
         </group>
     </open-files>

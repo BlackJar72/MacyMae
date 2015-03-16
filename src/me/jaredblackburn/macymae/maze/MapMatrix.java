@@ -165,7 +165,7 @@ public class MapMatrix {
     // This is used to get a copy a DotCenter object that for actual use
     // in game by such systems as the GuardAI class.
     public DotCenter getUsuableDotCenter() {
-        return initialDotCenter.copy();
+        return initialDotCenter;
     }
     
     
@@ -262,7 +262,7 @@ public class MapMatrix {
             if(y < (float)tile.y) 
                 return tile.neighbors[2].getID();
         }
-        throw new MapException("Player at non-existant location at " 
+        throw new MapException("Entity at non-existant location at " 
                 + x + "," + y + "!");
     }
     
