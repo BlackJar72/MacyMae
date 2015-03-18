@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
-import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 import me.jaredblackburn.macymae.ui.UserInput;

@@ -15,15 +15,13 @@ import static me.jaredblackburn.macymae.events.MsgType.GAMEOVER;
  * @author Jared Blackburn
  */
 public class Player implements IMsgReciever, IMsgSender {
-    private static final int BASE_LIFE_POINTS = 16000; // 
+    private static final int BASE_LIFE_POINTS = 16000;
     private int lifePoints;
     private int lifeLevel;
     
     private int score;
     private int lives;
     private int wispCount;
-    
-    
     
     
     public Player() {
@@ -34,6 +32,7 @@ public class Player implements IMsgReciever, IMsgSender {
         wispCount  = 0;
     }
 
+    
     @Override
     public void recieveMsg(Message msg) {
         MsgType message = msg.getContent();
@@ -85,6 +84,7 @@ public class Player implements IMsgReciever, IMsgSender {
         lifeLevel++;
         lifePoints = BASE_LIFE_POINTS << lifeLevel;
     }
+    
     
     public int getLives() {
         return lives;

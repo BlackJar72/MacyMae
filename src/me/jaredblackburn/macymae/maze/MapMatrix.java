@@ -2,10 +2,7 @@ package me.jaredblackburn.macymae.maze;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.MoveCommand;
-import me.jaredblackburn.macymae.graphics.Graphic;
 
 
 // FIXME: Error in first map (maybe data, maybe processing...?)

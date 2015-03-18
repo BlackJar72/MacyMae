@@ -11,7 +11,7 @@ package me.jaredblackburn.macymae.game;
  * @author jared
  */
 public enum Difficulty {
-    A (1.00f, 1.00f, 10f, -5f),
+    A (1.125f, 1.125f, 10f, -5f),
     B (1.25f, 1.25f,  9f, -4f),
     C (1.50f, 1.50f,  8f, -3f),
     D (1.75f, 1.75f,  7f, -2f),
