@@ -20,6 +20,8 @@ public class Window {
     public static final float scale = findScale();
     public static final int YSIZE = (XSIZE * 2) / 3;
     
+    private IView currentScreen, gameScreen, startScreen;
+    
     
     public Window() {
         try {
@@ -50,41 +52,21 @@ public class Window {
         } catch (LWJGLException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
+        startScreen   = new StartScreen();
+        gameScreen    = new GameScreen();
+        currentScreen = gameScreen;
     }
     
     
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        drawBorder();
-        MapMatrix.draw();
-        Entity.drawAll();
-        Display.update();
-        Display.sync(baseFPS);
+        currentScreen.draw();
     }
     
     
     public final void cleanup() {
+        currentScreen = gameScreen = startScreen = null;
         Display.destroy();
-    }
-    
-    
-    private void drawBorder() {
-        for(int i = 0; i < MapMatrix.WIDTH + 2; i++) {
-            Graphic.registry.getGraphic("wall").draw(0, 
-                    (i + 0.5f) * Graphic.sideLength, 
-                    0.5f * Graphic.sideLength, -0.99f);
-            Graphic.registry.getGraphic("wall").draw(0, 
-                    (i + 0.5f) * Graphic.sideLength, 
-                    (MapMatrix.HEIGHT + 1.5f) * Graphic.sideLength, -0.99f);
-        }
-        for(int j = 1; j < MapMatrix.HEIGHT + 2; j++) {
-            Graphic.registry.getGraphic("wall").draw(0, 
-                    0.5f * Graphic.sideLength, 
-                    (j + 0.5f) * Graphic.sideLength, -0.99f);
-            Graphic.registry.getGraphic("wall").draw(0, 
-                    (MapMatrix.WIDTH + 1.5f) * Graphic.sideLength, 
-                    (j + 0.5f) * Graphic.sideLength, -0.99f);
-        }
     }
     
     
@@ -92,6 +74,15 @@ public class Window {
         float scale = (float)(XSIZE) 
                 / (float)(Graphic.pixelWidth * (MapMatrix.WIDTH + 8.5));
         return (scale * scale);
+    }
+    
+    
+    public void switchScreens() {
+        if(currentScreen == startScreen) {
+            currentScreen = gameScreen;
+        } else {
+            currentScreen = startScreen;
+        }
     }
     
 }
