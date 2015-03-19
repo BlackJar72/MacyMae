@@ -26,7 +26,7 @@ import org.lwjgl.util.Timer;
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
     public static Player player; // should do this better
-    private boolean running = true, paused = false;  
+    private boolean running = true, paused = false, inGame = false;  
     
     private int level;
     private Difficulty difficulty;
@@ -44,13 +44,18 @@ public class Game implements IMsgSender, IMsgReciever {
     
     
     private Game(){
+        init(); 
+    };
+    
+    
+    private void init() {
         player = new Player();
         level  = 0;
         difficulty = Difficulty.get(level);
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter(); 
-    };
+    }
     
     
     public static void start(Window window) {
@@ -59,20 +64,28 @@ public class Game implements IMsgSender, IMsgReciever {
         game.loop(window);
     }
     
+    
+    public void restart() {
+        init();
+        Entity.resetAll();
+        startTmpPause(0.5f);
+        inGame = true;
+        paused = false;
+    }
+    
 
     public void loop(Window window) {
         while(running) {
             window.draw();
             if(running) running = !Display.isCloseRequested();
-            if(paused) {
-                continue;
-            }
             updateDelta();
             UserInput.in.update();
-            if(tmpPause) {
+            if(tmpPause && inGame) {
                 doTmpPause();
             } else {
-                Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
+                if(inGame && !paused) {
+                    Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
+                }
                 MsgQueue.deliver();
             }
         }
@@ -102,6 +115,11 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
+    private void togglePause() {
+        paused = !paused;
+    }
+    
+    
     private void startTmpPause(float duration) {
         tmpPause = true;
         tmpPauseTime = duration;
@@ -124,7 +142,13 @@ public class Game implements IMsgSender, IMsgReciever {
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
         System.out.println("Level " + level);
-    }        
+    }
+    
+    
+    private void endGame() {
+        inGame = false;
+        Window.getWindow().endGame();
+    }
     
     
     ////////////////////////////////////////////////////////////////////////////
@@ -168,9 +192,15 @@ public class Game implements IMsgSender, IMsgReciever {
                 startTmpPause(0.5f);
                 break;
             case TOGGLEPAUSE:
+                if(inGame) {
+                    togglePause();
+                }
                 break;
             case GAMEOVER:
-                running = false; // Sand-in, for now
+                endGame();
+                break;
+            case SHUTDOWN:
+                running = false;
                 break;
             default:
                 throw new AssertionError(message.name());
@@ -213,6 +243,11 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public Tile findCenter() {
         return dotCenter.getTile();
+    }
+    
+    
+    public boolean getInGame() {
+        return inGame;
     }
     
 }

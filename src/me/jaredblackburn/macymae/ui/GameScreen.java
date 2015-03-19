@@ -22,8 +22,6 @@ public class GameScreen implements IView {
         drawBorder();
         MapMatrix.draw();
         Entity.drawAll();
-        Display.update();
-        Display.sync(baseFPS);
     }
     
     

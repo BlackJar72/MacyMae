@@ -21,6 +21,7 @@ public class Window {
     public static final int YSIZE = (XSIZE * 2) / 3;
     
     private IView currentScreen, gameScreen, startScreen;
+    private static Window window;
     
     
     public Window() {
@@ -54,13 +55,23 @@ public class Window {
         }
         startScreen   = new StartScreen();
         gameScreen    = new GameScreen();
-        currentScreen = gameScreen;
+        currentScreen = startScreen;
+    }
+    
+    
+    public static Window getWindow() {
+        if(window == null) {
+            window = new Window();
+        }
+        return window;
     }
     
     
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         currentScreen.draw();
+        Display.update();
+        Display.sync(baseFPS);
     }
     
     
@@ -83,6 +94,16 @@ public class Window {
         } else {
             currentScreen = startScreen;
         }
+    }
+    
+    
+    public void startGame() {
+        currentScreen = gameScreen;        
+    }
+    
+    
+    public void endGame() {
+        currentScreen = startScreen;
     }
     
 }

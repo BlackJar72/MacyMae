@@ -16,6 +16,7 @@ public enum MsgType {
     WDIE,
     TMPPAUSE,
     TOGGLEPAUSE,
-    GAMEOVER;
+    GAMEOVER,
+    SHUTDOWN;
     
 }

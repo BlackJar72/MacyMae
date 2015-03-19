@@ -58,7 +58,7 @@ public class MacyMae {
     
     private static void init() {
         try {
-            window = new Window();
+            window = Window.getWindow();
             GraphicsDataReader.reader.openInfo();
             MapReader.initMaps();
             Entity.init();
@@ -79,6 +79,11 @@ public class MacyMae {
         UserInput.cleanup();
         Graphic.cleanup();
         window.cleanup();
+    }
+    
+    
+    private static Window getWindow() {
+        return window;
     }
     
 }

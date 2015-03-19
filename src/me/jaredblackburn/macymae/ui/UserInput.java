@@ -9,6 +9,14 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import static org.lwjgl.input.Keyboard.*;
 import static me.jaredblackburn.macymae.entity.MoveCommand.*;
+import me.jaredblackburn.macymae.events.IMsgReciever;
+import me.jaredblackburn.macymae.events.IMsgSender;
+import me.jaredblackburn.macymae.events.Message;
+import me.jaredblackburn.macymae.events.MsgQueue;
+import me.jaredblackburn.macymae.events.MsgType;
+import static me.jaredblackburn.macymae.events.MsgType.SHUTDOWN;
+import static me.jaredblackburn.macymae.events.MsgType.TOGGLEPAUSE;
+import me.jaredblackburn.macymae.game.Game;
 
 
 
@@ -16,9 +24,10 @@ import static me.jaredblackburn.macymae.entity.MoveCommand.*;
  *
  * @author jared
  */
-public class UserInput {
+public class UserInput implements IMsgSender {
    public static final UserInput in = new UserInput(); 
    private final EnumSet<MoveCommand> steering = EnumSet.noneOf(MoveCommand.class);
+   private boolean pauseDown = false;
     
    private UserInput() {}
    
@@ -53,6 +62,33 @@ public class UserInput {
        }
        InputController.userio.update(steering);
        // TODO: Keys for non-steering (e.g., men) purposes
+       if(Keyboard.isKeyDown(KEY_RETURN) && !Game.game.getInGame()) {
+           Game.game.restart();
+           Window.getWindow().startGame();
+       }
+       if(Keyboard.isKeyDown(KEY_PAUSE)) {
+           pauseDown = true;
+       } 
+       if(Keyboard.isKeyDown(KEY_ESCAPE)) {
+           if(Keyboard.isKeyDown(KEY_RSHIFT) 
+                   || Keyboard.isKeyDown(KEY_LSHIFT)
+                   || Keyboard.isKeyDown(KEY_RCONTROL) 
+                   || Keyboard.isKeyDown(KEY_LSHIFT)) {
+               sendMsg(SHUTDOWN, Game.game);
+       } else {
+               pauseDown = true;
+           }
+       }
+       if(pauseDown && !(Keyboard.isKeyDown(KEY_PAUSE) 
+                      || Keyboard.isKeyDown(KEY_ESCAPE))) {
+           pauseDown = false;
+           sendMsg(TOGGLEPAUSE, Game.game);
+       }
    }
+
+    @Override
+    public void sendMsg(MsgType message, IMsgReciever... recipients) {
+        MsgQueue.add(new Message(message, this, recipients));
+    }
     
 }
