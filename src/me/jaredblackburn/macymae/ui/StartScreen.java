@@ -6,6 +6,7 @@
 
 package me.jaredblackburn.macymae.ui;
 
+import me.jaredblackburn.macymae.graphics.Graphic;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -19,7 +20,7 @@ public class StartScreen implements IView {
     @Override
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Graphic.drawTitle();
     }
     
 }

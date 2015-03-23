@@ -89,7 +89,6 @@ public class Game implements IMsgSender, IMsgReciever {
                 MsgQueue.deliver();
             }
         }
-        System.out.println("Final score: " + player.getScore());
     }
     
     
@@ -148,6 +147,7 @@ public class Game implements IMsgSender, IMsgReciever {
     private void endGame() {
         inGame = false;
         Window.getWindow().endGame();
+        System.out.println("Final score: " + player.getScore());
     }
     
     

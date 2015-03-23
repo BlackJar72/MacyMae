@@ -63,6 +63,7 @@ public class MacyMae {
             MapReader.initMaps();
             Entity.init();
             UserInput.init();
+            Graphic.init();
         } catch (Exception ex) {
             Logger.getLogger(MacyMae.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);

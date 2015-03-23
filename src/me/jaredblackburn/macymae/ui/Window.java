@@ -2,7 +2,6 @@ package me.jaredblackburn.macymae.ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.graphics.Graphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import org.lwjgl.LWJGLException;
@@ -17,8 +16,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class Window {
     public static final int baseFPS = 60;
     public static final int XSIZE = 800;
-    public static final float scale = findScale();
     public static final int YSIZE = (XSIZE * 2) / 3;
+    public static final float scale = findScale();
     
     private IView currentScreen, gameScreen, startScreen;
     private static Window window;

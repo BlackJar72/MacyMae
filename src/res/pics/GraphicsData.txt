@@ -1,4 +1,5 @@
 # Map tiles
+start  TitleScreen.png
 empty  grasspath.png
 food   grasskibble.png
 power  salmon.png

@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
+import me.jaredblackburn.macymae.ui.Window;
 import static me.jaredblackburn.macymae.ui.Window.scale;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
@@ -63,7 +64,9 @@ public class Graphic {
     
     public static final int   pixelWidth = 24;
     public static final float sideLength = ((float)pixelWidth) * scale;
-    public static final int vboid = makeTileVBO();
+    public static final int vboid        = makeTileVBO();
+    public static final int screenvboid  = makeScreenVBO(); 
+    private static int startPic;
     
     private int[]   frames;
     private int     pointer = 0;    
@@ -71,6 +74,11 @@ public class Graphic {
     
     public Graphic(int size) {
         frames = new int[size];
+    }
+    
+    
+    public static void init() {
+        startPic = registry.getGraphic("start").getImageID();
     }
     
     
@@ -143,6 +151,24 @@ public class Graphic {
             glDrawArrays(GL_TRIANGLES, 0, 6);            
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);        
             glDisableClientState(GL_VERTEX_ARRAY);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glPopMatrix();
+    }
+    
+    
+    public static void drawTitle() {
+        glPushMatrix();
+            glTranslatef(Window.XSIZE / 3.2f, Window.YSIZE / 2.7f, 0.9f);
+            glBindBuffer(GL_ARRAY_BUFFER, screenvboid);            
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glVertexPointer(3, GL_FLOAT, 20, 0L);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glTexCoordPointer(2, GL_FLOAT, 20, 12L);            
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, startPic);
+            glDrawArrays(GL_TRIANGLES, 0, 6);            
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            glActiveTexture(GL_TEXTURE0);            
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         glPopMatrix();
     }
@@ -221,6 +247,25 @@ public class Graphic {
                                (float)(-sideLength / 2), (float)( sideLength / 2), 0f, 0f, 0f, 
                                (float)( sideLength / 2), (float)( sideLength / 2), 0f, 1f, 0f,
                                (float)( sideLength / 2), (float)(-sideLength / 2), 0f, 1f, 1f};
+        buffer.put(preBuffer);
+        buffer.flip();
+        int vboid = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, vboid);
+        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        return vboid;
+    }
+    
+    
+    private static int makeScreenVBO() {
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(2 * 3 * 5);
+        float[] preBuffer = new float[]{
+                               (float)(-Window.XSIZE / 3.2), (float)( Window.YSIZE / 2.7), 0f, 0f, 0f,
+                               (float)(-Window.XSIZE / 3.2), (float)(-Window.YSIZE / 2.7), 0f, 0f, 1f,
+                               (float)( Window.XSIZE / 3.2), (float)(-Window.YSIZE / 2.7), 0f, 1f, 1f,
+                               (float)(-Window.XSIZE / 3.2), (float)( Window.YSIZE / 2.7), 0f, 0f, 0f, 
+                               (float)( Window.XSIZE / 3.2), (float)( Window.YSIZE / 2.7), 0f, 1f, 0f,
+                               (float)( Window.XSIZE / 3.2), (float)(-Window.YSIZE / 2.7), 0f, 1f, 1f};
         buffer.put(preBuffer);
         buffer.flip();
         int vboid = glGenBuffers();
