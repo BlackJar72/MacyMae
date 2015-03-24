@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.Font;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 import me.jaredblackburn.macymae.ui.UserInput;
@@ -35,17 +36,17 @@ public class MacyMae {
         
         /* TODO (currently):
            *1. Load and initialize map and graphics (DONE!)
-            2. Implement game window / graphics (partly done)
-            3. Implement player controls
-            4. Have game-less testable version (move through maze, no goals)
+            2. Implement game window / graphics (DONE!)
+            3. Implement player controls (DONE!)
+            4. Have game-less testable version (DONE!)
         */
         
         /* TODO (later):
-            5. Implement enemy AI
-            6. Add ememies to map
+            5. Implement enemy AI (DONE!)
+            6. Add ememies to map (DONE!)
            *7. Add dots to map (DONE!)
-            8. Add start, lives, points, and game-over
-            9. Add non-game controls / menues (start / quit); swing?
+            8. Add start, lives, points, and game-over (DONE!)
+            9. Add non-game controls (DONE!)
         */ 
             
         /* TODO (last):
@@ -60,10 +61,12 @@ public class MacyMae {
         try {
             window = Window.getWindow();
             GraphicsDataReader.reader.openInfo();
+            window.setIcon();
             MapReader.initMaps();
             Entity.init();
             UserInput.init();
             Graphic.init();
+            Font.init();
         } catch (Exception ex) {
             Logger.getLogger(MacyMae.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);

@@ -7,7 +7,9 @@
 package me.jaredblackburn.macymae.ui;
 
 import me.jaredblackburn.macymae.entity.Entity;
+import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.Font;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import static me.jaredblackburn.macymae.ui.Window.baseFPS;
 import org.lwjgl.opengl.Display;
@@ -22,6 +24,12 @@ public class GameScreen implements IView {
         drawBorder();
         MapMatrix.draw();
         Entity.drawAll();
+        Font.drawString("Score: " + Game.player.getScore(), 1, 1);
+        Font.drawString("Lives: " + Game.player.getLives(), 1, 2);
+        Font.drawString("Level: " + Game.game.getLevel(),  29, 1);
+        if(Game.game.getIsGameOver()) {
+            Font.drawString("Game Over", 15, 15);
+        }
     }
     
     

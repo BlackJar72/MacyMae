@@ -20,7 +20,9 @@ public class GraphicRegistry extends ArrayList<Graphic> implements List<Graphic>
     
     public void add(String name, Graphic graphic) {
         add(graphic);
-        map.put(name, new Integer(indexOf(graphic)));
+        graphic.id   = indexOf(graphic);
+        graphic.name = name;
+        map.put(name, new Integer(graphic.id));
         System.out.println("Added Graphic " + name + " to registry with ID " 
                 + getID(name));
     }

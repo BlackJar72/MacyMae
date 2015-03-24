@@ -10,6 +10,7 @@ import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.NEXT;
 import static me.jaredblackburn.macymae.events.MsgType.TMPPAUSE;
+import me.jaredblackburn.macymae.graphics.Font;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
 import me.jaredblackburn.macymae.maze.Tile;
@@ -26,7 +27,10 @@ import org.lwjgl.util.Timer;
 public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
     public static Player player; // should do this better
-    private boolean running = true, paused = false, inGame = false;  
+    private boolean running = true,   paused = false, 
+                    inGame  = false, isGameOver = false;
+    
+    private float gameOverTime = -1f;
     
     private int level;
     private Difficulty difficulty;
@@ -71,6 +75,8 @@ public class Game implements IMsgSender, IMsgReciever {
         startTmpPause(0.5f);
         inGame = true;
         paused = false;
+        isGameOver = false;
+        gameOverTime = -1f;
     }
     
 
@@ -87,6 +93,9 @@ public class Game implements IMsgSender, IMsgReciever {
                     Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
                 }
                 MsgQueue.deliver();
+            }
+            if(isGameOver) {
+                gameOver();
             }
         }
     }
@@ -145,9 +154,20 @@ public class Game implements IMsgSender, IMsgReciever {
     
     
     private void endGame() {
-        inGame = false;
-        Window.getWindow().endGame();
+        inGame   = false;
+        isGameOver = true;
+        gameOverTime = thisTime + 45f;
+        System.out.println("Game Over");
         System.out.println("Final score: " + player.getScore());
+    }
+    
+    
+    private void gameOver() {
+        if(gameOverTime <= thisTime) {
+            gameOverTime = -1;
+            isGameOver = false;
+            Window.getWindow().endGame();
+        }
     }
     
     
@@ -248,6 +268,17 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public boolean getInGame() {
         return inGame;
+    }
+    
+    
+    public int getLevel() {
+        // For player, not programer
+        return level + 1;
+    }
+    
+    
+    public boolean getIsGameOver() {
+        return isGameOver;
     }
     
 }

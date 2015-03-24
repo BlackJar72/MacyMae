@@ -68,6 +68,11 @@ public class Graphic {
     public static final int screenvboid  = makeScreenVBO(); 
     private static int startPic;
     
+    public static ArrayList<ByteBuffer> icons = new ArrayList<>();
+    
+    int id;
+    String name;
+    
     private int[]   frames;
     private int     pointer = 0;    
     
@@ -221,6 +226,9 @@ public class Graphic {
                 bytes.put((byte)((pixel >> 24) & 0xff));
             }
         bytes.flip();
+        if(address.contains("MacyIco")) {
+            icons.add(bytes);
+        }
         glBindTexture(GL_TEXTURE_2D, glID);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img.getWidth(),
                 img.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
@@ -283,6 +291,23 @@ public class Graphic {
                 glDeleteBuffers(graphic.frames[i]);
             }
         }
+    }
+    
+    
+    public int getID() {
+        return id;
+    }
+    
+    
+    public String getName() {
+        return name;
+    }
+    
+    
+    public static ByteBuffer[] getIcons() {
+        ByteBuffer[] out = new ByteBuffer[icons.size()];
+        out = icons.toArray(out);
+        return out;        
     }
     
 }
