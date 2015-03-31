@@ -10,7 +10,6 @@ import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.NEXT;
 import static me.jaredblackburn.macymae.events.MsgType.TMPPAUSE;
-import me.jaredblackburn.macymae.graphics.Font;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
 import me.jaredblackburn.macymae.maze.Tile;

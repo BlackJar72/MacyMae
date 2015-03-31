@@ -1,8 +1,5 @@
 package me.jaredblackburn.macymae.game;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
@@ -56,7 +53,7 @@ public class Player implements IMsgReciever, IMsgSender {
                 wispCount = 0;
                 break;
             case WDIE:
-                incrementScore(100 << wispCount++);
+                incrementScore(250 << wispCount++);
                 break;
             case GAMEOVER:
                 break;

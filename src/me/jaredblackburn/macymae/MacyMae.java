@@ -53,6 +53,8 @@ public class MacyMae {
             10. Make and add final graphics (started)
             11. Make extra maps
             12. Declare done and release to friends; end project
+            13. Bonus items (bids & rodents)
+            14. Sound
         */
     }
     
