@@ -6,8 +6,9 @@
 
 package me.jaredblackburn.macymae.ui;
 
-import me.jaredblackburn.macymae.graphics.Graphic;
-import me.jaredblackburn.macymae.graphics.Font;
+import me.jaredblackburn.macymae.game.Game;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.graphics.GLFont;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -17,11 +18,23 @@ import static org.lwjgl.opengl.GL11.glClear;
  * @author jared
  */
 public class StartScreen implements IView {
+    private float timer;
 
     @Override
     public void draw() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        Graphic.drawTitle();
+        GLGraphic.drawTitle();
+        if(timer <= Game.game.getTime()) {
+            Game.game.startDemo();
+        }
     }
+    
+    
+    @Override
+    public void start() {
+        timer = Game.game.getTime() + 15f;
+    }
+    
+    
     
 }

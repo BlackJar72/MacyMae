@@ -64,7 +64,6 @@ public class UserInput implements IMsgSender {
        // TODO: Keys for non-steering (e.g., men) purposes
        if(Keyboard.isKeyDown(KEY_RETURN) && !Game.game.getInGame()) {
            Game.game.restart();
-           Window.getWindow().startGame();
        }
        if(Keyboard.isKeyDown(KEY_PAUSE)) {
            pauseDown = true;

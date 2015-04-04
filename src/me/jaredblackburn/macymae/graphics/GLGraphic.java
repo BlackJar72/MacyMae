@@ -58,9 +58,9 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
  * @author Jared Blackburn
  */
 // TODO: Need to create and register one VBO for a 24x24 tile (two triagnles).
-// TODO: A draw method allowing a Graphic to draw itself
-public class Graphic {
-    public static final GraphicRegistry registry = new GraphicRegistry();
+// TODO: A draw method allowing a GLGraphic to draw itself
+public class GLGraphic {
+    public static final GLGraphicRegistry registry = new GLGraphicRegistry();
     
     public static final int   pixelWidth = 24;
     public static final float sideLength = ((float)pixelWidth) * scale;
@@ -77,7 +77,7 @@ public class Graphic {
     private int     pointer = 0;    
     
     
-    public Graphic(int size) {
+    public GLGraphic(int size) {
         frames = new int[size];
     }
     
@@ -87,7 +87,7 @@ public class Graphic {
     }
     
     
-    public Graphic(ArrayList<String> files) {
+    public GLGraphic(ArrayList<String> files) {
         frames = new int[files.size()];
         System.out.println("Found " + frames.length + " images to add");
         for(int i = 0; i < frames.length; i++) {
@@ -116,7 +116,7 @@ public class Graphic {
     
     
     public static int getNextImage(int ID) {
-        Graphic graphic = registry.get(ID);
+        GLGraphic graphic = registry.get(ID);
         graphic.pointer++;
         if(graphic.pointer >= graphic.frames.length) graphic.pointer = 0;
         return graphic.frames[graphic.pointer];
@@ -181,7 +181,7 @@ public class Graphic {
     
     public static void addGraphic(String name, ArrayList<String> files) {
         System.out.println("Adding graphic " + name);
-        Graphic graphic = new Graphic(files);
+        GLGraphic graphic = new GLGraphic(files);
         registry.add(name, graphic);
     }
     
@@ -206,7 +206,7 @@ public class Graphic {
             }
             //return ImageIO.read(new File(address));
         } catch (IOException ex) {            
-            Logger.getLogger(Graphic.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GLGraphic.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -286,7 +286,7 @@ public class Graphic {
     
     public static final void cleanup() { 
         glDeleteBuffers(vboid);
-        for(Graphic graphic : registry) {
+        for(GLGraphic graphic : registry) {
             for(int i = 0; i < graphic.frames.length; i++) {
                 glDeleteBuffers(graphic.frames[i]);
             }

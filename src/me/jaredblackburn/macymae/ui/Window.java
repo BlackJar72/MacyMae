@@ -2,7 +2,7 @@ package me.jaredblackburn.macymae.ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -82,7 +82,7 @@ public class Window {
     
     private static float findScale() {
         float scale = (float)(XSIZE) 
-                / (float)(Graphic.pixelWidth * (MapMatrix.WIDTH + 8.5));
+                / (float)(GLGraphic.pixelWidth * (MapMatrix.WIDTH + 8.5));
         return (scale * scale);
     }
     
@@ -103,11 +103,12 @@ public class Window {
     
     public void endGame() {
         currentScreen = startScreen;
+        startScreen.start();
     }
     
     
     public void setIcon() {
-        Display.setIcon(Graphic.getIcons());
+        Display.setIcon(GLGraphic.getIcons());
     }
     
 }

@@ -4,8 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.Graphic;
-import me.jaredblackburn.macymae.graphics.Font;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.graphics.GLFont;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
 import me.jaredblackburn.macymae.ui.UserInput;
@@ -67,8 +67,8 @@ public class MacyMae {
             MapReader.initMaps();
             Entity.init();
             UserInput.init();
-            Graphic.init();
-            Font.init();
+            GLGraphic.init();
+            GLFont.init();
         } catch (Exception ex) {
             Logger.getLogger(MacyMae.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
@@ -83,7 +83,7 @@ public class MacyMae {
     
     private static void cleanup() {
         UserInput.cleanup();
-        Graphic.cleanup();
+        GLGraphic.cleanup();
         window.cleanup();
     }
     

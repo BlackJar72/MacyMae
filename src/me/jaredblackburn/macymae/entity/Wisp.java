@@ -5,7 +5,7 @@ import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import static me.jaredblackburn.macymae.events.MsgType.WNORMAL;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Tile;
@@ -18,9 +18,9 @@ public class Wisp extends Entity {
     private float scaredTime;
     private final int GRAPHIC;
     private static final int SCARED_GRAPHIC 
-            = Graphic.registry.getID("wispScared");
+            = GLGraphic.registry.getID("wispScared");
     private static final int DEAD_GRAPHIC
-            = Graphic.registry.getID("wispDead");
+            = GLGraphic.registry.getID("wispDead");
     private int tmpImg;
     private float lastFlash;
     private float SCARED_START_TIME, SCARED_STOP_TIME;
@@ -34,7 +34,7 @@ public class Wisp extends Entity {
         scared = false;
         dead   = false;
         scaredTime = 0;
-        GRAPHIC = Graphic.registry.getID(image);
+        GRAPHIC = GLGraphic.registry.getID(image);
         tmpImg  = GRAPHIC;
     }
     

@@ -6,9 +6,7 @@
 
 package me.jaredblackburn.macymae.graphics;
 
-import java.awt.image.ImageObserver;
-import me.jaredblackburn.macymae.graphics.Graphic;
-import static me.jaredblackburn.macymae.graphics.Graphic.vboid;
+import static me.jaredblackburn.macymae.graphics.GLGraphic.vboid;
 import me.jaredblackburn.macymae.ui.Window;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
@@ -33,7 +31,7 @@ import static org.lwjgl.opengl.GL15.glBindBuffer;
  *
  * @author jared
  */
-public class Font {
+public class GLFont {
     // Maps pure, 7 bit, ascii characters to TBOs of there image
     private static int[] mapping = new int[128];
     private static int blank;
@@ -46,11 +44,11 @@ public class Font {
     
     public static void init() {
         String name;
-        blank = Graphic.registry.getGraphic("blank").getImageID();
+        blank = GLGraphic.registry.getGraphic("blank").getImageID();
         for(int i = 0; i < 128; i++) {
             mapping[i] = blank;
         }
-        for(Graphic gr : Graphic.registry) {
+        for(GLGraphic gr : GLGraphic.registry) {
             name = gr.getName();
             if(name.length() == 1) {
                 char it = name.charAt(0);
@@ -65,8 +63,8 @@ public class Font {
     
     public static void drawChar(char it, int xTile, int yTile) {
         glPushMatrix();
-            glTranslatef((xTile + 0.5f) * Graphic.sideLength, 
-                    (Window.YSIZE / 1.375f) - ((yTile - 0.5f) * (Graphic.sideLength * 1.2f)), 
+            glTranslatef((xTile + 0.5f) * GLGraphic.sideLength, 
+                    (Window.YSIZE / 1.375f) - ((yTile - 0.5f) * (GLGraphic.sideLength * 1.2f)), 
                     0.95f);
             glBindBuffer(GL_ARRAY_BUFFER, vboid);            
             glEnableClientState(GL_VERTEX_ARRAY);

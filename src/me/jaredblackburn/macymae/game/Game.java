@@ -27,7 +27,8 @@ public class Game implements IMsgSender, IMsgReciever {
     public static Game game;
     public static Player player; // should do this better
     private boolean running = true,   paused = false, 
-                    inGame  = false, isGameOver = false;
+                    inGame  = false, isGameOver = false,
+                    inDemo  = false;
     
     private float gameOverTime = -1f;
     
@@ -64,18 +65,36 @@ public class Game implements IMsgSender, IMsgReciever {
     public static void start(Window window) {
         game = new Game();
         game.timer.reset();
+        window.endGame();
         game.loop(window);
     }
     
     
     public void restart() {
         init();
+        Entity.setDemo(false);
         Entity.resetAll();
         startTmpPause(0.5f);
         inGame = true;
+        inDemo = false;
         paused = false;
         isGameOver = false;
         gameOverTime = -1f;
+        Window.getWindow().startGame();
+    }
+    
+    
+    public void startDemo() {
+        init();
+        Entity.setDemo(true);
+        Entity.resetAll();
+        startTmpPause(0.5f);
+        inGame = false;
+        inDemo = true;
+        paused = false;
+        isGameOver = false;
+        gameOverTime = -1f;
+        Window.getWindow().startGame();
     }
     
 
@@ -85,10 +104,10 @@ public class Game implements IMsgSender, IMsgReciever {
             if(running) running = !Display.isCloseRequested();
             updateDelta();
             UserInput.in.update();
-            if(tmpPause && inGame) {
+            if(tmpPause && (inGame || inDemo)) {
                 doTmpPause();
             } else {
-                if(inGame && !paused) {
+                if((inGame || inDemo) && !paused) {
                     Entity.updateAll(MapMatrix.getCurrent(), thisTime, delta);
                 }
                 MsgQueue.deliver();
@@ -154,8 +173,9 @@ public class Game implements IMsgSender, IMsgReciever {
     
     private void endGame() {
         inGame   = false;
+        inDemo   = false;
         isGameOver = true;
-        gameOverTime = thisTime + 45f;
+        gameOverTime = thisTime + 30f;
         System.out.println("Game Over");
         System.out.println("Final score: " + player.getScore());
     }
@@ -197,15 +217,11 @@ public class Game implements IMsgSender, IMsgReciever {
                 newBoard();
                 sendMsg(TMPPAUSE, this);
                 break;
-            case STOP:
-                break;
             case CAUGHT:                
                 startTmpPause(0.5f);
                 sendMsg(CAUGHT,  player, Entity.macy,
                         Entity.wisp1, Entity.wisp2, Entity.wisp3, Entity.wisp4);
                 sendMsg(TMPPAUSE, this);
-                break;
-            case POWERED:
                 break;
             case TMPPAUSE:
                 startTmpPause(0.5f);
@@ -222,7 +238,6 @@ public class Game implements IMsgSender, IMsgReciever {
                 running = false;
                 break;
             default:
-                throw new AssertionError(message.name());
         }
     }
     
@@ -278,6 +293,11 @@ public class Game implements IMsgSender, IMsgReciever {
     
     public boolean getIsGameOver() {
         return isGameOver;
+    }
+    
+    
+    public boolean getIsDemo() {
+        return inDemo;
     }
     
 }

@@ -12,7 +12,7 @@ import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
@@ -52,7 +52,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             float secsPerFrame, float baseSpeed, 
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
             IController brain) throws MapException, Exception {
-        graphic = Graphic.registry.getID(image);
+        graphic = GLGraphic.registry.getID(image);
         this.frame = 0;
         this.lastTime = lastTime;
         this.secsPerFrame = secsPerFrame;
@@ -120,14 +120,14 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void updateFrame() {
         frame++;
-        if(frame >= Graphic.registry.get(graphic).size()) frame = 0;
+        if(frame >= GLGraphic.registry.get(graphic).size()) frame = 0;
     }
     
     
     public void draw() {
-        Graphic.draw(graphic, frame, 
-                (x + 1.5f) * Graphic.sideLength, 
-                (MapMatrix.HEIGHT - y + 0.5f) * Graphic.sideLength, 
+        GLGraphic.draw(graphic, frame, 
+                (x + 1.5f) * GLGraphic.sideLength, 
+                (MapMatrix.HEIGHT - y + 0.5f) * GLGraphic.sideLength, 
                 z);
     }
     
@@ -371,6 +371,15 @@ public class Entity implements IMsgSender, IMsgReciever {
 
     public static Entity[] getEntities() {
         return entities;
+    }
+    
+    
+    public static void setDemo(boolean demo) {
+        if(demo) {
+            macy.brain = new GuardAI(Game.random, 18, 17);
+        } else {
+            macy.brain = InputController.userio;
+        }
     }
     
 }

@@ -14,7 +14,7 @@ import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.POWERED;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.Graphic;
+import me.jaredblackburn.macymae.graphics.GLGraphic;
 import static me.jaredblackburn.macymae.maze.MapMatrix.HEIGHT;
 import static me.jaredblackburn.macymae.maze.TileData.*;
 import me.jaredblackburn.macymae.ui.Window;
@@ -37,25 +37,25 @@ public class Tile extends Occupiable implements IMsgSender {
     public Tile(byte bData, int x, int y) {
         data = TileData.makeSet(bData);
         if(data.contains(POWER)) {
-            graphic = Graphic.registry.getID("power");
+            graphic = GLGraphic.registry.getID("power");
         } else if(data.contains(DOGPIN)) {
-            graphic = Graphic.registry.getID("dogpin");            
+            graphic = GLGraphic.registry.getID("dogpin");            
         } else if(data.contains(FOOD)) {
-            graphic = Graphic.registry.getID("food");
+            graphic = GLGraphic.registry.getID("food");
         } else if( data.contains(UP) 
                 || data.contains(LEFT) 
                 || data.contains(DOWN) 
                 || data.contains(RIGHT)) {
-            graphic = Graphic.registry.getID("empty");
+            graphic = GLGraphic.registry.getID("empty");
         } else {
-            graphic = Graphic.registry.getID("wall");
+            graphic = GLGraphic.registry.getID("wall");
             data.add(WALL);
         }
         validMoves = TileData.validMoves(data);
         occupantX = this.x = x;
         occupantY = this.y = y;
-        xpos = ((x + 1.5f) * Graphic.sideLength);
-        ypos = ((HEIGHT - y + 0.5f) * Graphic.sideLength);
+        xpos = ((x + 1.5f) * GLGraphic.sideLength);
+        ypos = ((HEIGHT - y + 0.5f) * GLGraphic.sideLength);
         if((x == 0) || ((x % 2) == 0)) {
             if((y == 0) || ((y % 2) == 0)) zpos = -0.8f;
             else zpos = -0.81f;
@@ -87,7 +87,7 @@ public class Tile extends Occupiable implements IMsgSender {
     
     
     public void draw() {
-        Graphic.draw(graphic, 0, xpos, ypos, zpos);
+        GLGraphic.draw(graphic, 0, xpos, ypos, zpos);
     }
     
 
@@ -109,7 +109,7 @@ public class Tile extends Occupiable implements IMsgSender {
                     Entity.wisp3, Entity.wisp4, Game.player);
         }
         data.removeAll(cont);
-        graphic = Graphic.registry.getID("empty");
+        graphic = GLGraphic.registry.getID("empty");
         if(Game.game.getDotCenter().isEmpty() 
                 && !Game.game.getDotCenter().wasCleared()) {
             Game.game.getDotCenter().setCleared(true);

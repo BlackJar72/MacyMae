@@ -1,24 +1,18 @@
 package me.jaredblackburn.macymae.graphics;
 
-import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *
  * @author Jared Blackburn
  */
-public class GraphicRegistry extends ArrayList<Graphic> implements List<Graphic> {
+public class GLGraphicRegistry extends ArrayList<GLGraphic> implements List<GLGraphic> {
     private final HashMap<String, Integer> map = new HashMap<>();
     
     
-    public void add(String name, Graphic graphic) {
+    public void add(String name, GLGraphic graphic) {
         add(graphic);
         graphic.id   = indexOf(graphic);
         graphic.name = name;
@@ -28,7 +22,7 @@ public class GraphicRegistry extends ArrayList<Graphic> implements List<Graphic>
     }
     
     
-    public Graphic getGraphic(String name) {
+    public GLGraphic getGraphic(String name) {
         return get(map.get(name).intValue());
     }
     
