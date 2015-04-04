@@ -5,9 +5,9 @@ Play as Macy-Mae, the baddest (and hungriest) fat cat on the block, as she evade
 
 Playable binaries are available for Linux and Windows.
 
-Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae-beta.exe
+Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae.exe
 
-Linux: http://www.mediafire.com/view/ps294hbrsrwjefu/MacyMae-beta0.9.sh
+Linux: http://www.mediafire.com/view/ps294hbrsrwjefu/MacyMae.sh
 
 Creative Commons License
 Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
