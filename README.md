@@ -3,7 +3,11 @@ A Java-based clone of the worlds most iconic video game.  This is a learning pro
 
 Play as Macy-Mae, the baddest (and hungriest) fat cat on the block, as she evades willow-wisps and tries to eat all the food.
 
-This will probably never be officially release as (1) its an obvious rip-off, (2) I've realized how bad the graphics will probably look with a cat (unless I just use a cat head), and (3) respect for the original.  But, its a good warm-up for writing other games and a good way to learn more about Git and GitHub at the same time, and practice for writing good, clean code (which Doomlike Dungeons is not).
+Playable binaries are available for Linux and Windows.
+
+Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae-beta.exe
+
+Linux: http://www.mediafire.com/view/ps294hbrsrwjefu/MacyMae-beta0.9.sh
 
 Creative Commons License
 Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
