@@ -12,5 +12,5 @@ Linux: http://www.mediafire.com/download/548xlhb8mknn32l/MacyMae.sh.tar.gz
 Java Jar (requires LWJGL, not included, to run): http://www.mediafire.com/download/jmicr1jyp85efba/MacyMae.jar
 
 Creative Commons License
-Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-ShareAline 4.0 International License.
+Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 https://creativecommons.org/licenses/by-nc-sa/4.0/
