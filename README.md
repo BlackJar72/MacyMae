@@ -7,7 +7,9 @@ Playable binaries are available for Linux and Windows (requires Java 7 or newer)
 
 Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae.exe
 
-Linux: http://www.mediafire.com/view/ps294hbrsrwjefu/MacyMae.sh
+Linux: http://www.mediafire.com/download/548xlhb8mknn32l/MacyMae.sh.tar.gz
+
+Java Jar (requires LWJGL, not included, to run): http://www.mediafire.com/download/jmicr1jyp85efba/MacyMae.jar
 
 Creative Commons License
 Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-ShareAline 4.0 International License.
