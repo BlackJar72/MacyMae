@@ -3,12 +3,12 @@ A Java-based clone of the worlds most iconic video game.  This is a learning pro
 
 Play as Macy-Mae, the baddest (and hungriest) fat cat on the block, as she evades willow-wisps and tries to eat all the food.
 
-Playable binaries are available for Linux and Windows.
+Playable binaries are available for Linux and Windows (requires Java 7 or newer).
 
 Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae.exe
 
 Linux: http://www.mediafire.com/view/ps294hbrsrwjefu/MacyMae.sh
 
 Creative Commons License
-Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
-https://creativecommons.org/licenses/by-nc-nd/4.0/
+Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-ShareAline 4.0 International License.
+https://creativecommons.org/licenses/by-nc-sa/4.0/
