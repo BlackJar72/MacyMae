@@ -13,6 +13,7 @@ import static me.jaredblackburn.macymae.events.MsgType.TMPPAUSE;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
 import me.jaredblackburn.macymae.maze.Tile;
+import me.jaredblackburn.macymae.ui.Toast;
 import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
@@ -104,6 +105,7 @@ public class Game implements IMsgSender, IMsgReciever {
             if(running) running = !Display.isCloseRequested();
             updateDelta();
             UserInput.in.update();
+            Toast.update();
             if(tmpPause && (inGame || inDemo)) {
                 doTmpPause();
             } else {
@@ -167,6 +169,7 @@ public class Game implements IMsgSender, IMsgReciever {
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
+        Toast.unset();
         System.out.println("Level " + level);
     }
     
@@ -185,6 +188,7 @@ public class Game implements IMsgSender, IMsgReciever {
         if(gameOverTime <= thisTime) {
             gameOverTime = -1;
             isGameOver = false;
+            Toast.unset();
             Window.getWindow().endGame();
         }
     }

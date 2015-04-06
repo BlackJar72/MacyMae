@@ -80,7 +80,7 @@ public class Entity implements IMsgSender, IMsgReciever {
                             NONE, new EnemyAI(Game.random, 20, 9));
         wisp3  = entities[3] = new Wisp("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
                             NONE, new LurkerAI(Game.random, 16, 7));
-        wisp4  = entities[4] = new Wisp("wisp4", 20,  7, -0.14f, 0.04f, 1f / 22f, 
+        wisp4  = entities[4] = new Wisp("wisp4", 20,  7, -0.14f, 0.06f, 1f / 22f, 
                             NONE, new GuardAI(Game.random, 20, 7));        
     }
     

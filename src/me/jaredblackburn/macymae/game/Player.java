@@ -6,6 +6,7 @@ import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.GAMEOVER;
+import me.jaredblackburn.macymae.ui.Toast;
 
 /**
  *
@@ -34,14 +35,6 @@ public class Player implements IMsgReciever, IMsgSender {
     public void recieveMsg(Message msg) {
         MsgType message = msg.getContent();
         switch(message) {
-            case START:
-                break;
-            case CLEARED:
-                break;
-            case NEXT:
-                break;
-            case STOP:
-                break;
             case CAUGHT:
                 lives--;
                 if(lives < 1) {
@@ -53,9 +46,9 @@ public class Player implements IMsgReciever, IMsgSender {
                 wispCount = 0;
                 break;
             case WDIE:
-                incrementScore(250 << wispCount++);
-                break;
-            case GAMEOVER:
+                int points = 250 << wispCount++;
+                incrementScore(points);
+                Toast.set("+" + points);
                 break;
             default:
                 return;            
@@ -80,6 +73,7 @@ public class Player implements IMsgReciever, IMsgSender {
         lives++;
         lifeLevel++;
         lifePoints = BASE_LIFE_POINTS << lifeLevel;
+        Toast.set("Extra Life");
     }
     
     

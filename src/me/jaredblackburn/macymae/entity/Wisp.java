@@ -25,6 +25,7 @@ public class Wisp extends Entity {
     private float lastFlash;
     private float SCARED_START_TIME, SCARED_STOP_TIME;
     
+    
 
     public Wisp(String image, int sx, int sy, float z, float secsPerFrame, 
             float baseSpeed, MoveCommand heading, IController brain) 
@@ -50,7 +51,7 @@ public class Wisp extends Entity {
             }
         } else if(scared) {
             scaredTime -= Game.game.getPassedTime();
-            if(scaredTime <= -5) {
+            if(scaredTime <= SCARED_STOP_TIME) {
                 scared = false;
                 sendMsg(WNORMAL, this, brain);
                 tmpImg = graphic = GRAPHIC;
@@ -77,6 +78,7 @@ public class Wisp extends Entity {
                 if(!dead) {
                     scared = true;
                     scaredTime = 10f;
+                    tmpImg  = GRAPHIC;
                     graphic = SCARED_GRAPHIC;
                     lastFlash = Game.game.getTime();
                 }

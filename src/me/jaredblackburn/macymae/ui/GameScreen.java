@@ -33,6 +33,7 @@ public class GameScreen implements IView {
         if(Game.game.getIsDemo()) {
             GLFont.drawString("Demo", 17, 11);            
         }
+        Toast.draw();
     }
     
     
