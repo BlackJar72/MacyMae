@@ -11,8 +11,6 @@ import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.graphics.GLGraphic;
 import me.jaredblackburn.macymae.graphics.GLFont;
 import me.jaredblackburn.macymae.maze.MapMatrix;
-import static me.jaredblackburn.macymae.ui.Window.baseFPS;
-import org.lwjgl.opengl.Display;
 
 /**
  *
@@ -20,6 +18,7 @@ import org.lwjgl.opengl.Display;
  */
 public class GameScreen implements IView {
     
+    @Override
     public void draw() {
         drawBorder();
         MapMatrix.draw();

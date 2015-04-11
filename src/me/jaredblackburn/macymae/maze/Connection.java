@@ -1,6 +1,5 @@
 package me.jaredblackburn.macymae.maze;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 import me.jaredblackburn.macymae.entity.MoveCommand;
 

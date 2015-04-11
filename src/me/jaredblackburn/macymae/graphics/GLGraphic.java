@@ -57,8 +57,7 @@ import static org.lwjgl.opengl.GL15.glGenBuffers;
  *
  * @author Jared Blackburn
  */
-// TODO: Need to create and register one VBO for a 24x24 tile (two triagnles).
-// TODO: A draw method allowing a GLGraphic to draw itself
+
 public class GLGraphic {
     public static final GLGraphicRegistry registry = new GLGraphicRegistry();
     

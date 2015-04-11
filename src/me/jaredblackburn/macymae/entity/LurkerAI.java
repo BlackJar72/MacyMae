@@ -1,4 +1,5 @@
 package me.jaredblackburn.macymae.entity;
+
 import java.util.Random;
 import me.jaredblackburn.macymae.maze.Tile;
 import me.jaredblackburn.macymae.maze.Occupiable;

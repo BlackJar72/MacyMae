@@ -23,7 +23,7 @@ public class Window {
     private static Window window;
     
     
-    public Window() {
+    private Window() {
         try {
             Display.create();   
             glClearColor(0f, 0f, 0f, 1f);            

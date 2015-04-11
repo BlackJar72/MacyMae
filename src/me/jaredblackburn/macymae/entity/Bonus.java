@@ -9,7 +9,6 @@ package me.jaredblackburn.macymae.entity;
 import java.util.ArrayList;
 import static me.jaredblackburn.macymae.entity.MoveCommand.NONE;
 import me.jaredblackburn.macymae.game.Difficulty;
-import me.jaredblackburn.macymae.maze.MapException;
 
 /**
  *
