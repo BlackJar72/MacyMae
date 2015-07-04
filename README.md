@@ -12,9 +12,9 @@ Java Jar (requires LWJGL, not included, to run): http://www.mediafire.com/downlo
 Future updates may add:
 * Bonus edibles (some coding done)
 * Sound possibly, though I find (dispite comon wisdom) this is just as fun as similar games without it
-* More mazes (maze switching has been in the code a long time, just that the full list currently has only one)
+* More mazes (maze switching has been in the code a long time, just that the full list currently has only one).
 
-Again, maybe -- I'm think of this as done, except for possible bug-fixes on for the Windows version.  There is no plan to add side tunnels, as the maze is bigger than most similar games, and I like it without them.  I have debated an Android port as a future learning problem as I begin to learn Adroid programming, but also very maybe.
+I'm also considering re-writing the rendering to use Java2D, and hopefully fix a bug on some desktop managers in the process.  But, not sure how much more will be done as I have other projects, and never planned to spend a whole lot of time on this.
 
 Creative Commons License
 Macy-Mae by Jared Blackburn is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
