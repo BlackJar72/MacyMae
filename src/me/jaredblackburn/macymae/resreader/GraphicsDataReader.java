@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 
 /**
  * The purpose of this class is too read a text file containTextinTextg data about the

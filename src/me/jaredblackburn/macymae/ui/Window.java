@@ -2,7 +2,7 @@ package me.jaredblackburn.macymae.ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -28,16 +28,17 @@ public class Window {
             Display.create();   
             glClearColor(0f, 0f, 0f, 1f);            
             Display.setFullscreen(false);
-            Display.setResizable(false);
+            Display.setResizable(true);
             Display.setTitle("Macy Mae");
-            Display.setDisplayMode(new DisplayMode(XSIZE, YSIZE));
+            Display.setDisplayMode(new DisplayMode((int)(XSIZE * 1.1f),
+                    (int)(YSIZE * 1.1f)));
             System.out.println(Display.getDisplayMode());
                         
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
             glOrtho(0, XSIZE, 0, YSIZE, -1, 1);
             glMatrixMode(GL_MODELVIEW);
-            glEnable(GL_DEPTH_TEST);
+            glDisable(GL_DEPTH_TEST);
             
             glShadeModel(GL_SMOOTH);
             glEnable(GL_BLEND);

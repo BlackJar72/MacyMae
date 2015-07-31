@@ -14,7 +14,7 @@ import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.POWERED;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import static me.jaredblackburn.macymae.maze.MapMatrix.HEIGHT;
 import static me.jaredblackburn.macymae.maze.TileData.*;
 import me.jaredblackburn.macymae.ui.Window;

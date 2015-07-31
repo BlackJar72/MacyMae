@@ -6,17 +6,18 @@
 
 package me.jaredblackburn.macymae.ui;
 
+import javax.swing.JPanel;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
-import me.jaredblackburn.macymae.graphics.GLFont;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLFont;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 
 /**
  *
  * @author jared
  */
-public class GameScreen implements IView {
+public class GameScreen extends JPanel implements IView {
     
     @Override
     public void draw() {

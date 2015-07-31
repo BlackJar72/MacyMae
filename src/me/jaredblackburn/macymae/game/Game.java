@@ -17,7 +17,6 @@ import me.jaredblackburn.macymae.ui.Toast;
 import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Timer;
 
 /**
  * This class contains the main game loop.
@@ -25,13 +24,13 @@ import org.lwjgl.util.Timer;
  * @author Jared Blackburn
  */
 public class Game implements IMsgSender, IMsgReciever {
-    public static Game game;
-    public static Player player; // should do this better
-    private boolean running = true,   paused = false, 
-                    inGame  = false, isGameOver = false,
-                    inDemo  = false;
+    public volatile static Game game;
+    public volatile static Player player; // should do this better
+    private volatile boolean running = true,   paused = false, 
+                             inGame  = false, isGameOver = false,
+                             inDemo  = false;
     
-    private float gameOverTime = -1f;
+    private volatile float gameOverTime = -1f;
     
     private int level;
     private Difficulty difficulty;
@@ -46,6 +45,43 @@ public class Game implements IMsgSender, IMsgReciever {
     private DotCenter dotCenter;
     
     public static final Random random = new Random();
+    
+    
+    public class Timer {
+        private final long base;
+        private long current, previous, elapsed;
+        private float out;
+        private boolean running;
+        public Timer() {
+            current = previous = base = System.nanoTime();
+            running = true;
+            elapsed = 0;
+        }
+        public void reset() {
+            current = previous = base;
+            elapsed = 0;
+        }
+        public void pause() {
+            running = false;
+        }
+        public void resume() {
+            running = true;
+        }
+        public void tick() {
+            previous = current;
+            current = System.nanoTime();
+            if(running) {
+                elapsed = current - base;
+            } 
+        }
+        public float getTime() {
+           if(elapsed <= 0) {
+               elapsed = 1;
+           }
+           out = (float)(((double)(elapsed)) / 1000000000d);
+           return out;
+        }
+    }
     
     
     private Game(){

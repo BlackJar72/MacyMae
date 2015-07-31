@@ -5,7 +5,7 @@ import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import static me.jaredblackburn.macymae.events.MsgType.WNORMAL;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Tile;

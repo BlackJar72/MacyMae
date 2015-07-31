@@ -5,9 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.InputController;
 import me.jaredblackburn.macymae.entity.MoveCommand;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import static org.lwjgl.input.Keyboard.*;
 import static me.jaredblackburn.macymae.entity.MoveCommand.*;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
@@ -17,6 +14,9 @@ import me.jaredblackburn.macymae.events.MsgType;
 import static me.jaredblackburn.macymae.events.MsgType.SHUTDOWN;
 import static me.jaredblackburn.macymae.events.MsgType.TOGGLEPAUSE;
 import me.jaredblackburn.macymae.game.Game;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
+import static org.lwjgl.input.Keyboard.*;
 
 
 

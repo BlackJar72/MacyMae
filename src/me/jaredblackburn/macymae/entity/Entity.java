@@ -12,7 +12,7 @@ import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
@@ -135,7 +135,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     public static void drawAll() {
         for(Entity entity: entities)
         {
-            entity.draw();
+            entity.draw();            
         }
     }
     
@@ -193,7 +193,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         }
         float distance = speed * delta;
         // Failsafe to keep from skipping to another tile if the system causes
-        // lag.  Ys this to strick -- 0.499f would *probably* do?
+        // lag.  Is this to strict -- 0.499f would *probably* do?
         if(distance > 0.25f) {
             distance = 0.25f;
         }

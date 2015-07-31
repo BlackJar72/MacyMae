@@ -1,6 +1,6 @@
-package me.jaredblackburn.macymae.graphics;
+package me.jaredblackburn.macymae.ui.graphics;
 
-import static me.jaredblackburn.macymae.graphics.GLGraphic.vboid;
+import static me.jaredblackburn.macymae.ui.graphics.GLGraphic.vboid;
 import me.jaredblackburn.macymae.ui.Window;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;

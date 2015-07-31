@@ -6,14 +6,15 @@
 
 package me.jaredblackburn.macymae.ui;
 
+import javax.swing.JPanel;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 
 /**
  *
  * @author jared
  */
-public class StartScreen implements IView {
+public class StartScreen extends JPanel implements IView {
     private float timer;
 
     @Override

@@ -1,4 +1,4 @@
-package me.jaredblackburn.macymae.graphics;
+package me.jaredblackburn.macymae.ui.graphics;
 
 import java.util.ArrayList;
 import java.util.HashMap;

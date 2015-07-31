@@ -1,7 +1,7 @@
 package me.jaredblackburn.macymae.ui;
 
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.graphics.GLFont;
+import me.jaredblackburn.macymae.ui.graphics.GLFont;
 
 /**
  *
