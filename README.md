@@ -6,7 +6,7 @@ Playable binaries are available for Linux and Windows (requires Java 7 or newer)
 
 Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae.exe
 
-Linux: http://www.mediafire.com/download/548xlhb8mknn32l/MacyMae.sh.tar.gz
+Linux: http://www.mediafire.com/view/stf5xd335m2fsu9/MacyMae.sh
 
 Java Jar (requires LWJGL, not included, to run): http://www.mediafire.com/download/jmicr1jyp85efba/MacyMae.jar
 
