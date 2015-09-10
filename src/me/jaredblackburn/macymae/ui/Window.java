@@ -17,12 +17,9 @@ public class Window {
     public static final int baseFPS = 60;
     public static final int XSIZE = 800;
     public static final int YSIZE = (XSIZE * 2) / 3;
-<<<<<<< HEAD
     public static final float FACTOR = 1.07f;
     public static final int XSCREEN = (int)(XSIZE * FACTOR);    
-    public static final int YSCREEN = (int)(YSIZE * FACTOR);    
-=======
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
+    public static final int YSCREEN = (int)(YSIZE * FACTOR);
     public static final float scale = findScale();
     
     private IView currentScreen, gameScreen, startScreen;
@@ -36,12 +33,7 @@ public class Window {
             Display.setFullscreen(false);
             Display.setResizable(true);
             Display.setTitle("Macy Mae");
-<<<<<<< HEAD
             Display.setDisplayMode(new DisplayMode(XSCREEN, YSCREEN));
-=======
-            Display.setDisplayMode(new DisplayMode((int)(XSIZE * 1.1f),
-                    (int)(YSIZE * 1.1f)));
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
             System.out.println(Display.getDisplayMode());
                         
             glMatrixMode(GL_PROJECTION);
@@ -82,10 +74,6 @@ public class Window {
         currentScreen.draw();
         Display.update();
         Display.sync(baseFPS);
-<<<<<<< HEAD
-        System.out.println(Display.getHeight() + " x " + Display.getWidth() );
-=======
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
     }
     
     
@@ -98,11 +86,7 @@ public class Window {
     private static float findScale() {
         float scale = (float)(XSIZE) 
                 / (float)(GLGraphic.pixelWidth * (MapMatrix.WIDTH + 8.5));
-<<<<<<< HEAD
-        return scale * scale;
-=======
         return (scale * scale);
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
     }
     
     

@@ -6,10 +6,8 @@
 
 package me.jaredblackburn.macymae.ui;
 
-<<<<<<< HEAD
-=======
+
 import javax.swing.JPanel;
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
 import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
@@ -20,11 +18,8 @@ import me.jaredblackburn.macymae.maze.MapMatrix;
  *
  * @author jared
  */
-<<<<<<< HEAD
+
 public class GameScreen implements IView {
-=======
-public class GameScreen extends JPanel implements IView {
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
     
     @Override
     public void draw() {

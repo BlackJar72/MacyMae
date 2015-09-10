@@ -17,10 +17,8 @@ import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
-<<<<<<< HEAD
 import org.lwjgl.opengl.Display;
-=======
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
+
 
 /**
  *
@@ -56,6 +54,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             float secsPerFrame, float baseSpeed, 
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
             IController brain) throws MapException, Exception {
+        super();
         graphic = GLGraphic.registry.getID(image);
         this.frame = 0;
         this.lastTime = lastTime;

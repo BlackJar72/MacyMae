@@ -34,11 +34,8 @@ public class MacyMae {
         run();
         cleanup();
         
-<<<<<<< HEAD
+
         /* TODO (first):
-=======
-        /* TODO (currently):
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
            *1. Load and initialize map and graphics (DONE!)
             2. Implement game window / graphics (DONE!)
             3. Implement player controls (DONE!)
@@ -57,11 +54,7 @@ public class MacyMae {
             10. Make and add final graphics (started)
             11. Make extra maps
             12. Declare done and release to friends; end project
-<<<<<<< HEAD
             13. Bonus items (birds & rodents)
-=======
-            13. Bonus items (bids & rodents)
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
             14. Sound
         */
     }

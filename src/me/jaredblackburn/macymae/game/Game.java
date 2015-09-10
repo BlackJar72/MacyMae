@@ -17,10 +17,7 @@ import me.jaredblackburn.macymae.ui.Toast;
 import me.jaredblackburn.macymae.ui.UserInput;
 import me.jaredblackburn.macymae.ui.Window;
 import org.lwjgl.opengl.Display;
-<<<<<<< HEAD
 import org.lwjgl.util.Timer;
-=======
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
 
 /**
  * This class contains the main game loop.
@@ -28,15 +25,7 @@ import org.lwjgl.util.Timer;
  * @author Jared Blackburn
  */
 public class Game implements IMsgSender, IMsgReciever {
-<<<<<<< HEAD
-    public static Game game;
-    public static Player player; // should do this better
-    private boolean running = true,   paused = false, 
-                    inGame  = false, isGameOver = false,
-                    inDemo  = false;
-    
-    private float gameOverTime = -1f;
-=======
+
     public volatile static Game game;
     public volatile static Player player; // should do this better
     private volatile boolean running = true,   paused = false, 
@@ -44,7 +33,6 @@ public class Game implements IMsgSender, IMsgReciever {
                              inDemo  = false;
     
     private volatile float gameOverTime = -1f;
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
     
     private int level;
     private Difficulty difficulty;
@@ -61,8 +49,7 @@ public class Game implements IMsgSender, IMsgReciever {
     public static final Random random = new Random();
     
     
-<<<<<<< HEAD
-=======
+
     public class Timer {
         private final long base;
         private long current, previous, elapsed;
@@ -100,7 +87,6 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
->>>>>>> e4fd358267bb54a5aa66b7b72c2a127e8cd8edff
     private Game(){
         init(); 
     };
