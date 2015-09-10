@@ -6,9 +6,10 @@ Playable binaries are available for Linux and Windows (requires Java 7 or newer)
 
 Windows: http://www.mediafire.com/download/txkaxvgbgumilvy/MacyMae.exe
 
-Linux: http://www.mediafire.com/view/stf5xd335m2fsu9/MacyMae.sh
+Linux (must be extract since media fire brakes shellscrips): http://www.mediafire.com/download/v64xc4q5a0ifesx/MacyMae.sh.tar.gz
 
-Java Jar (requires LWJGL, not included, to run): http://www.mediafire.com/download/jmicr1jyp85efba/MacyMae.jar
+Java Jar (requires LWJGL, not included, to run):
+http://www.mediafire.com/download/jmicr1jyp85efba/MacyMae.jar
 
 Future updates may add:
 * Bonus edibles (some coding done)
