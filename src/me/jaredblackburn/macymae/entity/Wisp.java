@@ -77,7 +77,7 @@ public class Wisp extends Entity {
             case POWERED:
                 if(!dead) {
                     scared = true;
-                    scaredTime = 10f;
+                    scaredTime = SCARED_START_TIME;
                     tmpImg  = GRAPHIC;
                     graphic = SCARED_GRAPHIC;
                     lastFlash = Game.game.getTime();
@@ -118,8 +118,8 @@ public class Wisp extends Entity {
     @Override
     protected void adjustDifficulty(Difficulty dif) {
         speed = baseSpeed * dif.wispVFactor;
-        SCARED_START_TIME = dif.powerTime / dif.playerVFactor;
-        SCARED_STOP_TIME  = dif.coolDown / dif.playerVFactor;
+        SCARED_START_TIME = dif.powerTime;
+        SCARED_STOP_TIME  = dif.coolDown;
         brain.reset();
     }
     
