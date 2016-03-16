@@ -12,12 +12,11 @@ import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
-import org.lwjgl.opengl.Display;
+import me.jaredblackburn.macymae.ui.graphics.Graphic;
 
 
 /**
@@ -55,7 +54,7 @@ public class Entity implements IMsgSender, IMsgReciever {
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
             IController brain) throws MapException, Exception {
         super();
-        graphic = GLGraphic.registry.getID(image);
+        graphic = Graphic.registry.getID(image);
         this.frame = 0;
         this.lastTime = lastTime;
         this.secsPerFrame = secsPerFrame;
@@ -123,15 +122,14 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void updateFrame() {
         frame++;
-        if(frame >= GLGraphic.registry.get(graphic).size()) frame = 0;
+        if(frame >= Graphic.registry.get(graphic).size()) frame = 0;
     }
     
     
     public void draw() {
-        GLGraphic.draw(graphic, frame, 
-                (x + 1.5f) * GLGraphic.sideLength, 
-                (MapMatrix.HEIGHT - y + 0.5f) * GLGraphic.sideLength, 
-                z);
+        Graphic.draw(graphic, frame, 
+                x + 1, 
+                y + 3);
     }
     
     

@@ -8,11 +8,11 @@ import java.util.List;
  *
  * @author Jared Blackburn
  */
-public class GLGraphicRegistry extends ArrayList<GLGraphic> implements List<GLGraphic> {
+public class GraphicRegistry extends ArrayList<Graphic> {
     private final HashMap<String, Integer> map = new HashMap<>();
     
     
-    public void add(String name, GLGraphic graphic) {
+    public void add(String name, Graphic graphic) {
         add(graphic);
         graphic.id   = indexOf(graphic);
         graphic.name = name;
@@ -22,7 +22,7 @@ public class GLGraphicRegistry extends ArrayList<GLGraphic> implements List<GLGr
     }
     
     
-    public GLGraphic getGraphic(String name) {
+    public Graphic getGraphic(String name) {
         return get(map.get(name).intValue());
     }
     
