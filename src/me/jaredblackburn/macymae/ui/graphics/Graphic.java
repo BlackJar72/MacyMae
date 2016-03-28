@@ -95,8 +95,8 @@ public class Graphic {
     }
     
     
-    public static void draw(int ID, int frame, float x, float y) {
-        gameG.drawImage(registry.get(ID).frames[frame], 
+    public void draw(int frame, float x, float y) {
+        gameG.drawImage(frames[frame], 
                     (int)(x * pixelWidth), 
                     (int)(y * pixelWidth), 
                     null);
@@ -108,7 +108,15 @@ public class Graphic {
                     (int)((x + 1) * pixelWidth), 
                     (int)(y * pixelWidth), 
                     -pixelWidth, 
-                     pixelWidth, 
+                     pixelWidth,
+                     null);
+    }
+    
+    
+    public static void draw(int ID, int frame, float x, float y) {
+        gameG.drawImage(registry.get(ID).frames[frame], 
+                    (int)(x * pixelWidth), 
+                    (int)(y * pixelWidth), 
                     null);
     }
     

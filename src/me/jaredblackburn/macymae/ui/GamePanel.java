@@ -17,7 +17,6 @@ import me.jaredblackburn.macymae.ui.graphics.Graphic;
  */
 public class GamePanel extends JPanel implements IView {
     private final Toolkit tk = Toolkit.getDefaultToolkit();
-    private final int wallpic = Graphic.registry.getID("wall");
 
     @Override
     public void draw() {
@@ -77,12 +76,20 @@ public class GamePanel extends JPanel implements IView {
     
     private void drawBorder() {
         for(int i = 0; i < MapMatrix.WIDTH + 2; i++) {
-            Graphic.draw(wallpic, 0, i, 2);
-            Graphic.draw(wallpic, 0, i, MapMatrix.HEIGHT + 3);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    i, 
+                    2);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    i, 
+                    MapMatrix.HEIGHT + 3);
         }
         for(int j = 2; j < MapMatrix.HEIGHT + 3; j++) {
-            Graphic.draw(wallpic, 0, 0, j);
-            Graphic.draw(wallpic, 0, MapMatrix.WIDTH + 1, j);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    0, 
+                    j);
+            Graphic.registry.getGraphic("wall").draw(0, 
+                    MapMatrix.WIDTH + 1, 
+                    j);
         }
     }
     
