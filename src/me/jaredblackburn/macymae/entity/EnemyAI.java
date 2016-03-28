@@ -96,6 +96,12 @@ public class EnemyAI implements IController {
         return current;        
     }
     
+    
+    protected int getManhattanDistanceToPlayer(Occupiable loc) {
+        return Math.abs(((Tile)loc).getX() - ((int)Entity.macy.getX()))
+                + Math.abs(((Tile)loc).getY() - ((int)Entity.macy.getY()));
+    }
+    
 
     @Override
     public void recieveMsg(Message msg) {

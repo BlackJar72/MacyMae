@@ -27,7 +27,8 @@ public class LurkerAI extends SeekerAI {
         if(dead) {
             return goHome(loc);
         }
-        if(random.nextBoolean()) {
+        if(random.nextBoolean() 
+                || (getManhattanDistanceToPlayer(loc) <= 5)) {
             return getPlayerDirection(loc);
         } else {
             return getRandomDirection(loc);

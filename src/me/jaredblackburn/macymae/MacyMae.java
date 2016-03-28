@@ -4,12 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
-import me.jaredblackburn.macymae.ui.graphics.GLFont;
 import me.jaredblackburn.macymae.resreader.GraphicsDataReader;
 import me.jaredblackburn.macymae.resreader.MapReader;
-import me.jaredblackburn.macymae.ui.UserInput;
-import me.jaredblackburn.macymae.ui.Window;
+import me.jaredblackburn.macymae.ui.graphics.Font;
+import me.jaredblackburn.macymae.ui.graphics.Graphic;
+import me.jaredblackburn.macymae.ui.SwingWindow;
 
 /**
  * This is a simple Pac-Man clone named in honor of a neighbors cat, a fat cat
@@ -24,7 +23,8 @@ import me.jaredblackburn.macymae.ui.Window;
  * @author Jared Blackburn
  */
 public class MacyMae {
-    private static Window window;
+    private static SwingWindow window;
+    private static Game game;
 
     /**
      * @param args the command line arguments
@@ -33,43 +33,19 @@ public class MacyMae {
         init();
         run();
         cleanup();
-        
-
-        /* TODO (first):
-           *1. Load and initialize map and graphics (DONE!)
-            2. Implement game window / graphics (DONE!)
-            3. Implement player controls (DONE!)
-            4. Have game-less testable version (DONE!)
-        */
-        
-        /* TODO (later):
-            5. Implement enemy AI (DONE!)
-            6. Add ememies to map (DONE!)
-           *7. Add dots to map (DONE!)
-            8. Add start, lives, points, and game-over (DONE!)
-            9. Add non-game controls (DONE!)
-        */ 
-            
-        /* TODO (last):
-            10. Make and add final graphics (started)
-            11. Make extra maps
-            12. Declare done and release to friends; end project
-            13. Bonus items (birds & rodents)
-            14. Sound
-        */
+        System.exit(0);
     }
     
     
     private static void init() {
         try {
-            window = Window.getWindow();
-            GraphicsDataReader.reader.openInfo();
-            window.setIcon();
+            GraphicsDataReader.initGraphics();
             MapReader.initMaps();
             Entity.init();
-            UserInput.init();
-            GLGraphic.init();
-            GLFont.init();
+            Graphic.init();
+            Font.init();
+            window = SwingWindow.getWindow();
+            game = Game.getGame();
         } catch (Exception ex) {
             Logger.getLogger(MacyMae.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(0);
@@ -78,18 +54,17 @@ public class MacyMae {
     
     
     private static void run() {
-        Game.start(window);
+        game.start(window);
     }
     
     
     private static void cleanup() {
-        UserInput.cleanup();
-        GLGraphic.cleanup();
+        Graphic.cleanup();
         window.cleanup();
     }
     
     
-    private static Window getWindow() {
+    private static SwingWindow getWindow() {
         return window;
     }
     

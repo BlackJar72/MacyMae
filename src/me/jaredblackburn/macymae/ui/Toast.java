@@ -1,7 +1,7 @@
 package me.jaredblackburn.macymae.ui;
 
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.ui.graphics.GLFont;
+import me.jaredblackburn.macymae.ui.graphics.Font;
 
 /**
  *
@@ -38,7 +38,7 @@ public class Toast {
     
     
     public static void draw() {
-        GLFont.drawString(text,  15, 2);
+        Font.drawString(text,  15, 1);
     }
     
     

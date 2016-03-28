@@ -40,7 +40,6 @@ public class Player implements IMsgReciever, IMsgSender {
                 if(lives < 1) {
                     sendMsg(GAMEOVER, Game.game);
                 }
-                System.out.println("Lives:" + lives);
                 break;
             case POWERED:
                 wispCount = 0;

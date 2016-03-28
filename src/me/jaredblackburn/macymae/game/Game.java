@@ -1,6 +1,8 @@
 package me.jaredblackburn.macymae.game;
 
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
@@ -14,17 +16,15 @@ import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.MapMatrix.DotCenter;
 import me.jaredblackburn.macymae.maze.Tile;
 import me.jaredblackburn.macymae.ui.Toast;
-import me.jaredblackburn.macymae.ui.UserInput;
-import me.jaredblackburn.macymae.ui.Window;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.Timer;
+import me.jaredblackburn.macymae.ui.KeyedInput;
+import me.jaredblackburn.macymae.ui.SwingWindow;
 
 /**
  * This class contains the main game loop.
  * 
  * @author Jared Blackburn
  */
-public class Game implements IMsgSender, IMsgReciever {
+public class Game implements IMsgSender, IMsgReciever, Runnable {
 
     public volatile static Game game;
     public volatile static Player player; // should do this better
@@ -41,14 +41,17 @@ public class Game implements IMsgSender, IMsgReciever {
     private float tmpPauseTime = 0f;
     
     private final Timer timer = new Timer();
-    private static final float expectedTime = 1f / Window.baseFPS;
+    private static final float expectedTime  = 1f / SwingWindow.baseFPS;
+    private static final long  expectedSleep = 1000 / SwingWindow.baseFPS;
     private float lastTime, thisTime, passedTime;
     private float delta;
     private DotCenter dotCenter;
     
+    private Thread runner;
+    private SwingWindow window;
+    
     public static final Random random = new Random();
-    
-    
+      
 
     public class Timer {
         private final long base;
@@ -102,11 +105,20 @@ public class Game implements IMsgSender, IMsgReciever {
     }
     
     
-    public static void start(Window window) {
-        game = new Game();
+    public static Game getGame() {
+        if(game == null) {
+            game = new Game();
+        }
+        return game;
+    }
+    
+    
+    public void start(SwingWindow window) {
+        this.window = window;
+        game = new Game();        
         game.timer.reset();
         window.endGame();
-        game.loop(window);
+        run();
     }
     
     
@@ -120,7 +132,7 @@ public class Game implements IMsgSender, IMsgReciever {
         paused = false;
         isGameOver = false;
         gameOverTime = -1f;
-        Window.getWindow().startGame();
+        SwingWindow.getWindow().startGame();
     }
     
     
@@ -134,16 +146,15 @@ public class Game implements IMsgSender, IMsgReciever {
         paused = false;
         isGameOver = false;
         gameOverTime = -1f;
-        Window.getWindow().startGame();
+        SwingWindow.getWindow().startGame();
     }
     
 
-    public void loop(Window window) {
+    public void loop(SwingWindow window) {
         while(running) {
             window.draw();
-            if(running) running = !Display.isCloseRequested();
             updateDelta();
-            UserInput.in.update();
+            KeyedInput.in.update();
             Toast.update();
             if(tmpPause && (inGame || inDemo)) {
                 doTmpPause();
@@ -156,6 +167,7 @@ public class Game implements IMsgSender, IMsgReciever {
             if(isGameOver) {
                 gameOver();
             }
+            gameSleep();
         }
     }
     
@@ -209,7 +221,6 @@ public class Game implements IMsgSender, IMsgReciever {
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
         Toast.unset();
-        System.out.println("Level " + level);
     }
     
     
@@ -218,8 +229,6 @@ public class Game implements IMsgSender, IMsgReciever {
         inDemo   = false;
         isGameOver = true;
         gameOverTime = thisTime + 30f;
-        System.out.println("Game Over");
-        System.out.println("Final score: " + player.getScore());
     }
     
     
@@ -228,8 +237,25 @@ public class Game implements IMsgSender, IMsgReciever {
             gameOverTime = -1;
             isGameOver = false;
             Toast.unset();
-            Window.getWindow().endGame();
+            SwingWindow.getWindow().endGame();
         }
+    }
+    
+    
+    private void gameSleep() {
+        try {
+            long time = Math.max(expectedSleep - (long)(timer.getTime() * 1000), 
+                    10);
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    @Override
+    public void run() {        
+        game.loop(window);
     }
     
     

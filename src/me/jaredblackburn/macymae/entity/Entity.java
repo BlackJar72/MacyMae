@@ -12,12 +12,11 @@ import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Difficulty;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
 import me.jaredblackburn.macymae.maze.MapException;
 import me.jaredblackburn.macymae.maze.MapMatrix;
 import me.jaredblackburn.macymae.maze.Occupiable;
 import me.jaredblackburn.macymae.maze.Tile;
-import org.lwjgl.opengl.Display;
+import me.jaredblackburn.macymae.ui.graphics.Graphic;
 
 
 /**
@@ -27,6 +26,7 @@ import org.lwjgl.opengl.Display;
 public class Entity implements IMsgSender, IMsgReciever {
     protected int graphic;
     protected int frame;
+    protected boolean forward = true;
     
     private float lastTime;
     private final float secsPerFrame;
@@ -55,18 +55,14 @@ public class Entity implements IMsgSender, IMsgReciever {
             MoveCommand heading, boolean isPlayer, boolean isEnemy, 
             IController brain) throws MapException, Exception {
         super();
-        graphic = GLGraphic.registry.getID(image);
+        graphic = Graphic.registry.getID(image);
         this.frame = 0;
-        this.lastTime = lastTime;
         this.secsPerFrame = secsPerFrame;
-        this.locationID = locationID;
-        this.lastID = lastID;
         this.x = this.sx = sx;
         this.y = this.sy = sy;
         this.z = z;
         speed = this.baseSpeed = baseSpeed;
         lastID = locationID = MapMatrix.getOccupiableID(x, y, speed);
-        this.speed = speed;
         this.heading = heading;
         this.isPlayer = isPlayer;
         this.isEnemy = isEnemy;
@@ -80,7 +76,7 @@ public class Entity implements IMsgSender, IMsgReciever {
         wisp1  = entities[1] = new Wisp("wisp1", 16,  9, -0.11f, 0.03f, 1f / 18f,
                             NONE, new SeekerAI(Game.random, 16, 9));
         wisp2  = entities[2] = new Wisp("wisp2", 20,  9, -0.12f, 0.04f, 1f / 20f,
-                            NONE, new EnemyAI(Game.random, 20, 9));
+                            NONE, new InterceptorAI(Game.random, 20, 9));
         wisp3  = entities[3] = new Wisp("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
                             NONE, new LurkerAI(Game.random, 16, 7));
         wisp4  = entities[4] = new Wisp("wisp4", 20,  7, -0.14f, 0.06f, 1f / 22f, 
@@ -123,15 +119,20 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     public void updateFrame() {
         frame++;
-        if(frame >= GLGraphic.registry.get(graphic).size()) frame = 0;
+        if(frame >= Graphic.registry.get(graphic).size()) frame = 0;
     }
     
     
     public void draw() {
-        GLGraphic.draw(graphic, frame, 
-                (x + 1.5f) * GLGraphic.sideLength, 
-                (MapMatrix.HEIGHT - y + 0.5f) * GLGraphic.sideLength, 
-                z);
+        if(forward) {
+            Graphic.draw(graphic, frame, 
+                    x + 1, 
+                    y + 3);
+        } else {
+            Graphic.drawReverse(graphic, frame, 
+                    x + 1, 
+                    y + 3);
+        }
     }
     
     
@@ -157,10 +158,12 @@ public class Entity implements IMsgSender, IMsgReciever {
             case LEFT:
                 moveX(-distance);
                 y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
+                forward = true;
                 break;
             case RIGHT:
                 moveX( distance);
                 y = MapMatrix.getOccupiableFromID(locationID).getOccupantY();
+                forward = false;
                 break;
             default:
                 return;

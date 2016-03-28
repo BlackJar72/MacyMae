@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
+import me.jaredblackburn.macymae.ui.graphics.Graphic;
 
 /**
  * The purpose of this class is too read a text file containTextinTextg data about the
@@ -18,7 +18,7 @@ import me.jaredblackburn.macymae.ui.graphics.GLGraphic;
  * @author Jared Blackburn
  */
 public final class GraphicsDataReader {
-    public static final GraphicsDataReader reader = new GraphicsDataReader();
+    private static final GraphicsDataReader reader = new GraphicsDataReader();
     
     private static final String loc     = "/res/pics/";
     private static final String infoLoc = loc + "GraphicsData.txt";
@@ -51,6 +51,9 @@ public final class GraphicsDataReader {
     
     private GraphicsDataReader() {};
     
+    public static void initGraphics() {
+        reader.openInfo();
+    }    
     
     public void openInfo() {
         System.out.println("Running OpenInfo()");
@@ -75,7 +78,7 @@ public final class GraphicsDataReader {
     private void parseInfo(BufferedReader in) throws IOException {
         System.out.println("Reading file " + infoLoc);
         while((nextLine = in.readLine()) != null) {
-            System.out.println("Rading line: \"" + nextLine + "\"");
+            System.out.println("Reading line: \"" + nextLine + "\"");
             if(nextLine.startsWith(comment)) continue;
             tokens = new StringTokenizer(nextLine, delimeters);
             token1 = getNextToken();
@@ -125,7 +128,7 @@ public final class GraphicsDataReader {
     
     
     private void makeGraphic() {
-        GLGraphic.addGraphic(name, list);
+        Graphic.addGraphic(name, list);
     }
     
     
