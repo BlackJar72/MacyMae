@@ -102,6 +102,7 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
         player = new Player();
         level  = 0;
         difficulty = Difficulty.get(level);
+        Entity.bonus.setStartTime(thisTime);
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter(); 
