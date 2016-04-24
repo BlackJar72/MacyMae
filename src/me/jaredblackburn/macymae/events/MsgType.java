@@ -12,6 +12,7 @@ public enum MsgType {
     STOP,
     CAUGHT,
     POWERED,
+    BONUS,
     WNORMAL,
     WDIE,
     TMPPAUSE,

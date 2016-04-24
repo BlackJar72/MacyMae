@@ -253,7 +253,7 @@ public class MapMatrix {
     public static int getOccupiableID(float x, float y, float speed) 
             throws Exception {
         Tile tile = current.tiles[(int)(x + 0.5f)][(int)(y + 0.5f)];
-        if(tile.here(x, y, speed * 1.1f)) {
+        if(tile.here(x, y, speed * 1.1f) || speed == 0) {
             return tile.getID();
         } else {
             //System.out.println(x + "," + y);

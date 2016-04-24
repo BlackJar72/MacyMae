@@ -53,38 +53,41 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
     public static final Random random = new Random();
       
 
-    public class Timer {
-        private final long base;
-        private long current, previous, elapsed;
-        private float out;
-        private boolean running;
+    public final class Timer {
+        private volatile long base;
+        private volatile long current, previous, elapsed, pstart, ptime, lost;
+        private volatile float out;
+        private volatile boolean paused;
         public Timer() {
-            current = previous = base = System.nanoTime();
-            running = true;
-            elapsed = 0;
+            reset();
         }
         public void reset() {
-            current = previous = base;
+            current = previous = base = System.nanoTime();
             elapsed = 0;
+            lost    = 0;
         }
         public void pause() {
-            running = false;
+            pstart = current;
+            paused = true;
         }
         public void resume() {
-            running = true;
+            lost += (System.nanoTime() - pstart);
+            paused = false;
         }
         public void tick() {
+            if(paused) {
+                return;
+            }
             previous = current;
             current = System.nanoTime();
-            if(running) {
-                elapsed = current - base;
-            } 
+            elapsed = current - base - lost;
         }
         public float getTime() {
-           if(elapsed <= 0) {
-               elapsed = 1;
+           if(elapsed < 1000) {
+               elapsed = 1000;
            }
            out = (float)(((double)(elapsed)) / 1000000000d);
+           //System.out.println(out);
            return out;
         }
     }
@@ -131,7 +134,7 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
         inDemo = false;
         paused = false;
         isGameOver = false;
-        gameOverTime = -1f;
+        gameOverTime = -1f;  
         SwingWindow.getWindow().startGame();
     }
     
@@ -194,8 +197,13 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
     }
     
     
-    private void togglePause() {
+    private void togglePause() {        
         paused = !paused;
+        if(paused) {
+            timer.pause();
+        } else {
+            timer.resume();
+        }
     }
     
     
@@ -217,6 +225,7 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
     private void newBoard() {
         level++;
         difficulty = Difficulty.get(level);
+        Entity.bonus.setStartTime(thisTime);
         Entity.setDifficulty(difficulty);
         MapMatrix.setCurrent(level);
         dotCenter = MapMatrix.getCurrentDotCenter();
@@ -282,8 +291,8 @@ public class Game implements IMsgSender, IMsgReciever, Runnable {
                 //running = false; // Sand-in, for now
                 break;
             case NEXT:
-                Entity.resetAll();
                 newBoard();
+                Entity.resetAll();
                 sendMsg(TMPPAUSE, this);
                 break;
             case CAUGHT:                

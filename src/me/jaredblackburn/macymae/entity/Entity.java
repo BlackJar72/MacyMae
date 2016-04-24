@@ -8,6 +8,7 @@ import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
 import me.jaredblackburn.macymae.events.MsgQueue;
 import me.jaredblackburn.macymae.events.MsgType;
+import static me.jaredblackburn.macymae.events.MsgType.BONUS;
 import static me.jaredblackburn.macymae.events.MsgType.CAUGHT;
 import static me.jaredblackburn.macymae.events.MsgType.WDIE;
 import me.jaredblackburn.macymae.game.Difficulty;
@@ -46,8 +47,9 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     protected IController brain;
     
+    public static Bonus bonus;
     public static Entity macy, wisp1, wisp2, wisp3, wisp4;
-    private static final Entity[] entities = new Entity[5];
+    private static final Entity[] entities = new Entity[6];
     
     
     public Entity(String image, int sx,  int sy, float z,
@@ -71,7 +73,7 @@ public class Entity implements IMsgSender, IMsgReciever {
     
     
     public static void init() throws MapException, Exception {
-        macy    = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
+        macy   = entities[0] = new Entity("macy", 18, 17, 0f, 0.04f, (1f / 10f), 
                             NONE, true, false, InputController.userio);
         wisp1  = entities[1] = new Wisp("wisp1", 16,  9, -0.11f, 0.03f, 1f / 18f,
                             NONE, new SeekerAI(Game.random, 16, 9));
@@ -80,7 +82,8 @@ public class Entity implements IMsgSender, IMsgReciever {
         wisp3  = entities[3] = new Wisp("wisp3", 16,  7, -0.13f, 0.05f, 1f / 20f, 
                             NONE, new LurkerAI(Game.random, 16, 7));
         wisp4  = entities[4] = new Wisp("wisp4", 20,  7, -0.14f, 0.06f, 1f / 22f, 
-                            NONE, new GuardAI(Game.random, 20, 7));        
+                            NONE, new GuardAI(Game.random, 20, 7));  
+        entities[5] = bonus = new Bonus("bonus", 18, 12);
     }
     
     
@@ -238,8 +241,12 @@ public class Entity implements IMsgSender, IMsgReciever {
                 if(entities[i].scared) {
                     macy.sendMsg(WDIE, Game.player, entities[i]);
                 } else if(!entities[i].dead) {
-                    macy.dead = true;
-                    macy.sendMsg(CAUGHT, Game.game); 
+                    if(entities[i].isIsEnemy()) {
+                        macy.dead = true;
+                        macy.sendMsg(CAUGHT, Game.game); 
+                    } else if ((entities[i] == bonus) && bonus.isInPlay()){
+                        macy.sendMsg(BONUS, Game.player, entities[i]);
+                    }
                 }
             }
         }

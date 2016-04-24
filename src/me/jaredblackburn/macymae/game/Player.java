@@ -1,5 +1,6 @@
 package me.jaredblackburn.macymae.game;
 
+import me.jaredblackburn.macymae.entity.Entity;
 import me.jaredblackburn.macymae.events.IMsgReciever;
 import me.jaredblackburn.macymae.events.IMsgSender;
 import me.jaredblackburn.macymae.events.Message;
@@ -20,6 +21,8 @@ public class Player implements IMsgReciever, IMsgSender {
     private int score;
     private int lives;
     private int wispCount;
+    
+    private int points;
     
     
     public Player() {
@@ -45,7 +48,12 @@ public class Player implements IMsgReciever, IMsgSender {
                 wispCount = 0;
                 break;
             case WDIE:
-                int points = 250 << wispCount++;
+                points = 250 << wispCount++;
+                incrementScore(points);
+                Toast.set("+" + points);
+                break;
+            case BONUS:
+                points = Entity.bonus.givePoints();
                 incrementScore(points);
                 Toast.set("+" + points);
                 break;

@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package me.jaredblackburn.macymae.game;
 
 /**
  *
- * @author jared
+ * @author Jared Blackburn
  */
 public enum Difficulty {
     A (1.125f, 1.125f, 10f, -5f),
