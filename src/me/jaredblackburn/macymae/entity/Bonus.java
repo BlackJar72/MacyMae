@@ -24,9 +24,9 @@ public final class Bonus extends Entity {
     private static final float BASE_FIRST    = 30f;
     private static final float BASE_LAST     = 90f;
     private static final float BASE_DURATION = 15f;
-    private static final int   BASE_VALUE    = 128;
+    private static final int   BASE_VALUE    = 256;
     private static final int   REPEATS       = 2;
-    private static final int   NUMBER        = 7;
+    private static final int   NUMBER        = 9;
     
     private volatile float timeToDie;
     private volatile boolean exists;

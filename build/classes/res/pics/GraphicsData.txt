@@ -65,13 +65,15 @@ wispDead {
     wispDead.png
 }
 bonus  B.png
-bonus0 B.png
-bonus1 B.png
-bonus2 B.png
-bonus3 B.png
-bonus4 B.png
-bonus5 B.png
-bonus6 B.png
+bonus0 bonus0.png
+bonus1 bonus1.png
+bonus2 bonus2.png
+bonus3 bonus3.png
+bonus4 bonus4.png
+bonus5 bonus5.png
+bonus6 bonus6.png
+bonus7 bonus7.png
+bonus8 bonus8.png
 A A.png
 B B.png
 C C.png
