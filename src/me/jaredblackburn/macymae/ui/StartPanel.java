@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
 import me.jaredblackburn.macymae.game.Game;
-import me.jaredblackburn.macymae.ui.IView;
 import me.jaredblackburn.macymae.ui.graphics.Graphic;
 
 /**

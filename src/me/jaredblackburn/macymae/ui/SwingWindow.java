@@ -2,11 +2,7 @@ package me.jaredblackburn.macymae.ui;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.util.TreeMap;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import me.jaredblackburn.macymae.ui.graphics.Graphic;
 

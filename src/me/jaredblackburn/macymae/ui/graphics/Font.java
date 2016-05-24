@@ -6,7 +6,7 @@ package me.jaredblackburn.macymae.ui.graphics;
  */
 public class Font {
     // Maps pure, 7 bit, ascii characters to TBOs of there image
-    private static int[] mapping = new int[128];
+    private static final int[] mapping = new int[128];
     private static int blank;
     
     
